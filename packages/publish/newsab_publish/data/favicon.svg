@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Narrative Diff Toolkit placeholder">
+  <rect width="64" height="64" rx="14" fill="#f7f5ef"/>
+  <path d="M17 18v28M47 18v28M17 23c8 0 12 4 15 9-3 5-7 9-15 9M47 23c-8 0-12 4-15 9 3 5 7 9 15 9" fill="none" stroke="#245f78" stroke-width="5" stroke-linecap="round"/>
+</svg>

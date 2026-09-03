@@ -1,0 +1,75 @@
+# Quantifier lint table (blueprint §3.3 S8: "量词 lint ... 绑定统一数值阈值表").
+#
+# PROVISIONAL — the numbers are placeholders until they are calibrated against the
+# Phase 0 corpus and the user's "Defensible" scores (blueprint §0.5 explicitly defers
+# these).  The *structure* is stable; only the bounds move.  Bump `table_version` on any
+# numeric change and record the old version in the manifest of anything already published.
+table_version: "quantifiers-0.1-provisional"
+calibrated: false
+
+# Family 1 — prevalence quantifiers.  Bound to a proportion of INDEPENDENT REPORTING
+# CLUSTERS (D7), never publication instances.  [min, max] inclusive.
+prevalence:
+  zh-CN:
+    "全部": [1.0, 1.0]
+    "所有": [1.0, 1.0]
+    "几乎全部": [0.90, 1.0]
+    "几乎所有": [0.90, 1.0]
+    "压倒性": [0.80, 1.0]
+    "绝大多数": [0.80, 1.0]
+    "大多数": [0.50, 1.0]
+    "多数": [0.50, 1.0]
+    "过半": [0.50, 1.0]
+    "许多": [0.25, 1.0]
+    "不少": [0.25, 1.0]
+    "约一半": [0.40, 0.60]
+    "部分": [0.10, 0.60]
+    "一些": [0.10, 0.60]
+    "少数": [0.0, 0.50]
+    "少有": [0.0, 0.15]
+    "极少": [0.0, 0.15]
+    "鲜有": [0.0, 0.15]
+    "几乎没有": [0.0, 0.05]
+    "未见": [0.0, 0.0]
+    "没有": [0.0, 0.0]
+  en:
+    "all": [1.0, 1.0]
+    "every": [1.0, 1.0]
+    "almost all": [0.90, 1.0]
+    "nearly all": [0.90, 1.0]
+    "overwhelmingly": [0.80, 1.0]
+    "the overwhelming majority": [0.80, 1.0]
+    "the vast majority": [0.80, 1.0]
+    "most": [0.50, 1.0]
+    "a majority": [0.50, 1.0]
+    "many": [0.25, 1.0]
+    "about half": [0.40, 0.60]
+    "some": [0.10, 0.60]
+    "a minority": [0.0, 0.50]
+    "few": [0.0, 0.15]
+    "rarely": [0.0, 0.15]
+    "seldom": [0.0, 0.15]
+    "almost none": [0.0, 0.05]
+    "virtually no": [0.0, 0.05]
+    "none": [0.0, 0.0]
+    "no": [0.0, 0.0]
+
+# Family 2 — comparative quantifiers.  These do not bind to a proportion; they bind to the
+# A1 divergence metric of the angle the claim comes from (§4.5's
+# `quantifier_check: {phrase: "more often", bound_to: "divergence=0.46"}`).
+# `min_divergence` is the smallest gap that licenses the phrase.
+comparative:
+  zh-CN:
+    "更常": {min_divergence: 0.10}
+    "更频繁": {min_divergence: 0.10}
+    "更多地": {min_divergence: 0.10}
+    "明显更多": {min_divergence: 0.25}
+    "远多于": {min_divergence: 0.40}
+    "几乎只有": {min_divergence: 0.60}
+  en:
+    "more often": {min_divergence: 0.10}
+    "more frequently": {min_divergence: 0.10}
+    "somewhat more": {min_divergence: 0.10}
+    "markedly more": {min_divergence: 0.25}
+    "far more": {min_divergence: 0.40}
+    "almost exclusively": {min_divergence: 0.60}

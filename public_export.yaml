@@ -1,0 +1,554 @@
+schema_version: public-export-0.1.0
+
+# Reader: the P1 one-way-export implementation and every later public release operator.
+# This is a positive authorization list. A path not selected below is private, even when
+# it is tracked, harmless-looking, or absent from forbidden_path_prefixes.
+destination:
+  repository: wenruofeng/newsab
+  default_branch: main
+  history: fresh
+
+source_policy:
+  revision: exact_commit
+  tracked_files_only: true
+  require_clean_worktree: true
+  follow_symlinks: false
+  unmatched_paths: deny
+  assemble_into_empty_directory: true
+
+license_policy:
+  default_spdx: MIT
+  license_file: LICENSE
+  scope_file: LICENSE_SCOPE.md
+  notices_file: THIRD_PARTY_NOTICES.md
+  inbound_contributions: inbound_equals_outbound
+  signoff: DCO-1.1
+
+documentation_policy:
+  default_language: en
+  user_facing_languages:
+    - en
+    - zh-CN
+  translation_suffix: .zh-CN.md
+  english_only_classes:
+    - agent_facing
+    - legal
+    - license
+    - infrequent_reference
+
+# These prefixes are a leak detector, not the authorization mechanism. The exporter must
+# first resolve copies, then reject any resolved source or target under one of these paths.
+forbidden_path_prefixes:
+  - .git
+  - .agents
+  - .claude
+  - .codex
+  - .playwright-mcp
+  - .wrangler
+  - docs/how_to_deploy.md
+  - docs/open_source_submission_plan.md
+  - site/audit
+  - site/catalog
+  - site/curation
+  - site/events
+  - site/private
+  - site/production
+  - site/public
+  - site/publications
+  - site/submissions
+
+# These private work-memory paths may be used as source names only by the dedicated public
+# scaffold rules below; copying the private versions remains forbidden.
+forbidden_source_path_prefixes:
+  - TODO.md
+  - docs/archive
+  - docs/reports
+  - docs/decisions.md
+
+# A public clone may create exactly this gitignored runtime file after first-run setup.
+# It is not part of the release manifest; every other unexpected file still fails closed.
+local_runtime_paths:
+  - .newsab/operator_identity.json
+
+# `tracked_tree` means every Git-tracked regular file below that exact directory at the
+# pinned source commit. `tracked_patterns` additionally intersects the tree with the
+# listed POSIX globs. New tracked matches are a public-boundary change and must be reviewed
+# with this file; P1 will make that review visible in the generated closed-file manifest.
+copies:
+  - id: export-contract
+    source: public_export.yaml
+    target: public_export.yaml
+    select: file
+    rationale: Let users audit the source selection used to assemble the toolkit.
+
+  - id: public-readme
+    source: public/README.md
+    target: README.md
+    select: file
+    document_class: user_facing
+    language: en
+    rationale: Explain the standalone toolkit rather than the private operating repository.
+
+  - id: public-readme-zh-cn
+    source: public/README.zh-CN.md
+    target: README.zh-CN.md
+    select: file
+    document_class: user_facing
+    language: zh-CN
+    translation_of: public-readme
+    rationale: Give normal users a Chinese peer while keeping README.md as the English default.
+
+  - id: public-readme-title-image
+    source: public/title.png
+    target: title.png
+    select: file
+    rationale: Title banner image referenced by both READMEs.
+
+  - id: public-contributing
+    source: public/CONTRIBUTING.md
+    target: CONTRIBUTING.md
+    select: file
+    document_class: user_facing
+    language: en
+    rationale: Define issue, PR, DCO, and one-way contribution rules for public contributors.
+
+  - id: public-contributing-zh-cn
+    source: public/CONTRIBUTING.zh-CN.md
+    target: CONTRIBUTING.zh-CN.md
+    select: file
+    document_class: user_facing
+    language: zh-CN
+    translation_of: public-contributing
+    rationale: Give normal contributors a Chinese peer while keeping CONTRIBUTING.md as the English default.
+
+  - id: public-license
+    source: public/LICENSE
+    target: LICENSE
+    select: file
+    document_class: license
+    language: en
+    rationale: Apply the chosen MIT terms to the exported toolkit.
+
+  - id: public-license-scope
+    source: public/LICENSE_SCOPE.md
+    target: LICENSE_SCOPE.md
+    select: file
+    document_class: legal
+    language: en
+    rationale: Separate toolkit copyright permission from brands, published topics, quotes, and submissions.
+
+  - id: public-third-party-notices
+    source: public/THIRD_PARTY_NOTICES.md
+    target: THIRD_PARTY_NOTICES.md
+    select: file
+    document_class: legal
+    language: en
+    rationale: Identify dependency and data rights that the toolkit license cannot grant.
+
+  - id: demo-inventory
+    source: public/SYNTHETIC_DEMO_INVENTORY.md
+    target: docs/SYNTHETIC_DEMO_INVENTORY.md
+    select: file
+    document_class: agent_facing
+    language: en
+    rationale: Give P1 a closed, non-production specification for the synthetic demo and test rewrites.
+
+  - id: gitignore
+    source: .gitignore
+    target: .gitignore
+    select: file
+    rationale: Keep caches and private or derived artifact classes out of downstream commits.
+
+  - id: agent-contract
+    source: AGENTS.md
+    target: AGENTS.md
+    select: file
+    append_source: public/agents_public_clone.md
+    document_class: agent_facing
+    language: en
+    rationale: >-
+      Give every user's agent the workflow, memory and review contract single-sourced from
+      the private one, plus the section that is true only in a public clone (collector
+      identity, and the rule that the user's history never leaves their machine).  The
+      private contract stays silent about public clones so an agent there cannot mistake
+      which repository it is in.
+
+  - id: claude-agent-contract
+    source: AGENTS.md
+    target: CLAUDE.md
+    select: file
+    append_source: public/agents_public_clone.md
+    document_class: agent_facing
+    language: en
+    rationale: Mirror the agent contract as a regular file for Claude-compatible harness discovery.
+
+  - id: todo-scaffold
+    source: public/scaffold/TODO.md
+    target: TODO.md
+    select: file
+    document_class: agent_facing
+    language: en
+    rationale: Start a public clone with an empty user-owned work queue rather than private tasks.
+
+  - id: decisions-scaffold
+    source: public/scaffold/decisions.md
+    target: docs/decisions.md
+    select: file
+    document_class: agent_facing
+    language: en
+    rationale: Give downstream agents a stable home for their own binding decisions.
+
+  - id: reports-scaffold
+    source: public/scaffold/reports/README.md
+    target: docs/reports/README.md
+    select: file
+    document_class: agent_facing
+    language: en
+    rationale: Define downstream task-report memory without exporting private reports.
+
+  - id: archive-scaffold
+    source: public/scaffold/archive/README.md
+    target: docs/archive/README.md
+    select: file
+    document_class: agent_facing
+    language: en
+    rationale: Reserve an archive for downstream superseded docs without exporting private history.
+
+  - id: pytest-config
+    source: public/pytest.ini
+    target: pytest.ini
+    select: file
+    rationale: Preserve the repository test lanes and clean-clone Python path.
+
+  - id: uv-workspace
+    source: public/pyproject.toml
+    target: pyproject.toml
+    select: file
+    rationale: >-
+      Give the clone one per-checkout environment: a uv workspace whose members are the
+      exported packages, so `uv sync` + `uv run` replaces PYTHONPATH exports and shared
+      editable installs.  The private root pyproject lists private members and is not copied.
+
+  - id: uv-lock
+    source: public/uv.lock
+    target: uv.lock
+    select: file
+    rationale: >-
+      Pin the resolved environment of the public workspace so `uv sync` is reproducible.
+      Regenerated from the assembled public tree (docs/public_export_inventory.md).
+
+  - id: python-version
+    source: .python-version
+    target: .python-version
+    select: file
+    rationale: Default interpreter for uv; CI overrides it per matrix entry with `--python`.
+
+  - id: public-exporter
+    source: tools/public_export.py
+    target: tools/public_export.py
+    select: file
+    rationale: Let recipients reproduce and audit the closed-manifest verification locally.
+
+  - id: public-release-gate
+    source: tools/public_release_gate.py
+    target: tools/public_release_gate.py
+    select: file
+    rationale: Run the complete offline acceptance suite from a standalone exported tree.
+
+  - id: skills-checker
+    source: tools/skills_check.py
+    target: tools/skills_check.py
+    select: file
+    rationale: Keep the active-skill package checker without exporting the unused eval package.
+
+  - id: public-ci
+    source: public/ci/public-ci.yml
+    target: .github/workflows/ci.yml
+    select: file
+    rationale: Exercise supported Python versions and the public release gate on every change.
+
+  - id: synthetic-topic-demo
+    source: examples/synthetic-topic
+    target: examples/synthetic-topic
+    select: tracked_tree
+    rationale: Export the from-scratch fictional closure used by all eight stage checks.
+
+  - id: canonical-method
+    source: docs/value_chain.md
+    target: docs/value_chain.md
+    select: file
+    rationale: Publish the canonical product and eight-stage method contract.
+
+  - id: artifact-protocol
+    source: docs/artifact_versioning.md
+    target: docs/artifact_versioning.md
+    select: file
+    rationale: Publish the append-only artifact and run-pinning protocol used by the code.
+
+  - id: model-routing
+    source: docs/subagent_model_routing.md
+    target: docs/subagent_model_routing.md
+    select: file
+    rationale: Keep stage skills vendor-neutral while documenting reproducible capability routing.
+
+  - id: schema-package
+    source: packages/schema
+    target: packages/schema
+    select: tracked_tree
+    rationale: Export record schemas, controlled vocabularies, generated schemas, and their unit tests.
+
+  - id: corpus-package
+    source: packages/corpus
+    target: packages/corpus
+    select: tracked_patterns
+    patterns:
+      - README.md
+      - pyproject.toml
+      - newsab_corpus/*.py
+      - newsab_corpus/**/*.py
+      - tests/*.py
+      - tests/**/*.py
+      - tools/*.py
+    rationale: Export deterministic collection staging, segmentation, clustering, and registry tooling.
+
+  - id: neutral-collector-identity
+    source: public/neutral/operator_identity.v1.json
+    target: packages/corpus/newsab_corpus/data/operator_identity.v1.json
+    select: file
+    rationale: Supply a non-production operator identity at the package-data path used by collection.
+
+  - id: analyze-package
+    source: packages/a1
+    target: packages/a1
+    select: tracked_tree
+    rationale: Export deterministic question-by-answer analysis and calibrated thresholds.
+
+  - id: editorial-package
+    source: packages/editorial
+    target: packages/editorial
+    select: tracked_patterns
+    patterns:
+      - README.md
+      - pyproject.toml
+      - newsab_editorial/*.py
+      - newsab_editorial/**/*.py
+      - newsab_editorial/render/data/chrome_strings_i18n.v1.json
+      - newsab_editorial/render/data/stat_panel_i18n.v1.json
+      - tests/*.py
+      - tests/**/*.py
+    rationale: >-
+      Export claim checking, evidence resolution, rendering, and localization support.
+      The two i18n files are the chrome's seven halo-locale translations, identity-free
+      by construction (the footer domain comes from site_identity.v1.json at import);
+      the renderer does not import without them.
+
+  - id: neutral-editorial-identity
+    source: public/neutral/editorial_site_identity.v1.json
+    target: packages/editorial/newsab_editorial/render/data/site_identity.v1.json
+    select: file
+    rationale: Supply a non-production footer identity at the renderer package-data path.
+
+  - id: publish-package
+    source: packages/publish
+    target: packages/publish
+    select: tracked_patterns
+    patterns:
+      - README.md
+      - pyproject.toml
+      - newsab_publish/*.py
+      - newsab_publish/**/*.py
+      - newsab_publish/data/model_rates.v1.json
+      - newsab_publish/data/theme_tokens.v1.json
+      - newsab_publish/data/about_i18n.v1.json
+      - newsab_publish/data/site_strings_i18n.v1.json
+      - newsab_publish/data/suggest_i18n.v1.json
+      - tests/*.py
+      - tests/**/*.py
+    rationale: >-
+      Export generic site assembly code and tests while withholding production metadata,
+      branded binary/vector assets and the legal notice (data/legal/, news-ab.com's own
+      promises; legal.py ships it for the official identity only).  The three i18n files
+      are the seven halo-locale translations of site chrome, identity-free by
+      construction (site name, about paragraph and contact are SiteIdentity fields
+      filled at import); the publisher does not import without them.
+
+  - id: neutral-publish-identity
+    source: public/neutral/site_identity.v1.json
+    target: packages/publish/newsab_publish/data/site_identity.v1.json
+    select: file
+    rationale: Supply neutral site copy at the package-data path used by the publisher.
+
+  - id: neutral-site-metadata
+    source: public/neutral/site_metadata.v1.json
+    target: packages/publish/newsab_publish/data/site_metadata.v1.json
+    select: file
+    rationale: Replace private taxonomy mappings with the fictional demo topic.
+
+  - id: neutral-favicon
+    source: public/neutral/favicon.svg
+    target: packages/publish/newsab_publish/data/favicon.svg
+    select: file
+    rationale: Supply newly authored neutral artwork without exporting the production mark.
+
+  - id: neutral-logo-dark
+    source: public/neutral/logo-transparent-dark.svg
+    target: packages/publish/newsab_publish/data/logo-transparent-dark.svg
+    select: file
+    rationale: Supply newly authored neutral dark-mode artwork without exporting the production mark.
+
+  - id: neutral-logo-light
+    source: public/neutral/logo-transparent-light.svg
+    target: packages/publish/newsab_publish/data/logo-transparent-light.svg
+    select: file
+    rationale: Supply newly authored neutral light-mode artwork without exporting the production mark.
+
+  - id: neutral-share-card
+    source: public/neutral/share-card.png
+    target: packages/publish/newsab_publish/data/share-card.png
+    select: file
+    rationale: Supply a deterministically generated neutral social-card placeholder.
+
+  - id: neutral-asset-generator
+    source: public/neutral/generate_assets.py
+    target: tools/generate_neutral_assets.py
+    select: file
+    rationale: Make the only binary placeholder reproducible from standard-library code.
+
+  - id: submission-package
+    source: packages/submission
+    target: packages/submission
+    select: tracked_tree
+    rationale: Export the submission pack/inspect/G0-G1-G2 prototype so contributors can build and self-verify archives locally (plan §6.1, §7.1).
+
+  - id: skills-contract
+    source: skills/README.md
+    target: skills/README.md
+    select: file
+    rationale: Publish the harness-neutral stage packaging and execution contract.
+
+  - id: skills-shared
+    source: skills/_shared
+    target: skills/_shared
+    select: tracked_tree
+    rationale: Export the common deterministic bootstrap used by active skills.
+
+  - id: skill-template
+    source: skills/_template
+    target: skills/_template
+    select: tracked_tree
+    rationale: Let contributors create new harness-neutral skills without copying private history.
+
+  - id: skill-scope
+    source: skills/scope
+    target: skills/scope
+    select: tracked_tree
+    rationale: Export value-chain stage 1 instructions and helpers.
+
+  - id: skill-collect
+    source: skills/collect
+    target: skills/collect
+    select: tracked_tree
+    rationale: Export value-chain stage 2 instructions and helpers.
+
+  - id: skill-annotate
+    source: skills/annotate
+    target: skills/annotate
+    select: tracked_tree
+    rationale: Export value-chain stage 3 instructions and helpers.
+
+  - id: skill-normalize
+    source: skills/normalize
+    target: skills/normalize
+    select: tracked_tree
+    rationale: Export value-chain stage 3.5 instructions and helpers.
+
+  - id: skill-analyze
+    source: skills/analyze
+    target: skills/analyze
+    select: tracked_tree
+    rationale: Export value-chain stage 4 instructions.
+
+  - id: skill-write
+    source: skills/write
+    target: skills/write
+    select: tracked_tree
+    rationale: Export value-chain stage 5 instructions and helpers.
+
+  - id: skill-render-localize
+    source: skills/render-localize
+    target: skills/render-localize
+    select: tracked_tree
+    rationale: Export value-chain stage 6 instructions and helpers.
+
+  - id: skill-publish
+    source: skills/publish
+    target: skills/publish
+    select: tracked_tree
+    rationale: Export deterministic value-chain stage 8 instructions.
+
+  - id: source-registry
+    source: sources/registry.yaml
+    target: sources/registry.yaml
+    select: file
+    rationale: Export reusable, cross-topic outlet knowledge without any topic corpus.
+    content_review:
+      reviewed_at: "2026-09-03"
+      sha256: d3cd1fdfedfbd3c0f1e8a4886679b1e0505c8546ed7511f1b8d5069f66315146
+      secret_scan: clear
+      pii_scan: one_public_newsroom_email_retained
+
+  - id: topic-layout
+    source: topics/README.md
+    target: topics/README.md
+    select: file
+    rationale: Document the artifact layout without exporting any real topic directory.
+
+  - id: topic-ignore-policy
+    source: topics/.gitignore
+    target: topics/.gitignore
+    select: file
+    rationale: Preserve the full-text and derived-byte exclusions for downstream workspaces.
+
+  - id: repository-tests
+    source: tests
+    target: tests
+    select: tracked_patterns
+    patterns:
+      - conftest.py
+      - pipeline_fixture.py
+      - test_annotate_preflight_debt_gate.py
+      - test_collect_log_reconciliation.py
+      - test_judge_panel_merge.py
+      - test_normalize_two_pass.py
+      - test_page_init_lexicon.py
+      - test_public_export_contract.py
+      - test_public_exporter.py
+      - test_public_skills_check.py
+      - test_question_discovery_tools.py
+      - test_repin_page.py
+      - test_scope_question_review.py
+      - test_skill_consistency.py
+    rationale: Export the current cross-package suite; the retired Phase-0 pipeline test remains private because it invokes archived skills that are outside this toolkit.
+
+  - id: theme-token-panel
+    source: public/neutral/theme_panel.html
+    target: examples/theme_panel.html
+    select: file
+    rationale: Export a neutral, self-contained theme-token chooser, not production site state or identity.
+
+# The exporter refuses a contract containing any non-ready gate. ``ready`` means the
+# corresponding check is implemented by ``tools/public_release_gate.py`` and passes in an
+# exported tree; it is not a promise about a private checkout.
+release_gates:
+  - id: synthetic-demo
+    status: ready
+    specification: public/SYNTHETIC_DEMO_INVENTORY.md
+  - id: synthetic-test-rewrites
+    status: ready
+    specification: public/SYNTHETIC_DEMO_INVENTORY.md
+  - id: neutral-site-identity
+    status: ready
+    specification: public/SYNTHETIC_DEMO_INVENTORY.md
+  - id: clean-clone-ci
+    status: ready
+    specification: docs/open_source_submission_plan.md#p1--one-way-exporter-与-public-repo-首发

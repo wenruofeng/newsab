@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "newsab-editorial"
+version = "0.1.0"
+description = "Deterministic support for S5/S7/S8: the editorial brief, L0 mechanical checks, the preview renderer."
+requires-python = ">=3.10"
+dependencies = ["newsab-schema", "newsab-a1"]
+
+[project.scripts]
+newsab-editorial = "newsab_editorial.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["newsab_editorial*"]
+
+[tool.setuptools.package-data]
+newsab_editorial = ["render/data/*.json"]

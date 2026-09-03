@@ -1,0 +1,53 @@
+# R-gate thresholds (blueprint §3.3 S6, as revised by the one-interval refactor).
+#
+# PROVISIONAL. The δ values are hyperparameters to be back-fitted per R-6 (regress the
+# LLM's four-axis interest scores against the conservative effect over ALL candidates,
+# never a truncated set); `calibrated: false` is load-bearing: `newsab_a1.rgate` refuses
+# to run in strict mode while it is false, so an uncalibrated gate cannot quietly become
+# the published standard.
+#
+# What is deliberately NOT here any more (G-6): min_divergence, min_direction_stability,
+# min_cross_stratum_consistency, min_source_diversity. The first three were readings of
+# the same resampling distribution the interval now carries whole; concentration
+# (source diversity) is computed and shown with every candidate but never gated —
+# clusters already de-duplicate wire copy, and the check never fired on real data.
+#
+# Known floor (G-5): with the current corpus sizes the interval cannot resolve below
+# ≈0.16–0.35, so the `consensus` reading is expected to stay empty until the smaller
+# side grows. Do NOT widen delta_consensus to make that bucket non-empty — consensus
+# evidence comes from the concept map instead (R-5).
+#
+# Bump `thresholds_version` on ANY numeric change. Angles already published carry the
+# version they passed under, so a later tightening does not silently invalidate them —
+# it makes them re-checkable against the version they claimed.
+
+thresholds_version: "rgate-0.2"
+calibrated: false
+
+# Applies to every angle type unless overridden below.
+default:
+  # Sample floor. Not a reading of the distribution, so it survives the collapse: an
+  # all-empty controlled-vocabulary cell resamples to a degenerate [0, 0] interval no
+  # matter how thin the corpus, so the equivalence readings need a floor under them.
+  min_clusters_total: 8            # per group
+  # Support floor on the higher-prevalence side, divergence readings only. A finding
+  # carried by one or two newsrooms is a source claim, not a corpus one.
+  min_clusters_supporting: 3
+  # Equivalence half-widths (R-2.2). Two different δ because Var ∝ p(1−p): one δ is
+  # strict at one end of the prevalence range and vacuous at the other.
+  delta_consensus: 0.20
+  delta_silence: 0.05
+  # Prevalence qualifiers for the equivalence readings: consensus additionally requires
+  # both sides at or above high_prevalence; co-silence both sides at or below
+  # low_prevalence (and a controlled-vocabulary cell, enforced in code — R-2.3).
+  high_prevalence: 0.60
+  low_prevalence: 0.10
+
+overrides:
+  # §3.3 S6: "盲区的发布阈值全面高于其他类型". Blind spots also require the
+  # four-condition opportunity-to-cover check, enforced separately (§4.4.1 inv 2) —
+  # these numbers plus the divergence-with-silent-low-side rule in rgate.evaluate are
+  # the statistical half only.
+  blind_spot:
+    min_clusters_total: 12
+    min_clusters_supporting: 6

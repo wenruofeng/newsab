@@ -1,0 +1,12 @@
+# Full scraped article text never leaves the machine (D14, §1.3(2)).
+# The corpus INDEX is public-safe and is committed; the article bodies are not.
+*/corpus/articles/
+*/corpus/versions/*/articles/
+# What `newsab_corpus fetch` writes: whole publisher pages as served, including the
+# `*.refused.html` a both-layer refusal is judged from.  Same rule, one step earlier.
+*/corpus/raw/
+# Everything staged is article text — ignore the whole directory rather than a list of
+# suffixes, so a quarantined file (e.g. `*.yaml.excluded`) cannot leak by not matching.
+*/corpus/staging/*
+!*/corpus/staging/EXAMPLE.yaml.template
+*/gold/worksheet.json

@@ -1,0 +1,51 @@
+# Workspace root: the one Python environment this checkout runs in.
+#
+# `uv sync` creates `.venv/` (gitignored) next to this file and installs every package
+# under `packages/` into it as an editable member; `uv run <command>` then runs inside it.
+# Contributors without uv can still `export PYTHONPATH=packages/schema:...` (see
+# CONTRIBUTING.md) — the packages are plain Python with no build step.
+#
+# Why per-checkout: an editable install writes a global import finder into whichever
+# interpreter runs pip, so installing from one checkout into a shared interpreter silently
+# re-points every other checkout on the machine at it.  Keep the environment inside the
+# checkout and that cannot happen; `tools/public_release_gate.py` refuses to gate a tree
+# whose packages resolve elsewhere for the same reason.
+#
+# This root is not a package (`package = false`); it only pins the member set.
+
+[project]
+name = "newsab-workspace"
+version = "0"
+description = "uv workspace root for the News A/B toolkit (not a package)."
+requires-python = ">=3.10"
+dependencies = [
+    "newsab-schema",
+    "newsab-corpus",
+    "newsab-a1",
+    "newsab-editorial",
+    "newsab-publish",
+    "newsab-submission",
+]
+
+[dependency-groups]
+# Installed by default with `uv sync`.  playwright's browsers are a separate download:
+# `uv run playwright install chromium` before the first browser-driven collection.
+dev = [
+    "pytest>=9",
+    "playwright>=1.56",
+    "httpx>=0.26",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+newsab-schema = { workspace = true }
+newsab-corpus = { workspace = true }
+newsab-a1 = { workspace = true }
+newsab-editorial = { workspace = true }
+newsab-publish = { workspace = true }
+newsab-submission = { workspace = true }

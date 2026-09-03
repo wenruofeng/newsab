@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "newsab-corpus"
+version = "0.2.0"
+description = "Deterministic corpus construction: sentence segmentation, permanent IDs, reporting-cluster detection (blueprint §S2, D7)."
+requires-python = ">=3.10"
+dependencies = ["newsab-schema", "PyYAML>=6"]
+
+[project.scripts]
+newsab-corpus = "newsab_corpus.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["newsab_corpus*"]
+
+[tool.setuptools.package-data]
+newsab_corpus = ["data/*.json"]

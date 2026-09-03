@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "newsab-publish"
+version = "0.2.1"
+description = "Deterministic stage-8 site metadata, production home and SEO rendering."
+requires-python = ">=3.10"
+dependencies = ["newsab-schema", "newsab-editorial"]
+
+[project.scripts]
+newsab-publish = "newsab_publish.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["newsab_publish*"]
+
+[tool.setuptools.package-data]
+newsab_publish = ["data/*.json", "data/*.png", "data/*.svg", "data/legal/*.md"]

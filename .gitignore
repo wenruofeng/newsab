@@ -1,0 +1,28 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Per-checkout interpreter managed by uv (`uv sync`); never shared between checkouts
+.venv/
+
+# Playwright MCP scratch output (snapshots / console logs)
+.playwright-mcp/
+
+# Per-user collector identity configured by the local agent
+.newsab/
+
+# Deployment-specific Cloudflare ids and local Wrangler state. The example config is the
+# checked-in contract; the real file may contain account identifiers.
+intake/worker/wrangler.jsonc
+intake/worker/.wrangler/
+intake/worker/node_modules/
+
+# Site-level private material never enters the repository
+site/private/
+site/submissions/
+
+# Large derived or reviewable bytes: authoritative on disk, never in git
+site/public/
+site/publications/*/bundle/
+topics/*/editorial/versions/*/preview.*.html

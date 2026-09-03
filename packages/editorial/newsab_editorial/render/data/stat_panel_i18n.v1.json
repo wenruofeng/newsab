@@ -1,0 +1,179 @@
+{
+  "STAT_EFFECT_DETAIL": {
+    "ar": "عبر {draws} من عمليات إعادة أخذ العينات، يبلغ فاصل الثقة 90% **[{lo:+.0%}, {hi:+.0%}]** ({estimate}).",
+    "es": "En {draws} remuestreos, su intervalo de confianza del 90% es **[{lo:+.0%}, {hi:+.0%}]** ({estimate}).",
+    "fr": "Sur {draws} rééchantillonnages, son intervalle de confiance à 90 % est **[{lo:+.0%}, {hi:+.0%}]** ({estimate}).",
+    "hi": "{draws} पुनः-प्रतिचयनों में, इसका 90% विश्वास अंतराल **[{lo:+.0%}, {hi:+.0%}]** है ({estimate})।",
+    "ja": "{draws}回の再抽出において、その90%信頼区間は**[{lo:+.0%}, {hi:+.0%}]**です（{estimate}）。",
+    "ko": "{draws}회의 재표본추출에서 90% 신뢰구간은 **[{lo:+.0%}, {hi:+.0%}]**입니다({estimate}).",
+    "ru": "По {draws} повторным выборкам его 90%-й доверительный интервал составляет **[{lo:+.0%}, {hi:+.0%}]** ({estimate})."
+  },
+  "STAT_EFFECT_LEAD_CONSENSUS": {
+    "ar": "متوسط الدعم للإجابة الرئيسية المشتركة هو **{value:.0%}**. {left_phrase}؛ {right_phrase}",
+    "es": "El respaldo promedio a la respuesta principal compartida es del **{value:.0%}**. {left_phrase}; {right_phrase}",
+    "fr": "Le soutien moyen à la réponse principale commune est de **{value:.0%}**. {left_phrase} ; {right_phrase}",
+    "hi": "साझा प्रमुख उत्तर के लिए औसत समर्थन **{value:.0%}** है। {left_phrase}; {right_phrase}",
+    "ja": "共有された最多回答への平均支持率は**{value:.0%}**です。{left_phrase}、{right_phrase}",
+    "ko": "공통된 주요 답변에 대한 평균 지지율은 **{value:.0%}**입니다. {left_phrase}; {right_phrase}",
+    "ru": "Средняя поддержка общего для обеих сторон ведущего ответа составляет **{value:.0%}**. {left_phrase}; {right_phrase}"
+  },
+  "STAT_EFFECT_LEAD_DIVERGENCE": {
+    "ar": "متوسط الفارق في الدعم بين الطرفين للإجابتين الرئيسيتين هو **{value:.0%}**.",
+    "es": "La diferencia media de respaldo entre lados para las dos respuestas principales es del **{value:.0%}**.",
+    "fr": "L'écart moyen de soutien entre les deux côtés pour les deux réponses principales est de **{value:.0%}**.",
+    "hi": "दोनों प्रमुख उत्तरों के लिए पक्षों के बीच औसत समर्थन अंतर **{value:.0%}** है।",
+    "ja": "両側の2つの最多回答に対する平均支持率差は**{value:.0%}**です。",
+    "ko": "양측 간 두 주요 답변에 대한 평균 지지율 격차는 **{value:.0%}**입니다.",
+    "ru": "Средняя разница в поддержке двух ведущих ответов между сторонами составляет **{value:.0%}**."
+  },
+  "STAT_ESTIMATE": {
+    "ar": {
+      "consensus": "تقدير لدعم الإجابة التوافقية",
+      "divergence": "تقدير لحجم التباين"
+    },
+    "es": {
+      "consensus": "una estimación del respaldo a la respuesta consensuada",
+      "divergence": "una estimación de la magnitud de la divergencia"
+    },
+    "fr": {
+      "consensus": "une estimation du soutien à la réponse consensuelle",
+      "divergence": "une estimation de l'ampleur de la divergence"
+    },
+    "hi": {
+      "consensus": "सहमति वाले उत्तर के समर्थन का अनुमान",
+      "divergence": "विचलन की मात्रा का अनुमान"
+    },
+    "ja": {
+      "consensus": "合意された回答への支持率の推定値",
+      "divergence": "分岐の大きさの推定値"
+    },
+    "ko": {
+      "consensus": "합의된 답변에 대한 지지율 추정치",
+      "divergence": "격차 크기의 추정치"
+    },
+    "ru": {
+      "consensus": "оценка поддержки консенсусного ответа",
+      "divergence": "оценка величины расхождения"
+    }
+  },
+  "STAT_LOUD_CLAUSE_FLOOR": {
+    "ar": "لا يقل عن {floor:.0%}",
+    "es": "al menos el {floor:.0%}",
+    "fr": "au moins {floor:.0%}",
+    "hi": "कम से कम {floor:.0%}",
+    "ja": "{floor:.0%}以上",
+    "ko": "{floor:.0%} 이상",
+    "ru": "не ниже {floor:.0%}"
+  },
+  "STAT_LOUD_CLAUSE_SPREAD": {
+    "ar": "أعلى بمقدار {spread:.0%} على الأقل",
+    "es": "al menos {spread:.0%} más alto",
+    "fr": "supérieur d'au moins {spread:.0%}",
+    "hi": "कम से कम {spread:.0%} अधिक",
+    "ja": "少なくとも{spread:.0%}高い",
+    "ko": "최소 {spread:.0%} 더 높음",
+    "ru": "выше как минимум на {spread:.0%}"
+  },
+  "STAT_PHENOMENON_ATTENTION_GAP_GENERIC": {
+    "ar": "يكاد أحد الطرفين لا يجيب عن هذا السؤال بينما يجيب عنه الطرف الآخر بوتيرة أعلى بكثير",
+    "es": "Un lado apenas responde a esta pregunta, mientras que el otro la responde con mucha más frecuencia",
+    "fr": "Un côté répond à peine à cette question, tandis que l'autre y répond nettement plus souvent",
+    "hi": "एक पक्ष इस सवाल का लगभग जवाब ही नहीं देता, जबकि दूसरा पक्ष इसका जवाब काफी अधिक बार देता है",
+    "ja": "一方はこの質問にほとんど答えず、もう一方ははるかに頻繁に答えています",
+    "ko": "한쪽은 이 질문에 거의 답하지 않는 반면, 다른 쪽은 훨씬 더 자주 답합니다",
+    "ru": "Одна сторона почти не отвечает на этот вопрос, тогда как другая отвечает на него заметно чаще"
+  },
+  "STAT_PHENOMENON_CONSENSUS": {
+    "ar": "لدى الطرفين الإجابة الأكثر شيوعًا نفسها: **{shared}**",
+    "es": "La respuesta más común de ambos lados es la misma: **{shared}**",
+    "fr": "La réponse la plus fréquente des deux côtés est la même : **{shared}**",
+    "hi": "दोनों पक्षों का सबसे आम उत्तर एक समान है: **{shared}**",
+    "ja": "双方の最多回答は同じです：**{shared}**",
+    "ko": "양측에서 가장 흔한 답변이 동일합니다: **{shared}**",
+    "ru": "Самый частый ответ у обеих сторон совпадает: **{shared}**"
+  },
+  "STAT_PHENOMENON_DIVERGENCE": {
+    "ar": "تختلف الإجابات الأكثر شيوعًا بين الطرفين: {left_short} **{lanswer}**؛ {right_short} **{ranswer}**",
+    "es": "Las respuestas más comunes de los lados difieren: {left_short} **{lanswer}**; {right_short} **{ranswer}**",
+    "fr": "Les réponses les plus fréquentes des deux côtés diffèrent : {left_short} **{lanswer}** ; {right_short} **{ranswer}**",
+    "hi": "दोनों पक्षों के सबसे आम उत्तर अलग-अलग हैं: {left_short} **{lanswer}**; {right_short} **{ranswer}**",
+    "ja": "双方の最多回答は異なります：{left_short} **{lanswer}**；{right_short} **{ranswer}**",
+    "ko": "양측의 가장 흔한 답변이 서로 다릅니다: {left_short} **{lanswer}**; {right_short} **{ranswer}**",
+    "ru": "Самые частые ответы сторон различаются: {left_short} — **{lanswer}**; {right_short} — **{ranswer}**"
+  },
+  "STAT_PHENOMENON_SILENCE": {
+    "ar": "معدلا إجابة الطرفين هما **{quiet_rate:.0%}** (أقل من {smax:.0%}) و**{loud_rate:.0%}** ({loud_clause})",
+    "es": "Las tasas de respuesta de ambos lados son **{quiet_rate:.0%}** (por debajo del {smax:.0%}) y **{loud_rate:.0%}** ({loud_clause})",
+    "fr": "Les taux de réponse des deux côtés sont de **{quiet_rate:.0%}** (inférieur à {smax:.0%}) et **{loud_rate:.0%}** ({loud_clause})",
+    "hi": "दोनों पक्षों की उत्तर दर **{quiet_rate:.0%}** ({smax:.0%} से कम) और **{loud_rate:.0%}** ({loud_clause}) है",
+    "ja": "双方の回答率は**{quiet_rate:.0%}**（{smax:.0%}未満）と**{loud_rate:.0%}**（{loud_clause}）です",
+    "ko": "양측의 응답률은 **{quiet_rate:.0%}**({smax:.0%} 미만)와 **{loud_rate:.0%}**({loud_clause})입니다",
+    "ru": "Доли ответивших у сторон составляют **{quiet_rate:.0%}** (ниже {smax:.0%}) и **{loud_rate:.0%}** ({loud_clause})"
+  },
+  "STAT_RATE_DETAIL": {
+    "ar": "عبر {draws} من عمليات إعادة أخذ العينات، يبلغ فاصل الثقة 90% **[{lo:+.0%}, {hi:+.0%}]** ({reading}).",
+    "es": "En {draws} remuestreos, su intervalo de confianza del 90% es **[{lo:+.0%}, {hi:+.0%}]** ({reading}).",
+    "fr": "Sur {draws} rééchantillonnages, son intervalle de confiance à 90 % est **[{lo:+.0%}, {hi:+.0%}]** ({reading}).",
+    "hi": "{draws} पुनः-प्रतिचयनों में, इसका 90% विश्वास अंतराल **[{lo:+.0%}, {hi:+.0%}]** है ({reading})।",
+    "ja": "{draws}回の再抽出において、その90%信頼区間は**[{lo:+.0%}, {hi:+.0%}]**です（{reading}）。",
+    "ko": "{draws}회의 재표본추출에서 90% 신뢰구간은 **[{lo:+.0%}, {hi:+.0%}]**입니다({reading}).",
+    "ru": "По {draws} повторным выборкам его 90%-й доверительный интервал составляет **[{lo:+.0%}, {hi:+.0%}]** ({reading})."
+  },
+  "STAT_RATE_LEAD": {
+    "ar": "الفرق في معدلات الإجابة: **{value:+.0%}**. {left_phrase}؛ {right_phrase}",
+    "es": "Diferencia en las tasas de respuesta: **{value:+.0%}**. {left_phrase}; {right_phrase}",
+    "fr": "Écart entre les taux de réponse : **{value:+.0%}**. {left_phrase} ; {right_phrase}",
+    "hi": "उत्तर दर में अंतर: **{value:+.0%}**। {left_phrase}; {right_phrase}",
+    "ja": "回答率の差：**{value:+.0%}**。{left_phrase}、{right_phrase}",
+    "ko": "응답률 차이: **{value:+.0%}**. {left_phrase}; {right_phrase}",
+    "ru": "Разница в долях ответивших: **{value:+.0%}**. {left_phrase}; {right_phrase}"
+  },
+  "STAT_READING": {
+    "ar": {
+      "diff": "فرق إحصائي في معدلات الإجابة",
+      "same": "لا يوجد فرق إحصائي في معدلات الإجابة"
+    },
+    "es": {
+      "diff": "una diferencia estadística en las tasas de respuesta",
+      "same": "sin diferencia estadística en las tasas de respuesta"
+    },
+    "fr": {
+      "diff": "un écart statistique entre les taux de réponse",
+      "same": "aucune différence statistique entre les taux de réponse"
+    },
+    "hi": {
+      "diff": "उत्तर दर में सांख्यिकीय अंतर",
+      "same": "उत्तर दर में सांख्यिकीय रूप से कोई अंतर नहीं"
+    },
+    "ja": {
+      "diff": "回答率に統計的な差があります",
+      "same": "回答率に統計的な差はありません"
+    },
+    "ko": {
+      "diff": "응답률에 통계적으로 유의한 격차 있음",
+      "same": "응답률에 통계적으로 유의한 차이 없음"
+    },
+    "ru": {
+      "diff": "статистически значимая разница в долях ответивших",
+      "same": "статистически значимой разницы в долях ответивших нет"
+    }
+  },
+  "STAT_REPRODUCIBILITY": {
+    "ar": "بعد إعادة أخذ عينات من جميع التقارير {draws} مرة، تكرر النمط نفسه في **{stable:.0%}** من المرات (أي بقابلية إعادة إنتاج إحصائية > {gate:.0%}).",
+    "es": "Tras remuestrear todos los reportajes {draws} veces, el mismo patrón reapareció en el **{stable:.0%}** de las repeticiones (es decir, una reproducibilidad estadística > {gate:.0%}).",
+    "fr": "Après un rééchantillonnage de tous les reportages {draws} fois, le même schéma est réapparu dans **{stable:.0%}** des tirages (soit une reproductibilité statistique > {gate:.0%}).",
+    "hi": "सभी रिपोर्टों का {draws} बार पुनः-प्रतिचयन करने पर, वही प्रवृत्ति **{stable:.0%}** बार में फिर से सामने आई (अर्थात > {gate:.0%} सांख्यिकीय पुनरुत्पादन दर)।",
+    "ja": "全報道を{draws}回再抽出したところ、同じパターンが**{stable:.0%}**の割合で再現されました（すなわち統計的再現率 > {gate:.0%}）。",
+    "ko": "전체 보도를 {draws}회 재표본추출한 결과, 동일한 패턴이 **{stable:.0%}**의 추출에서 다시 나타났습니다(즉 통계적 재현율 > {gate:.0%}).",
+    "ru": "После повторной выборки всех материалов {draws} раз та же картина повторилась в **{stable:.0%}** случаев (то есть статистическая воспроизводимость > {gate:.0%})."
+  },
+  "STAT_STRENGTH_CLAUSE": {
+    "ar": " ({stability:.0%})",
+    "es": " ({stability:.0%})",
+    "fr": " ({stability:.0%})",
+    "hi": " ({stability:.0%})",
+    "ja": "（{stability:.0%}）",
+    "ko": " ({stability:.0%})",
+    "ru": " ({stability:.0%})"
+  }
+}

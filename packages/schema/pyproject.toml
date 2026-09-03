@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "newsab-schema"
+version = "0.6.2"
+description = "Machine-checkable schemas, controlled vocabularies and invariants for the cross-language framing comparison pipeline (blueprint ④)."
+requires-python = ">=3.10"
+dependencies = ["pydantic>=2.11,<3", "PyYAML>=6"]
+
+[project.scripts]
+newsab-schema = "newsab_schema.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["newsab_schema*"]
+
+[tool.setuptools.package-data]
+newsab_schema = ["lints/data/*.yaml"]

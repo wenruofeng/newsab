@@ -1,0 +1,1329 @@
+{
+ "copy": {
+  "ar": {
+   "button_label": "عن هذا الموقع",
+   "close_label": "إغلاق",
+   "contact_title": "التواصل",
+   "disclaimer_title": "يُرجى ملاحظة",
+   "disclaimers": [
+    "كل ما في هذا الموقع يصف فقط مجموعة التقارير التي جرى جمعها؛ وهو لا يمثل تأييدًا لموقف أي طرف.",
+    "يلتزم الجمع بدقة بقواعد ملف robots.txt وإشعارات حقوق النشر الخاصة بكل موقع إخباري، ولا يوفر هذا الموقع المقالات الأصلية.",
+    "نظرًا للطبيعة الاستكشافية لذكاء الجمع الاصطناعي ومحدودية أدواته على الإنترنت، فإن عيّنة التقارير المحلَّلة غير مكتملة وقد تخالف افتراضات أخذ العينات الإحصائية.",
+    "الموقع في مرحلة اختبار: قد تتغير الصفحات والبيانات والميزات في أي وقت."
+   ],
+   "flow_note": "يوضّح المخطط أدناه العملية الكاملة من موضوع بجملة واحدة إلى صفحة تقرير منشورة. صُمم بالاستناد إلى أفضل الممارسات في الصحافة المقارنة والإحصاء وتصور البيانات وتنسيق وكلاء الذكاء الاصطناعي.",
+   "flow_repo": "الشيفرة والتوثيق متاحان في {link}.",
+   "flow_repo_link": "مستودع GitHub",
+   "flow_title": "المنهجية",
+   "intro": [
+    "هذا عمل تجريبي. تمر الاستنتاجات التي يولّدها الذكاء الاصطناعي بخط معالجة آلي يخضع لإشراف صارم واختبار إحصائي، ويمكن تتبع كل دليل إلى جمل مصدر محددة — ومع ذلك تبقى الأخطاء والإغفالات ممكنة. يُرجى التحقق بنفسك من التغطية الأصلية قبل الاعتماد على أي استنتاج."
+   ],
+   "legend": {
+    "code": "كود برمجي",
+    "data": "ناتج بيانات",
+    "human": "نقطة تدخل بشري",
+    "process": "خطوة ذكاء اصطناعي"
+   },
+   "title": "عن هذا الموقع"
+  },
+  "es": {
+   "button_label": "Acerca de este sitio",
+   "close_label": "Cerrar",
+   "contact_title": "Contacto",
+   "disclaimer_title": "Ten en cuenta",
+   "disclaimers": [
+    "Todo en este sitio describe únicamente el corpus recopilado de reportajes; no constituye un respaldo a la posición de ninguna de las partes.",
+    "La recopilación sigue estrictamente las reglas robots.txt y los avisos de derechos de autor de cada sitio de noticias, y este sitio no proporciona los artículos originales.",
+    "Debido a la naturaleza exploratoria de la IA recopiladora y a las limitaciones de sus herramientas de internet, la muestra de reportajes analizada es incompleta y puede violar los supuestos de muestreo estadístico.",
+    "El sitio está en fase de prueba: las páginas, los datos y las funciones pueden cambiar en cualquier momento."
+   ],
+   "flow_note": "El siguiente diagrama detalla el proceso completo desde un tema de una sola frase hasta una página de informe publicada. Su diseño se basa en las mejores prácticas del periodismo comparativo, la estadística, la visualización de datos y la orquestación de agentes de IA.",
+   "flow_repo": "El código y la documentación están en el {link}.",
+   "flow_repo_link": "repositorio de GitHub",
+   "flow_title": "Metodología",
+   "intro": [
+    "Este es un trabajo experimental. Las conclusiones generadas por IA pasan por un proceso automatizado estrictamente supervisado y por pruebas estadísticas, y cada evidencia se remonta a oraciones fuente específicas; sin embargo, aún son posibles errores y omisiones. Antes de basarte en cualquier conclusión, verifica tú mismo el reportaje original."
+   ],
+   "legend": {
+    "code": "código",
+    "data": "producto de datos",
+    "human": "punto de contacto humano",
+    "process": "Paso de IA"
+   },
+   "title": "Acerca de este sitio"
+  },
+  "fr": {
+   "button_label": "À propos de ce site",
+   "close_label": "Fermer",
+   "contact_title": "Contact",
+   "disclaimer_title": "À noter",
+   "disclaimers": [
+    "Tout ce qui figure sur ce site décrit uniquement le corpus de reportages collecté ; ce n'est en aucun cas une approbation de la position de l'un ou l'autre côté.",
+    "La collecte respecte strictement les règles robots.txt et les mentions de droits d'auteur de chaque site d'actualité ; ce site ne fournit pas les articles originaux.",
+    "En raison de la nature exploratoire de l'IA de collecte et des limites de ses outils d'accès à internet, l'échantillon de reportages analysés est incomplet et peut ne pas respecter les hypothèses d'échantillonnage statistique.",
+    "Le site est en phase de test : les pages, les données et les fonctionnalités peuvent changer à tout moment."
+   ],
+   "flow_note": "Le schéma ci-dessous détaille l'ensemble du processus, d'un sujet formulé en une phrase jusqu'à une page de rapport publiée. Sa conception s'appuie sur les meilleures pratiques du journalisme comparatif, de la statistique, de la visualisation de données et de l'orchestration d'agents IA.",
+   "flow_repo": "Le code et la documentation se trouvent dans le {link}.",
+   "flow_repo_link": "dépôt GitHub",
+   "flow_title": "Méthodologie",
+   "intro": [
+    "Il s'agit d'un travail expérimental. Les conclusions générées par l'IA passent par un pipeline automatisé strictement supervisé et des tests statistiques, et chaque preuve renvoie à des phrases sources précises — mais des erreurs et omissions restent possibles. Avant de vous fier à une conclusion, veuillez vérifier vous-même les reportages originaux."
+   ],
+   "legend": {
+    "code": "code",
+    "data": "artefact de données",
+    "human": "point de contrôle humain",
+    "process": "Étape IA"
+   },
+   "title": "À propos de ce site"
+  },
+  "hi": {
+   "button_label": "इस साइट के बारे में",
+   "close_label": "बंद करें",
+   "contact_title": "संपर्क करें",
+   "disclaimer_title": "कृपया ध्यान दें",
+   "disclaimers": [
+    "इस साइट पर सब कुछ केवल एकत्रित रिपोर्टों के कॉर्पस का वर्णन करता है; यह किसी भी पक्ष की स्थिति का समर्थन नहीं है।",
+    "संग्रह प्रक्रिया हर समाचार साइट के robots.txt नियमों और कॉपीराइट सूचनाओं का सख़्ती से पालन करती है, और यह साइट मूल लेख उपलब्ध नहीं कराती।",
+    "संग्रह करने वाले AI की खोजी प्रकृति और उसके इंटरनेट टूल्स की सीमाओं के कारण, विश्लेषित रिपोर्टों का नमूना अधूरा है और सांख्यिकीय नमूनाकरण मान्यताओं का उल्लंघन कर सकता है।",
+    "यह साइट परीक्षण चरण में है: पृष्ठ, डेटा और सुविधाएँ किसी भी समय बदल सकती हैं।"
+   ],
+   "flow_note": "नीचे दिया गया आरेख एक-वाक्य विषय से लेकर प्रकाशित रिपोर्ट पृष्ठ तक की पूरी प्रक्रिया को विस्तार से दिखाता है। इसका डिज़ाइन तुलनात्मक पत्रकारिता, सांख्यिकी, डेटा विज़ुअलाइज़ेशन और AI-एजेंट संयोजन की सर्वोत्तम प्रथाओं पर आधारित है।",
+   "flow_repo": "कोड और दस्तावेज़ {link} में उपलब्ध हैं।",
+   "flow_repo_link": "GitHub रिपॉज़िटरी",
+   "flow_title": "पद्धति",
+   "intro": [
+    "यह एक प्रायोगिक कार्य है। AI-निर्मित निष्कर्ष एक सख्ती से निगरानी की गई स्वचालित प्रक्रिया और सांख्यिकीय परीक्षण से गुज़रते हैं, और हर प्रमाण विशिष्ट मूल वाक्यों तक खोजा जा सकता है — फिर भी त्रुटियाँ और चूक संभव हैं। किसी भी निष्कर्ष पर भरोसा करने से पहले, कृपया मूल रिपोर्टिंग स्वयं सत्यापित करें।"
+   ],
+   "legend": {
+    "code": "कोड",
+    "data": "डेटा उत्पाद",
+    "human": "मानव समीक्षा बिंदु",
+    "process": "AI चरण"
+   },
+   "title": "इस साइट के बारे में"
+  },
+  "ja": {
+   "button_label": "このサイトについて",
+   "close_label": "閉じる",
+   "contact_title": "連絡先",
+   "disclaimer_title": "ご注意",
+   "disclaimers": [
+    "本サイトのすべての内容は、収集された報道コーパス自体を記述するものであり、いずれかの側の立場を支持するものではありません。",
+    "収集は各ニュースサイトの robots.txt の規則および著作権表示を厳格に遵守しており、本サイトは記事原文を提供しません。",
+    "収集を行う AI の探索的な性質とインターネットツールの制約により、分析対象となる報道サンプルは不完全であり、統計的な標本抽出の前提に反する可能性があります。",
+    "本サイトはテスト段階にあり、ページ、データ、機能はいつでも変更される可能性があります。"
+   ],
+   "flow_note": "下図は、一文のトピックから公開ページに至るまでの全工程を詳細に示しています。この設計は、比較ジャーナリズム、統計学、データ可視化、そして AI エージェントのオーケストレーションにおけるベストプラクティスを踏まえています。",
+   "flow_repo": "コードとドキュメントは {link} にあります。",
+   "flow_repo_link": "GitHub リポジトリ",
+   "flow_title": "手法",
+   "intro": [
+    "これは実験的な取り組みです。AI が生成した結論は、厳格に監督された自動パイプラインと統計的検定を経ており、すべての証拠は具体的な原文の一文まで遡ることができますが、それでも誤りや見落としが生じる可能性は残ります。結論を利用する前には、必ずご自身で元の報道を確認してください。"
+   ],
+   "legend": {
+    "code": "コード処理",
+    "data": "データ成果物",
+    "human": "人によるチェックポイント",
+    "process": "AI ステップ"
+   },
+   "title": "このサイトについて"
+  },
+  "ko": {
+   "button_label": "사이트 소개",
+   "close_label": "닫기",
+   "contact_title": "연락처",
+   "disclaimer_title": "유의 사항",
+   "disclaimers": [
+    "이 사이트의 모든 내용은 수집된 보도 말뭉치 자체를 설명할 뿐이며, 어느 한쪽의 입장을 지지하는 것이 아닙니다.",
+    "수집은 각 뉴스 사이트의 robots.txt 규칙과 저작권 고지를 엄격히 준수하며, 이 사이트는 원문 기사를 제공하지 않습니다.",
+    "수집 AI의 탐색적 특성과 인터넷 도구의 한계로 인해 분석된 보도 표본은 불완전하며 통계적 표본 추출 가정을 위반할 수 있습니다.",
+    "이 사이트는 테스트 단계에 있으며, 페이지, 데이터, 기능이 언제든 변경될 수 있습니다."
+   ],
+   "flow_note": "아래 다이어그램은 한 문장짜리 주제에서 발행된 보고서 페이지에 이르는 전체 과정을 상세히 보여줍니다. 이 설계는 비교 저널리즘, 통계학, 데이터 시각화, AI 에이전트 오케스트레이션의 모범 사례를 바탕으로 합니다.",
+   "flow_repo": "코드와 문서는 {link}에 있습니다.",
+   "flow_repo_link": "GitHub 저장소",
+   "flow_title": "방법론",
+   "intro": [
+    "이것은 실험적인 작업입니다. AI가 생성한 결론은 엄격하게 감독되는 자동화 파이프라인과 통계 검증을 거치며, 모든 근거는 구체적인 원문 문장까지 추적할 수 있습니다 — 그러나 오류나 누락이 있을 수 있습니다. 어떤 결론이라도 신뢰하기 전에 원본 보도를 직접 확인하시기 바랍니다."
+   ],
+   "legend": {
+    "code": "코드",
+    "data": "데이터 산출물",
+    "human": "사람 검수 지점",
+    "process": "AI 단계"
+   },
+   "title": "사이트 소개"
+  },
+  "ru": {
+   "button_label": "О сайте",
+   "close_label": "Закрыть",
+   "contact_title": "Контакты",
+   "disclaimer_title": "Обратите внимание",
+   "disclaimers": [
+    "Всё содержимое этого сайта описывает исключительно собранный корпус материалов и не означает поддержки позиции какой-либо из сторон.",
+    "Сбор данных строго соответствует правилам robots.txt и уведомлениям об авторских правах каждого новостного сайта; этот сайт не предоставляет оригинальные статьи.",
+    "Из-за исследовательского характера работы ИИ-сборщика и ограничений его инструментов доступа к интернету выборка проанализированных материалов неполна и может нарушать предположения статистической выборки.",
+    "Сайт находится на этапе тестирования: страницы, данные и функции могут в любой момент измениться."
+   ],
+   "flow_note": "Приведённая ниже схема подробно показывает весь процесс — от темы, сформулированной в одном предложении, до опубликованной страницы отчёта. Её структура опирается на лучшие практики сравнительной журналистики, статистики, визуализации данных и оркестрации ИИ-агентов.",
+   "flow_repo": "Код и документация — в {link}.",
+   "flow_repo_link": "репозитории на GitHub",
+   "flow_title": "Методология",
+   "intro": [
+    "Это экспериментальный проект. Выводы, сформированные ИИ, проходят через строго контролируемый автоматизированный процесс и статистическую проверку, а каждое доказательство прослеживается до конкретных исходных предложений — тем не менее ошибки и пропуски по-прежнему возможны. Прежде чем полагаться на какой-либо вывод, пожалуйста, самостоятельно проверьте исходные материалы."
+   ],
+   "legend": {
+    "code": "код",
+    "data": "данные/результат",
+    "human": "точка проверки человеком",
+    "process": "Шаг ИИ"
+   },
+   "title": "О сайте"
+  }
+ },
+ "flow": {
+  "ar": [
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "مهمة بجملة واحدة:",
+     "الموضوع + تجميع A/B + النافذة الزمنية"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "1. scope",
+     "بلورة خطة جمع تفصيلية"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "human",
+    "lines": [
+     "تأكيد النطاق + اعتماد الأسئلة المرجعية",
+     "(نقطة التدخل الأولى)"
+    ],
+    "loops": [
+     [
+      "تعديل",
+      "1. scope"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "2. collect",
+     "جمع مستقل لكل طرف + فحوص التوازن"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "مجموعة نصية مقسَّمة إلى جمل +",
+     "مجموعات تقارير مستقلة · مخزن بيانات"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "3. annotate",
+     "بناء مجموعة الأسئلة (قوالب/مرجعية/مخصصة)",
+     "التوسيم: الإجابة/الإجابات/المصادر"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "مجموعة توسيمات السؤال × الإجابة"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "4. analyze",
+     "إحصاءات، مقارنة معدلات الإجابة،",
+     "مقارنة الإجابات، مجالات الثقة، الترتيب"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "نتائج مختبَرة إحصائيًا حسب الزاوية:",
+     "اتفاق / تباين / صمت"
+    ],
+    "loops": [
+     [
+      "ظهور أسئلة جديدة",
+      "3. annotate"
+     ],
+     [
+      "عيّنة أحد الطرفين شحيحة جدًا",
+      "2. collect"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "5. write",
+     "كتابة صحافة البيانات:",
+     "الملخص ← اختيار الزاوية ←",
+     "استنتاجات موضَّحة + تتبع على مستوى الجملة"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "نص الصفحة",
+     "(النسخة الإنجليزية الأصلية)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "6. render + localize",
+     "بناء الصفحة والفحوص الآلية",
+     "+ مراجعات حكم مستقلة",
+     "+ توطين بلغة المراجع"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "صفحة معاينة نهائية",
+     "(بلغة المراجع)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": "معتمَد",
+    "kind": "human",
+    "lines": [
+     "7. review",
+     "المراجعة + الاعتماد",
+     "(نقطة التدخل الثانية)"
+    ],
+    "loops": [
+     [
+      "إعادة للمراجعة: تعليقات المراجعة تحدد الخطوة بدقة",
+      "5. write"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "8. publish",
+     "تجميد الإصدار، التحقق، والنشر",
+     "(مع التوطين لكل لغة قراءة)"
+    ],
+    "loops": []
+   }
+  ],
+  "es": [
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "Tarea de una frase:",
+     "tema + agrupación A/B + ventana de tiempo"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "1. scope",
+     "desarrollar el plan de recopilación detallado"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "human",
+    "lines": [
+     "Confirmar el alcance + aprobar las preguntas de referencia",
+     "(punto de contacto uno)"
+    ],
+    "loops": [
+     [
+      "revisar",
+      "1. scope"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "2. collect",
+     "recopilación independiente por lado + verificaciones de equilibrio"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "corpus segmentado por oraciones +",
+     "reportajes independientes agrupados · almacén de datos"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "3. annotate",
+     "construir el conjunto de preguntas (plantillas/referencia/personalizadas)",
+     "anotar: respondido/respuestas/fuentes"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "conjunto de anotaciones pregunta × respuesta"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "4. analyze",
+     "estadísticas, comparación de tasas de respuesta,",
+     "comparación de respuestas, intervalos de confianza, clasificación"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "hallazgos verificados estadísticamente por ángulo:",
+     "acuerdo / divergencia / silencio"
+    ],
+    "loops": [
+     [
+      "surgen nuevas preguntas",
+      "3. annotate"
+     ],
+     [
+      "la muestra de un lado es demasiado escasa",
+      "2. collect"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "5. write",
+     "redacción de periodismo de datos:",
+     "resumen → selección de ángulo →",
+     "conclusiones explicadas + rastreo a nivel de oración"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "contenido de la página",
+     "(versión maestra en inglés)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "6. render + localize",
+     "construcción y verificación automática de la página",
+     "+ revisiones de jueces independientes",
+     "+ localizado al idioma del revisor"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "página de vista previa terminada",
+     "(idioma del revisor)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": "aprobado",
+    "kind": "human",
+    "lines": [
+     "7. review",
+     "revisar + aprobar",
+     "(punto de contacto dos)"
+    ],
+    "loops": [
+     [
+      "devuelto: los comentarios de revisión señalan el paso exacto",
+      "5. write"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "8. publish",
+     "congelar la versión, verificar, publicar",
+     "(además localizado a cada idioma de lectura)"
+    ],
+    "loops": []
+   }
+  ],
+  "fr": [
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "Tâche en une phrase :",
+     "sujet + regroupement A/B + fenêtre temporelle"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "1. scope",
+     "élaborer le plan de collecte détaillé"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "human",
+    "lines": [
+     "Confirmer le périmètre + approuver les questions de référence",
+     "(point de contrôle un)"
+    ],
+    "loops": [
+     [
+      "réviser",
+      "1. scope"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "2. collect",
+     "collecte indépendante par côté + vérifications d'équilibre"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "corpus segmenté en phrases +",
+     "groupes de reportages indépendants · entrepôt de données"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "3. annotate",
+     "construire le jeu de questions (modèles/référence/personnalisées)",
+     "annoter : répondu/réponses/sources"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "jeu d'annotations question × réponse"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "4. analyze",
+     "statistiques, comparaison des taux de réponse,",
+     "comparaison des réponses, intervalles de confiance, classement"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "résultats testés statistiquement, par angle :",
+     "consensus / divergence / silence"
+    ],
+    "loops": [
+     [
+      "de nouvelles questions émergent",
+      "3. annotate"
+     ],
+     [
+      "échantillon d'un côté trop faible",
+      "2. collect"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "5. write",
+     "rédaction de journalisme de données :",
+     "résumé → sélection des angles →",
+     "conclusions expliquées + traçabilité au niveau de la phrase"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "contenu de la page",
+     "(version maîtresse en anglais)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "6. render + localize",
+     "génération et vérifications automatiques de la page",
+     "+ évaluations par juges indépendants",
+     "+ localisation dans la langue du réviseur"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "page d'aperçu finalisée",
+     "(langue du réviseur)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": "approuvé",
+    "kind": "human",
+    "lines": [
+     "7. review",
+     "réviser + approuver",
+     "(point de contrôle deux)"
+    ],
+    "loops": [
+     [
+      "renvoyé : les commentaires de révision pointent l'étape exacte",
+      "5. write"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "8. publish",
+     "geler la version, vérifier, mettre en ligne",
+     "(et localisé dans chaque langue de lecture)"
+    ],
+    "loops": []
+   }
+  ],
+  "hi": [
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "एक-वाक्य कार्य:",
+     "विषय + A/B समूहीकरण + समय अवधि"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "1. scope",
+     "विस्तृत संग्रह योजना तैयार करना"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "human",
+    "lines": [
+     "कार्यक्षेत्र की पुष्टि + संदर्भ सवालों की स्वीकृति",
+     "(पहला समीक्षा बिंदु)"
+    ],
+    "loops": [
+     [
+      "संशोधन",
+      "1. scope"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "2. collect",
+     "प्रत्येक पक्ष का स्वतंत्र संग्रह + संतुलन जाँच"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "वाक्य-विभाजित कॉर्पस +",
+     "स्वतंत्र रिपोर्टिंग समूह · डेटा स्टोर"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "3. annotate",
+     "प्रश्न सेट तैयार करना (टेम्पलेट/संदर्भ/कस्टम)",
+     "एनोटेशन: उत्तर दिया गया या नहीं/उत्तर/स्रोत"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "प्रश्न × उत्तर एनोटेशन सेट"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "4. analyze",
+     "आँकड़े, उत्तर-दर तुलना,",
+     "उत्तर तुलना, विश्वास अंतराल, रैंकिंग"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "दृष्टिकोण अनुसार सांख्यिकीय रूप से परीक्षित निष्कर्ष:",
+     "सहमति / मतभेद / मौन"
+    ],
+    "loops": [
+     [
+      "नए सवाल सामने आना",
+      "3. annotate"
+     ],
+     [
+      "एक पक्ष का नमूना बहुत कम",
+      "2. collect"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "5. write",
+     "डेटा-पत्रकारिता लेखन:",
+     "सारांश → दृष्टिकोण चयन →",
+     "स्पष्ट निष्कर्ष + वाक्य-स्तरीय ट्रेसिंग"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "पृष्ठ सामग्री",
+     "(अंग्रेज़ी मूल संस्करण)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "6. render + localize",
+     "स्वचालित पृष्ठ निर्माण/जाँच",
+     "+ स्वतंत्र मूल्यांकनकर्ता समीक्षा",
+     "+ समीक्षक की भाषा में स्थानीयकरण"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "पूर्ण पूर्वावलोकन पृष्ठ",
+     "(समीक्षक की भाषा में)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": "स्वीकृत",
+    "kind": "human",
+    "lines": [
+     "7. review",
+     "समीक्षा + स्वीकृति",
+     "(दूसरा समीक्षा बिंदु)"
+    ],
+    "loops": [
+     [
+      "वापस भेजा गया: समीक्षा टिप्पणियाँ सटीक चरण को इंगित करती हैं",
+      "5. write"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "8. publish",
+     "संस्करण को फ़्रीज़ करना, सत्यापन, लाइव करना",
+     "(और हर पठन भाषा में स्थानीयकृत)"
+    ],
+    "loops": []
+   }
+  ],
+  "ja": [
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "一文タスク：",
+     "トピック + A/B グループ分け + 時間枠"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "1. scope",
+     "詳細な採集計画を策定"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "human",
+    "lines": [
+     "採集範囲の確認 + 参考質問の承認",
+     "（チェックポイント1）"
+    ],
+    "loops": [
+     [
+      "修正",
+      "1. scope"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "2. collect",
+     "各側独立採集 + バランスチェック"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "文単位に分割したコーパス +",
+     "独立報道グループ · データストア"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "3. annotate",
+     "質問セットを構築（テンプレート／参考／カスタム）",
+     "標注：回答の有無・回答内容・出典"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "質問 × 回答 標注セット"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "4. analyze",
+     "統計、回答率の比較、",
+     "回答の比較、信頼区間、順位付け"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "視点ごとに統計検定された発見：",
+     "一致 / 相違 / 沈黙"
+    ],
+    "loops": [
+     [
+      "新たな質問が浮上",
+      "3. annotate"
+     ],
+     [
+      "一方のサンプルが薄すぎる",
+      "2. collect"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "5. write",
+     "データジャーナリズムによる執筆：",
+     "要約 → 視点選定 →",
+     "結論の説明 + 文単位の出典追跡"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "ページ文案",
+     "（英語マスター版）"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "6. render + localize",
+     "自動ページ生成／検証",
+     "+ 独立した審査",
+     "+ 審査者の言語にローカライズ"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "完成プレビューページ",
+     "（審査者の言語）"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": "承認",
+    "kind": "human",
+    "lines": [
+     "7. review",
+     "審査 + 承認",
+     "（チェックポイント2）"
+    ],
+    "loops": [
+     [
+      "差し戻し：審査コメントが該当工程を特定",
+      "5. write"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "8. publish",
+     "バージョンを固定、検証、公開",
+     "（各閲覧言語へのローカライズも含む）"
+    ],
+    "loops": []
+   }
+  ],
+  "ko": [
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "한 문장짜리 과제:",
+     "주제 + A/B 그룹 + 시간 범위"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "1. scope",
+     "상세 수집 계획 구체화"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "human",
+    "lines": [
+     "범위 확인 + 참조 질문 승인",
+     "(첫 번째 접점)"
+    ],
+    "loops": [
+     [
+      "수정",
+      "1. scope"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "2. collect",
+     "측별 독립 수집 + 균형 점검"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "문장 단위 말뭉치 +",
+     "독립 보도 그룹 · 데이터 저장소"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "3. annotate",
+     "질문 세트 구성(템플릿/참조/맞춤)",
+     "주석 처리: 응답 여부/답변/출처"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "질문 × 답변 주석 세트"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "4. analyze",
+     "통계, 응답률 비교,",
+     "답변 비교, 신뢰구간, 순위화"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "통계 검증을 거친 관점별 결과:",
+     "합의 / 이견 / 침묵"
+    ],
+    "loops": [
+     [
+      "새로운 질문 발견",
+      "3. annotate"
+     ],
+     [
+      "한쪽 표본 부족",
+      "2. collect"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "5. write",
+     "데이터 저널리즘 작성:",
+     "요약 → 관점 선정 →",
+     "결론 설명 + 문장 단위 추적"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "페이지 문구",
+     "(영문 원본)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "6. render + localize",
+     "자동 페이지 빌드/검사",
+     "+ 독립 심사 검토",
+     "+ 검수자 언어로 현지화"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "완성된 미리보기 페이지",
+     "(검수자 언어)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": "승인됨",
+    "kind": "human",
+    "lines": [
+     "7. review",
+     "검토 + 승인",
+     "(두 번째 접점)"
+    ],
+    "loops": [
+     [
+      "반려: 검토 의견이 정확한 단계를 짚어줌",
+      "5. write"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "8. publish",
+     "버전 고정, 검증, 게시",
+     "(각 열람 언어로도 현지화)"
+    ],
+    "loops": []
+   }
+  ],
+  "ru": [
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "Задача в одном предложении:",
+     "тема + группировка A/B + временное окно"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "1. scope",
+     "детальная проработка плана сбора данных"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "human",
+    "lines": [
+     "Утверждение охвата + одобрение опорных вопросов",
+     "(точка проверки первая)"
+    ],
+    "loops": [
+     [
+      "доработать",
+      "1. scope"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "2. collect",
+     "независимый сбор по каждой стороне + проверка баланса"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "корпус, разбитый на предложения, +",
+     "независимые группы материалов · хранилище данных"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "3. annotate",
+     "формирование набора вопросов (шаблонные/опорные/особые)",
+     "разметка: ответили ли, ответы и источники"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "набор разметки «вопрос × ответ»"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "4. analyze",
+     "статистика, сравнение доли ответивших,",
+     "сравнение ответов, доверительные интервалы, ранжирование"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "статистически проверенные выводы по ракурсам:",
+     "совпадение / расхождение / молчание"
+    ],
+    "loops": [
+     [
+      "возникают новые вопросы",
+      "3. annotate"
+     ],
+     [
+      "выборка одной стороны слишком мала",
+      "2. collect"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "5. write",
+     "написание в жанре data-журналистики:",
+     "резюме → выбор ракурсов →",
+     "пояснённые выводы + прослеживание на уровне предложений"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "текст страницы",
+     "(английский мастер-текст)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "process",
+    "lines": [
+     "6. render + localize",
+     "автоматическая сборка/проверка страницы",
+     "+ независимые проверки судьями",
+     "+ локализация на язык проверяющего"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": null,
+    "kind": "data",
+    "lines": [
+     "готовая страница предпросмотра",
+     "(язык проверяющего)"
+    ],
+    "loops": []
+   },
+   {
+    "edge_label": "утверждено",
+    "kind": "human",
+    "lines": [
+     "7. review",
+     "проверка + утверждение",
+     "(точка проверки вторая)"
+    ],
+    "loops": [
+     [
+      "возврат: комментарии проверки указывают на конкретный шаг",
+      "5. write"
+     ]
+    ]
+   },
+   {
+    "edge_label": null,
+    "kind": "code",
+    "lines": [
+     "8. publish",
+     "фиксация версии, проверка, публикация",
+     "(плюс локализация на каждый язык чтения)"
+    ],
+    "loops": []
+   }
+  ]
+ }
+}

@@ -1,0 +1,54 @@
+# R-gate thresholds (blueprint §3.3 S6).
+#
+# PROVISIONAL. Blueprint §0.5 defers these numbers to Phase 0 calibration on real data;
+# the spec locks the metric families and their meaning, not their cut-offs.
+# `calibrated: false` is load-bearing: `newsab_a1.rgate` refuses to run in strict mode
+# while it is false, so an uncalibrated gate cannot quietly become the published standard.
+#
+# Bump `thresholds_version` on ANY numeric change. Angles already published carry the
+# version they passed under, so a later tightening does not silently invalidate them —
+# it makes them re-checkable against the version they claimed.
+
+thresholds_version: "rgate-0.1"
+calibrated: false
+
+# Applies to every angle type unless overridden below.
+default:
+  # Sample floors. Below these there is nothing to be robust about.
+  min_clusters_total: 8            # per group
+  min_clusters_supporting: 3       # on the higher-prevalence side
+  # Effect size.
+  min_divergence: 0.20
+  # Robustness. §3.3 S6 names the fragile case explicitly: a direction that is close to a
+  # coin flip must not reach an editorial agent at all.
+  min_direction_stability: 0.80
+  # Concentration. A finding carried by one newsroom is a source claim, not a corpus one.
+  min_source_diversity: 0.25       # on the higher-prevalence side
+  # Is it one category's doing?
+  min_cross_stratum_consistency: 0.50
+
+overrides:
+  # Consensus angles are the inverse comparison: both sides high, difference small. The
+  # divergence floor becomes a ceiling, and stability is about the *absence* of a gap.
+  shared_ground:
+    min_divergence: null
+    max_divergence: 0.15
+    min_prevalence_both: 0.30
+    min_direction_stability: null
+    min_clusters_supporting: 4
+
+  # §3.3 S6: "盲区的发布阈值全面高于其他类型". Blind spots also require the four-condition
+  # opportunity-to-cover check, which is enforced separately in the schema (§4.4.1 inv 2) —
+  # these numbers are the statistical half only.
+  blind_spot:
+    min_clusters_total: 12
+    min_clusters_supporting: 6
+    min_divergence: 0.40
+    min_direction_stability: 0.90
+    min_source_diversity: 0.40
+    min_cross_stratum_consistency: 0.70
+
+  # Salience compares whole dimensions rather than a concept, so its supporting counts are
+  # naturally large and a low bar would let everything through.
+  salience:
+    min_divergence: 0.25

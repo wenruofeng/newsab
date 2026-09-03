@@ -1,0 +1,315 @@
+# Lint lexicons — the single definition site for every word list the pipeline lints on.
+#
+# Consumers: S4's descriptive-wording self-check (blueprint §4.2.2 invariant 2) and S8's
+# L0 causal / scope lints (§3.3 S8).  Both read this file; neither keeps its own copy.
+#
+# Editing policy: these lists are *recall-oriented* — a false positive costs one judge
+# confirmation, a false negative ships an editorialising sentence.  Additions are cheap;
+# removals need a note in the report that removed them.
+lexicon_version: "lints-0.4"
+
+languages:
+  zh-CN:
+    word_boundary: false          # Chinese has no spaces; match on substring
+  en:
+    word_boundary: true
+  # Indonesian, added in lints-0.4.  Until then every `id` text produced a single
+  # `lexicon_coverage` FLAG — honest, but it meant the id side of topic C carried no
+  # mechanical checking at all while zh and en carried four rules each.
+  #
+  # Read this before trusting it: the lists below are agent-authored and have NOT been
+  # reviewed by an Indonesian speaker (the user cannot verify Indonesian).
+  # They end "zero mechanical checks"; they do not make the id side as calibrated as the
+  # zh/en sides, and no output may describe it as such.  Indonesian's productive affixes
+  # are the trap: `di-…-kan` passives and `me-…-kan` actives are the same stem wearing
+  # different clothes, so both forms are listed rather than relying on substring luck.
+  id:
+    word_boundary: true
+
+rules:
+
+  # --- presentation markers -----------------------------------------------------------
+  # §4.2.2(2): a proposition must state HOW THE ARTICLE PRESENTS something.  At least one
+  # of these must appear, otherwise the sentence is asserting rather than describing.
+  presentation_marker:
+    kind: required_any
+    terms:
+      zh-CN:
+        - 被呈现为
+        - 被描述为
+        - 被表述为
+        - 被塑造为
+        - 被框定为
+        - 被界定为
+        - 被定性为
+        - 被称为
+        - 被称作
+        - 被写作
+        - 被归咎于        # responsibility dimension: the article performs the attribution
+        - 被归功于
+        - 被引述
+        - 被援引
+        # Bare forms.  Chinese routinely names the presenter between 被 and the verb
+        # ("被印尼官方表述为"), which breaks a contiguous 被X为 match.  Without these the
+        # lint fails a proposition that attributes the framing to a *named actor* — the
+        # most descriptive form available — while passing the agentless one.  Same class
+        # of false negative as the en plural forms added in lints-0.2.
+        - 呈现为
+        - 描述为
+        - 表述为
+        - 塑造为
+        - 框定为
+        - 界定为
+        - 定性为
+        - 报道将
+        - 报道把
+        - 文中将
+        - 文中把
+        - 文章将
+        - 文章把
+      id:
+        # Passive: "X disajikan sebagai Y" — the article does the presenting.
+        - disajikan sebagai
+        - digambarkan sebagai
+        - dilukiskan sebagai
+        - dibingkai sebagai
+        - ditampilkan sebagai
+        - diposisikan sebagai
+        - dikategorikan sebagai
+        - dicirikan sebagai
+        - disebut sebagai
+        - disebutkan sebagai
+        - dinyatakan sebagai
+        - diberitakan sebagai
+        - ditulis sebagai
+        - dikaitkan dengan
+        - disalahkan atas          # responsibility dimension: the article attributes blame
+        - dipersalahkan atas
+        - dikutip
+        - mengutip
+        # Bare passives.  Indonesian inserts the agent between verb and complement
+        # ("digambarkan pemerintah sebagai"), which breaks the contiguous match above —
+        # the same false negative the zh bare forms exist to prevent, and again it strikes
+        # exactly the most descriptive form, the one that names who is doing the framing.
+        - digambarkan
+        - disajikan
+        - dibingkai
+        - ditampilkan
+        - diposisikan
+        - dicirikan
+        # Active, with the coverage as subject: "Artikel itu menggambarkan …".
+        - menggambarkan
+        - menyajikan
+        - membingkai
+        - menampilkan
+        - memposisikan
+        - menyebut
+        - artikel ini
+        - artikel itu
+        - laporan ini
+        - laporan itu
+        - pemberitaan
+      en:
+        - is presented as
+        - is framed as
+        - is described as
+        - is characterized as
+        - is characterised as
+        - is portrayed as
+        - is depicted as
+        - is cast as
+        - is defined as
+        - is treated as
+        - is attributed to
+        - is credited to
+        - is blamed on
+        - is quoted
+        # Plural subjects.  Omitting these was a silent false negative: "the rules are
+        # framed as ..." is exactly as descriptive as its singular form, so failing it
+        # taught annotators to avoid plural subjects rather than to avoid asserting.
+        - are presented as
+        - are framed as
+        - are described as
+        - are characterized as
+        - are characterised as
+        - are portrayed as
+        - are depicted as
+        - are cast as
+        - are defined as
+        - are treated as
+        - are attributed to
+        - are credited to
+        - are blamed on
+        - are quoted
+        - presents
+        - present
+        - frames
+        - frame
+        - describes
+        - describe
+        - portrays
+        - portray
+        - characterizes
+        - characterize
+        - characterises
+        - characterise
+        - attributes
+        - attribute
+
+  # --- causal / explanatory language ---------------------------------------------------
+  # §3.3 S8 names because / reflects / driven by / 意在 / 旨在 / 折射出 explicitly.  These
+  # are the signal that description has slid into explanation.
+  causal_language:
+    kind: forbidden_any
+    message: "explanatory language — describe how the article presents it, do not explain why"
+    terms:
+      zh-CN:
+        - 意在
+        - 旨在
+        - 折射出
+        - 折射了
+        - 反映出
+        - 反映了
+        - 体现出
+        - 体现了
+        - 说明了
+        - 表明了
+        - 揭示了
+        - 暴露出
+        - 究其原因
+        - 原因在于
+        - 根源在于
+        - 之所以
+        - 因为
+        - 由于
+        - 导致
+        - 源于
+        - 实质上是
+        - 本质上是
+      id:
+        - karena
+        - dikarenakan
+        - disebabkan
+        - sebab
+        - lantaran
+        - akibat
+        - berakibat
+        - mengakibatkan
+        - menyebabkan
+        - sehingga
+        - oleh karena itu
+        - itulah sebabnya
+        - alasannya
+        - bertujuan
+        - dimaksudkan untuk
+        - ditujukan untuk
+        - demi
+        - guna
+        - mencerminkan
+        - merefleksikan
+        - menunjukkan bahwa
+        - membuktikan
+        - mengungkap
+        - mengungkapkan
+        - menyingkap
+        - membongkar
+        - didorong oleh
+        - dipicu oleh
+        - berakar pada
+        - bersumber dari
+        - berawal dari
+        - pada dasarnya
+        - pada hakikatnya
+        - sejatinya
+      en:
+        - because
+        - reflects
+        - reflecting
+        - driven by
+        - due to
+        - owing to
+        - stems from
+        - rooted in
+        - as a result of
+        - which explains
+        - motivated by
+        - aimed at
+        - intended to
+        - designed to
+        - reveals
+        - exposes
+        - underscores
+        - highlights that
+        - in essence
+        - amounts to
+
+  # --- factual verdicts ----------------------------------------------------------------
+  # D4 / §1.3(1): we never adjudicate.  These words judge the world rather than describe
+  # the text.  Flagged rather than failed, because some legitimately describe what an
+  # article itself asserts ("该文将 X 呈现为被夸大的风险") — the judge decides.
+  factual_verdict:
+    kind: flagged_any
+    message: "reads as a verdict on the facts rather than a description of the text (D4)"
+    terms:
+      zh-CN:
+        - 事实上
+        - 实际上
+        - 真相是
+        - 错误地
+        - 正确地
+        - 歪曲
+        - 无视
+        - 掩盖
+        - 抹黑
+        - 罔顾
+        - 别有用心
+      id:
+        - faktanya
+        - sebenarnya
+        - sesungguhnya
+        - kenyataannya
+        - yang benar adalah
+        - secara keliru
+        - keliru
+        - salah kaprah
+        - menyesatkan
+        - memutarbalikkan
+        - memelintir
+        - mengabaikan fakta
+        - menutup-nutupi
+        - menyudutkan
+        - menjelek-jelekkan
+        - tendensius
+        - bermotif tersembunyi
+      en:
+        - in fact
+        - actually
+        - the truth is
+        - wrongly
+        - correctly
+        - falsely
+        - misleadingly
+        - distorts
+        - ignores the fact
+        - conceals
+        - smears
+
+  # --- scope: country-as-subject --------------------------------------------------------
+  # §3.3 S8 scope lint: "中国认为 / China believes" is forbidden; the subject of every
+  # statement is the sampled coverage, never a country (D4, ⑦).
+  # Deliberately narrow: bare country/capital metonyms + *cognitive* verbs only.  Speech
+  # verbs are excluded because "中国外交部表示" (a named actor speaking) is legitimate.
+  scope_subject:
+    kind: forbidden_pattern
+    message: "a country cannot be the subject of a claim — use 'the sampled X-language coverage'"
+    suggestion:
+      zh-CN: "改写为「在中文样本报道中……」"
+      en: "rewrite as 'In the sampled Chinese-language coverage, …'"
+      id: "tulis ulang menjadi 'Dalam pemberitaan berbahasa Indonesia yang disampel, …'"
+    patterns:
+      zh-CN:
+        - "(中国|美国|印尼|印度尼西亚|日本|北京|华盛顿|雅加达)(认为|相信|希望|担心|主张|坚持|反对|支持|谴责|视为|看待|觉得)"
+      en:
+        - "\\b(China|the United States|the US|the U\\.S\\.|America|Indonesia|Japan|Beijing|Washington|Jakarta)\\s+(believes?|thinks?|wants?|fears?|insists?|argues?|sees|views|feels?|holds?|considers?)\\b"
+      id:
+        - "\\b(Indonesia|Tiongkok|China|Cina|Amerika Serikat|Amerika|AS|Jepang|Jakarta|Beijing|Washington)\\s+(menganggap|menilai|percaya|meyakini|berpendapat|menginginkan|ingin|khawatir|mengkhawatirkan|berharap|menolak|mendukung|mengecam|memandang|melihat|bersikeras|menuntut)\\b"

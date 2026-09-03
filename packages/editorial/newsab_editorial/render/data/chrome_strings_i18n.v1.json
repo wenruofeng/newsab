@@ -1,0 +1,2210 @@
+{
+ "BEAT_SCOPE": {
+  "ar": {
+   "general": "أخبار عامة",
+   "vertical": "قطاع أو موضوع واحد"
+  },
+  "es": {
+   "general": "noticias generales",
+   "vertical": "una industria o tema específico"
+  },
+  "fr": {
+   "general": "actualité générale",
+   "vertical": "un secteur ou un sujet"
+  },
+  "hi": {
+   "general": "सामान्य समाचार",
+   "vertical": "एक उद्योग या विषय"
+  },
+  "ja": {
+   "general": "総合ニュース",
+   "vertical": "特定業界・分野"
+  },
+  "ko": {
+   "general": "종합 뉴스",
+   "vertical": "단일 산업 또는 주제"
+  },
+  "ru": {
+   "general": "общие новости",
+   "vertical": "одна отрасль или тема"
+  }
+ },
+ "COUNTRY_LABEL": {
+  "ar": {
+   "CN": "الصين",
+   "GB": "المملكة المتحدة",
+   "HK": "هونغ كونغ",
+   "ID": "إندونيسيا",
+   "IN": "الهند",
+   "JP": "اليابان",
+   "KE": "كينيا",
+   "NG": "نيجيريا",
+   "SG": "سنغافورة",
+   "TZ": "تنزانيا",
+   "UG": "أوغندا",
+   "US": "الولايات المتحدة",
+   "ZA": "جنوب أفريقيا"
+  },
+  "es": {
+   "CN": "China",
+   "GB": "el Reino Unido",
+   "HK": "Hong Kong",
+   "ID": "Indonesia",
+   "IN": "India",
+   "JP": "Japón",
+   "KE": "Kenia",
+   "NG": "Nigeria",
+   "SG": "Singapur",
+   "TZ": "Tanzania",
+   "UG": "Uganda",
+   "US": "Estados Unidos",
+   "ZA": "Sudáfrica"
+  },
+  "fr": {
+   "CN": "la Chine",
+   "GB": "le Royaume-Uni",
+   "HK": "Hong Kong",
+   "ID": "l'Indonésie",
+   "IN": "l'Inde",
+   "JP": "le Japon",
+   "KE": "le Kenya",
+   "NG": "le Nigeria",
+   "SG": "Singapour",
+   "TZ": "la Tanzanie",
+   "UG": "l'Ouganda",
+   "US": "les États-Unis",
+   "ZA": "l'Afrique du Sud"
+  },
+  "hi": {
+   "CN": "चीन",
+   "GB": "यूनाइटेड किंगडम",
+   "HK": "हांगकांग",
+   "ID": "इंडोनेशिया",
+   "IN": "भारत",
+   "JP": "जापान",
+   "KE": "केन्या",
+   "NG": "नाइजीरिया",
+   "SG": "सिंगापुर",
+   "TZ": "तंज़ानिया",
+   "UG": "युगांडा",
+   "US": "संयुक्त राज्य अमेरिका",
+   "ZA": "दक्षिण अफ़्रीका"
+  },
+  "ja": {
+   "CN": "中国",
+   "GB": "イギリス",
+   "HK": "香港",
+   "ID": "インドネシア",
+   "IN": "インド",
+   "JP": "日本",
+   "KE": "ケニア",
+   "NG": "ナイジェリア",
+   "SG": "シンガポール",
+   "TZ": "タンザニア",
+   "UG": "ウガンダ",
+   "US": "アメリカ合衆国",
+   "ZA": "南アフリカ"
+  },
+  "ko": {
+   "CN": "중국",
+   "GB": "영국",
+   "HK": "홍콩",
+   "ID": "인도네시아",
+   "IN": "인도",
+   "JP": "일본",
+   "KE": "케냐",
+   "NG": "나이지리아",
+   "SG": "싱가포르",
+   "TZ": "탄자니아",
+   "UG": "우간다",
+   "US": "미국",
+   "ZA": "남아프리카공화국"
+  },
+  "ru": {
+   "CN": "Китай",
+   "GB": "Великобритания",
+   "HK": "Гонконг",
+   "ID": "Индонезия",
+   "IN": "Индия",
+   "JP": "Япония",
+   "KE": "Кения",
+   "NG": "Нигерия",
+   "SG": "Сингапур",
+   "TZ": "Танзания",
+   "UG": "Уганда",
+   "US": "США",
+   "ZA": "ЮАР"
+  }
+ },
+ "KIND_EMPTY": {
+  "ar": {
+   "attention_gap": "لم نجد صمتًا أحاديّ الجانب مدعومًا بالأدلة على أي سؤال ضمن هذا الموضوع.",
+   "consensus": "لم نجد اتفاقًا مدعومًا بالأدلة على أي سؤال ضمن هذا الموضوع.",
+   "divergence": "لم نجد تباينًا مدعومًا بالأدلة على أي سؤال ضمن هذا الموضوع."
+  },
+  "es": {
+   "attention_gap": "No encontramos ningún silencio unilateral respaldado por datos en ninguna pregunta de este tema.",
+   "consensus": "No encontramos ningún acuerdo respaldado por datos en ninguna pregunta de este tema.",
+   "divergence": "No encontramos ninguna divergencia respaldada por datos en ninguna pregunta de este tema."
+  },
+  "fr": {
+   "attention_gap": "Nous n'avons trouvé aucun silence unilatéral étayé sur aucune question de ce sujet.",
+   "consensus": "Nous n'avons trouvé aucun accord étayé sur aucune question de ce sujet.",
+   "divergence": "Nous n'avons trouvé aucune divergence étayée sur aucune question de ce sujet."
+  },
+  "hi": {
+   "attention_gap": "इस विषय के किसी भी सवाल पर हमें साक्ष्य-समर्थित एकतरफा मौन नहीं मिला।",
+   "consensus": "इस विषय के किसी भी सवाल पर हमें साक्ष्य-समर्थित सहमति नहीं मिली।",
+   "divergence": "इस विषय के किसी भी सवाल पर हमें साक्ष्य-समर्थित मतभेद नहीं मिला।"
+  },
+  "ja": {
+   "attention_gap": "このトピックでは、データに裏付けられた一方的な沈黙は見つかりませんでした。",
+   "consensus": "このトピックでは、データに裏付けられた一致点は見つかりませんでした。",
+   "divergence": "このトピックでは、データに裏付けられた相違点は見つかりませんでした。"
+  },
+  "ko": {
+   "attention_gap": "이 주제의 어떤 질문에서도 근거 있는 한쪽의 침묵을 발견하지 못했습니다.",
+   "consensus": "이 주제의 어떤 질문에서도 근거 있는 합의를 발견하지 못했습니다.",
+   "divergence": "이 주제의 어떤 질문에서도 근거 있는 이견을 발견하지 못했습니다."
+  },
+  "ru": {
+   "attention_gap": "По этой теме не найдено подтверждённого одностороннего молчания ни по одному вопросу.",
+   "consensus": "По этой теме не найдено подтверждённых совпадений ни по одному вопросу.",
+   "divergence": "По этой теме не найдено подтверждённых расхождений ни по одному вопросу."
+  }
+ },
+ "KIND_LABEL": {
+  "ar": {
+   "attention_gap": "صمت",
+   "consensus": "اتفاق",
+   "divergence": "تباين",
+   "no_significant_relation": "لا نمط",
+   "too_thin": "بيانات شحيحة"
+  },
+  "es": {
+   "attention_gap": "Silencio",
+   "consensus": "Acuerdo",
+   "divergence": "Divergencia",
+   "no_significant_relation": "Sin patrón",
+   "too_thin": "Datos insuficientes"
+  },
+  "fr": {
+   "attention_gap": "Silence",
+   "consensus": "Accord",
+   "divergence": "Divergence",
+   "no_significant_relation": "Aucun schéma",
+   "too_thin": "Données insuffisantes"
+  },
+  "hi": {
+   "attention_gap": "मौन",
+   "consensus": "सहमति",
+   "divergence": "मतभेद",
+   "no_significant_relation": "कोई प्रवृत्ति नहीं",
+   "too_thin": "अपर्याप्त डेटा"
+  },
+  "ja": {
+   "attention_gap": "沈黙",
+   "consensus": "一致",
+   "divergence": "相違",
+   "no_significant_relation": "傾向なし",
+   "too_thin": "データ不足"
+  },
+  "ko": {
+   "attention_gap": "침묵",
+   "consensus": "합의",
+   "divergence": "이견",
+   "no_significant_relation": "패턴 없음",
+   "too_thin": "데이터 부족"
+  },
+  "ru": {
+   "attention_gap": "Молчание",
+   "consensus": "Совпадение",
+   "divergence": "Расхождение",
+   "no_significant_relation": "Нет закономерности",
+   "too_thin": "Мало данных"
+  }
+ },
+ "KIND_TIP": {
+  "ar": {
+   "attention_gap": "معدل استجابة أحد الطرفين أقل من {silent_max_rate:.0%}؛ بينما معدل الطرف الآخر أعلى بمقدار {attention_gap_min_abs_diff:.0%} على الأقل.",
+   "attention_gap_rate_legacy": "لا يكاد أحد الطرفين يتطرق إلى هذا السؤال؛ بينما معدل استجابة الطرف الآخر أعلى بمقدار {coverage_gap_min_abs_diff:.0%} على الأقل.",
+   "attention_gap_silence": "لا يتطرق أي تقرير من العيّنة في أحد الطرفين إلى هذا السؤال.",
+   "consensus": "الإجابة الأكثر شيوعًا واحدة لدى الطرفين.",
+   "divergence": "تختلف الإجابة الأكثر شيوعًا بين الطرفين.",
+   "no_significant_relation": "البيانات غير كافية لإثبات نمط واضح.",
+   "too_thin": "بيانات أحد الطرفين قليلة جدًا لدعم أي حكم."
+  },
+  "es": {
+   "attention_gap": "La tasa de respuesta de un lado está por debajo del {silent_max_rate:.0%}; la del otro lado es al menos {attention_gap_min_abs_diff:.0%} más alta.",
+   "attention_gap_rate_legacy": "Un lado apenas aborda esta pregunta; la tasa de respuesta del otro lado es al menos {coverage_gap_min_abs_diff:.0%} más alta.",
+   "attention_gap_silence": "Ningún reportaje muestreado de un lado aborda esta pregunta.",
+   "consensus": "La respuesta más común es la misma en ambos lados.",
+   "divergence": "La respuesta más común difiere entre los dos lados.",
+   "no_significant_relation": "Los datos son insuficientes para afirmar un patrón claro.",
+   "too_thin": "Un lado tiene muy pocos datos para respaldar un juicio."
+  },
+  "fr": {
+   "attention_gap": "Le taux de réponse d'un côté est inférieur à {silent_max_rate:.0%} ; celui de l'autre côté est supérieur d'au moins {attention_gap_min_abs_diff:.0%}.",
+   "attention_gap_rate_legacy": "Un côté aborde à peine cette question ; le taux de réponse de l'autre côté est supérieur d'au moins {coverage_gap_min_abs_diff:.0%}.",
+   "attention_gap_silence": "Aucun reportage échantillonné d'un côté n'aborde cette question.",
+   "consensus": "La réponse la plus fréquente est la même des deux côtés.",
+   "divergence": "La réponse la plus fréquente diffère entre les deux côtés.",
+   "no_significant_relation": "Les données sont insuffisantes pour établir un schéma clair.",
+   "too_thin": "Un côté dispose de trop peu de données pour étayer un jugement."
+  },
+  "hi": {
+   "attention_gap": "एक पक्ष की उत्तर दर {silent_max_rate:.0%} से कम है; दूसरे पक्ष की दर कम से कम {attention_gap_min_abs_diff:.0%} अधिक है।",
+   "attention_gap_rate_legacy": "एक पक्ष इस सवाल का लगभग कोई उल्लेख नहीं करता; दूसरे पक्ष की उत्तर दर कम से कम {coverage_gap_min_abs_diff:.0%} अधिक है।",
+   "attention_gap_silence": "एक पक्ष की किसी भी नमूना रिपोर्ट में यह सवाल नहीं उठाया गया।",
+   "consensus": "दोनों पक्षों में सबसे आम उत्तर एक समान है।",
+   "divergence": "दोनों पक्षों में सबसे आम उत्तर अलग-अलग है।",
+   "no_significant_relation": "स्पष्ट प्रवृत्ति दिखाने के लिए डेटा पर्याप्त नहीं है।",
+   "too_thin": "एक पक्ष के पास निर्णय के लिए पर्याप्त डेटा नहीं है।"
+  },
+  "ja": {
+   "attention_gap": "一方の回答率が{silent_max_rate:.0%}未満で、他方はそれより{attention_gap_min_abs_diff:.0%}以上高くなっています。",
+   "attention_gap_rate_legacy": "一方はこの質問にほとんど触れておらず、他方の回答率は{coverage_gap_min_abs_diff:.0%}以上高くなっています。",
+   "attention_gap_silence": "一方のサンプル報道はこの質問に一切触れていません。",
+   "consensus": "双方の最多回答が一致しています。",
+   "divergence": "双方の最多回答が異なります。",
+   "no_significant_relation": "明確な傾向を示すにはデータが不十分です。",
+   "too_thin": "一方のデータが少なすぎて判断を裏付けられません。"
+  },
+  "ko": {
+   "attention_gap": "한쪽의 응답률이 {silent_max_rate:.0%} 미만이며, 다른 쪽은 최소 {attention_gap_min_abs_diff:.0%} 더 높습니다.",
+   "attention_gap_rate_legacy": "한쪽은 이 질문을 거의 다루지 않으며, 다른 쪽의 응답률은 최소 {coverage_gap_min_abs_diff:.0%} 더 높습니다.",
+   "attention_gap_silence": "한쪽의 표본 보도 중 이 질문을 다룬 것이 하나도 없습니다.",
+   "consensus": "양측에서 가장 흔한 답변이 동일합니다.",
+   "divergence": "양측에서 가장 흔한 답변이 서로 다릅니다.",
+   "no_significant_relation": "데이터가 부족하여 명확한 패턴을 단정할 수 없습니다.",
+   "too_thin": "한쪽의 데이터가 판단을 뒷받침하기에 너무 부족합니다."
+  },
+  "ru": {
+   "attention_gap": "Доля ответивших с одной стороны ниже {silent_max_rate:.0%}; с другой стороны — как минимум на {attention_gap_min_abs_diff:.0%} выше.",
+   "attention_gap_rate_legacy": "Одна сторона почти не затрагивает этот вопрос; доля ответивших с другой стороны как минимум на {coverage_gap_min_abs_diff:.0%} выше.",
+   "attention_gap_silence": "Ни один отобранный материал с одной стороны не затрагивает этот вопрос.",
+   "consensus": "Самый частый ответ совпадает у обеих сторон.",
+   "divergence": "Самый частый ответ у двух сторон различается.",
+   "no_significant_relation": "Данных недостаточно, чтобы утверждать наличие чёткой закономерности.",
+   "too_thin": "У одной стороны слишком мало данных для обоснованного вывода."
+  }
+ },
+ "LANG_LABEL": {
+  "ar": {
+   "de": "الألمانية",
+   "en": "الإنجليزية",
+   "fr": "الفرنسية",
+   "id": "الإندونيسية",
+   "ja": "اليابانية",
+   "ko": "الكورية",
+   "mn": "المنغولية",
+   "sw": "السواحيلية",
+   "tr": "التركية",
+   "zh": "الصينية",
+   "zh-CN": "الصينية"
+  },
+  "es": {
+   "de": "alemán",
+   "en": "inglés",
+   "fr": "francés",
+   "id": "indonesio",
+   "ja": "japonés",
+   "ko": "coreano",
+   "mn": "mongol",
+   "sw": "suajili",
+   "tr": "turco",
+   "zh": "chino",
+   "zh-CN": "chino"
+  },
+  "fr": {
+   "de": "allemand",
+   "en": "anglais",
+   "fr": "français",
+   "id": "indonésien",
+   "ja": "japonais",
+   "ko": "coréen",
+   "mn": "mongol",
+   "sw": "swahili",
+   "tr": "turc",
+   "zh": "chinois",
+   "zh-CN": "chinois"
+  },
+  "hi": {
+   "de": "जर्मन",
+   "en": "अंग्रेज़ी",
+   "fr": "फ़्रेंच",
+   "id": "इंडोनेशियाई",
+   "ja": "जापानी",
+   "ko": "कोरियाई",
+   "mn": "मंगोलियाई",
+   "sw": "स्वाहिली",
+   "tr": "तुर्की",
+   "zh": "चीनी",
+   "zh-CN": "चीनी"
+  },
+  "ja": {
+   "de": "ドイツ語",
+   "en": "英語",
+   "fr": "フランス語",
+   "id": "インドネシア語",
+   "ja": "日本語",
+   "ko": "韓国語",
+   "mn": "モンゴル語",
+   "sw": "スワヒリ語",
+   "tr": "トルコ語",
+   "zh": "中国語",
+   "zh-CN": "中国語"
+  },
+  "ko": {
+   "de": "독일어",
+   "en": "영어",
+   "fr": "프랑스어",
+   "id": "인도네시아어",
+   "ja": "일본어",
+   "ko": "한국어",
+   "mn": "몽골어",
+   "sw": "스와힐리어",
+   "tr": "터키어",
+   "zh": "중국어",
+   "zh-CN": "중국어"
+  },
+  "ru": {
+   "de": "немецкий",
+   "en": "английский",
+   "fr": "французский",
+   "id": "индонезийский",
+   "ja": "японский",
+   "ko": "корейский",
+   "mn": "монгольский",
+   "sw": "суахили",
+   "tr": "турецкий",
+   "zh": "китайский",
+   "zh-CN": "китайский"
+  }
+ },
+ "METHOD_SECTIONS": {
+  "ar": [
+   [
+    "وحدة العدّ",
+    "تعتمد معظم الإحصاءات في هذا الموقع على التقرير المستقل، لا المقالة، كوحدة أساس. تُجمَّع النسخ المتعددة للتقرير نفسه — كبيان صحفي أعادت نشره عدة مواقع — وتُحتسب مرة واحدة."
+   ],
+   [
+    "الأسئلة والأجوبة",
+    "نطرح على كل تقرير مستقل من الطرفين المجموعة نفسها من الأسئلة. تُوحَّد الإجابات (أو \"بلا إجابة\") إلى مفردات مشتركة تتيح مقارنة الطرفين."
+   ],
+   [
+    "الإحصاءات",
+    "نختبر إحصائيًا كل نمط محتمل باستخدام جميع التقارير. لا تُعرض كنتائج/زوايا إلا الأنماط التي تتكرر بثبات كافٍ."
+   ],
+   [
+    "المصادر",
+    "يمكن تتبع كل رقم وحكم في هذه الصفحة إلى جمل المصدر أو توسيمات الذكاء الاصطناعي. قد تكون توسيمات الذكاء الاصطناعي خاطئة، لكن السجل يجعل أي خطأ قابلًا للتتبع والمراجعة."
+   ]
+  ],
+  "es": [
+   [
+    "Unidad de conteo",
+    "La mayoría de las estadísticas de este sitio utilizan reportajes independientes, no artículos, como unidad base. Varias versiones del mismo reportaje —como un comunicado republicado por varios sitios web— se agrupan y se cuentan una sola vez."
+   ],
+   [
+    "Preguntas y respuestas",
+    "Hacemos las mismas preguntas a cada reportaje independiente de ambos lados. Las respuestas (o «sin respuesta») se normalizan a un vocabulario compartido para que ambos lados puedan compararse."
+   ],
+   [
+    "Estadísticas",
+    "Sometemos cada patrón candidato a prueba estadística usando todos los reportajes. Solo los patrones que reaparecen con suficiente consistencia se presentan como hallazgos/ángulos."
+   ],
+   [
+    "Fuentes",
+    "Cada cifra y juicio de esta página se remonta a oraciones fuente o anotaciones de IA. Las anotaciones de IA pueden estar equivocadas, pero el registro hace que cualquier error sea rastreable y auditable."
+   ]
+  ],
+  "fr": [
+   [
+    "Unité de comptage",
+    "La plupart des statistiques de ce site utilisent le reportage indépendant, et non l'article, comme unité de base. Plusieurs versions d'un même reportage — par exemple un communiqué republié par plusieurs sites — sont regroupées et comptées une seule fois."
+   ],
+   [
+    "Questions et réponses",
+    "Nous posons à chaque reportage indépendant, des deux côtés, le même ensemble de questions. Les réponses (ou l'absence de réponse) sont normalisées selon un vocabulaire commun afin que les deux côtés puissent être comparés."
+   ],
+   [
+    "Statistiques",
+    "Nous testons statistiquement chaque schéma candidat à partir de l'ensemble des reportages. Seuls les schémas qui réapparaissent de façon suffisamment cohérente sont présentés comme résultats ou angles."
+   ],
+   [
+    "Sources",
+    "Chaque chiffre et chaque jugement de cette page renvoie à des phrases sources ou à des annotations de l'IA. Les annotations de l'IA peuvent être erronées, mais l'historique rend toute erreur traçable et vérifiable."
+   ]
+  ],
+  "hi": [
+   [
+    "गणना इकाई",
+    "इस साइट पर अधिकांश आँकड़े लेखों के बजाय स्वतंत्र रिपोर्टों को अपनी आधार इकाई के रूप में उपयोग करते हैं। एक ही रिपोर्ट के कई संस्करण — जैसे कि कई वेबसाइटों पर पुनः प्रकाशित एक ही प्रेस विज्ञप्ति — को एक समूह में रखकर केवल एक बार गिना जाता है।"
+   ],
+   [
+    "प्रश्नोत्तर",
+    "हम दोनों पक्षों की हर स्वतंत्र रिपोर्ट से एक ही सवालों का सेट पूछते हैं। उत्तरों (या “कोई उत्तर नहीं”) को एक साझा शब्दावली में सामान्यीकृत किया जाता है ताकि दोनों पक्षों की तुलना की जा सके।"
+   ],
+   [
+    "आँकड़े",
+    "हम सभी रिपोर्टों का उपयोग करके हर संभावित प्रवृत्ति का सांख्यिकीय परीक्षण करते हैं। केवल वे प्रवृत्तियाँ जो पर्याप्त रूप से लगातार दोहराई जाती हैं, उन्हें निष्कर्ष/दृष्टिकोण के रूप में प्रस्तुत किया जाता है।"
+   ],
+   [
+    "स्रोत",
+    "इस पृष्ठ पर हर संख्या और निर्णय मूल वाक्यों या AI एनोटेशन तक वापस खोजा जा सकता है। AI एनोटेशन गलत हो सकते हैं, लेकिन यह रिकॉर्ड किसी भी त्रुटि को खोजने और जाँचने योग्य बनाता है।"
+   ]
+  ],
+  "ja": [
+   [
+    "計数単位",
+    "本サイトのほとんどの統計は、記事ではなく独立報道を基本単位としています。同一報道の複数のバージョン——たとえば複数のサイトに転載されたプレスリリースなど——は一つのグループにまとめられ、一度だけ数えられます。"
+   ],
+   [
+    "Q&A",
+    "双方のすべての独立報道に対して同じ質問セットを提示します。回答（または「無回答」）は共通の語彙に正規化され、双方を比較できるようにしています。"
+   ],
+   [
+    "統計",
+    "候補となるパターンはすべての報道を用いて統計的に検定します。十分な一貫性を持って再現されるパターンのみが、発見・視点として提示されます。"
+   ],
+   [
+    "出典",
+    "このページのすべての数字と判断は、原文の文または AI による標注に遡ることができます。AI の標注には誤りがあり得ますが、記録によってその誤りは追跡・検証可能です。"
+   ]
+  ],
+  "ko": [
+   [
+    "집계 단위",
+    "이 사이트의 대부분의 통계는 기사가 아니라 독립 보도를 기본 단위로 사용합니다. 여러 웹사이트에 재게재된 보도자료처럼 동일한 보도의 여러 버전은 하나로 묶여 한 번만 집계됩니다."
+   ],
+   [
+    "질의응답",
+    "저희는 양측의 모든 독립 보도에 동일한 질문 세트를 적용합니다. 답변(또는 “답변 없음”)은 공통 어휘 체계로 정규화되어 양측을 비교할 수 있게 됩니다."
+   ],
+   [
+    "통계",
+    "저희는 모든 보도를 사용해 각 후보 패턴을 통계적으로 검증합니다. 충분히 일관되게 재현되는 패턴만 결과/관점으로 제시됩니다."
+   ],
+   [
+    "출처",
+    "이 페이지의 모든 수치와 판단은 원문 문장이나 AI 주석으로 거슬러 올라가 추적할 수 있습니다. AI 주석에는 오류가 있을 수 있지만, 기록을 통해 그 오류를 추적하고 검증할 수 있습니다."
+   ]
+  ],
+  "ru": [
+   [
+    "Единица подсчёта",
+    "Большинство статистических показателей на этом сайте используют в качестве базовой единицы независимые материалы, а не статьи. Разные версии одного и того же материала — например, пресс-релиз, перепечатанный несколькими сайтами, — объединяются в группу и считаются один раз."
+   ],
+   [
+    "Вопросы и ответы",
+    "Мы задаём каждому независимому материалу с обеих сторон один и тот же набор вопросов. Ответы (или «нет ответа») приводятся к общему словарю понятий, чтобы стороны можно было сравнивать."
+   ],
+   [
+    "Статистика",
+    "Каждую предполагаемую закономерность мы проверяем статистически по всем материалам. В качестве выводов/ракурсов представляются только те закономерности, которые достаточно устойчиво воспроизводятся."
+   ],
+   [
+    "Источники",
+    "Каждая цифра и каждое суждение на этой странице прослеживаются до исходных предложений или разметки ИИ. Разметка ИИ может содержать ошибки, но запись делает любые ошибки отслеживаемыми и проверяемыми."
+   ]
+  ]
+ },
+ "ORIGIN_LABEL": {
+  "ar": {
+   "domestic_wire": "نص وكالة أنباء محلية",
+   "foreign_wire_rewrite": "إعادة صياغة عن وكالة أنباء أجنبية",
+   "original": "تغطية أصلية",
+   "press_release": "إعادة صياغة عن بيان رسمي",
+   "syndication": "نص منقول"
+  },
+  "es": {
+   "domestic_wire": "cable de agencia nacional",
+   "foreign_wire_rewrite": "reescritura de cable extranjero",
+   "original": "reportaje original",
+   "press_release": "reescritura de comunicado",
+   "syndication": "copia sindicada"
+  },
+  "fr": {
+   "domestic_wire": "dépêche d'agence nationale",
+   "foreign_wire_rewrite": "réécriture de dépêche étrangère",
+   "original": "reportage original",
+   "press_release": "réécriture de communiqué",
+   "syndication": "article repris (syndication)"
+  },
+  "hi": {
+   "domestic_wire": "घरेलू वायर कॉपी",
+   "foreign_wire_rewrite": "विदेशी वायर पुनर्लेखन",
+   "original": "मौलिक रिपोर्टिंग",
+   "press_release": "बयान पुनर्लेखन",
+   "syndication": "सिंडिकेटेड कॉपी"
+  },
+  "ja": {
+   "domestic_wire": "国内通信社配信",
+   "foreign_wire_rewrite": "外電の書き直し",
+   "original": "独自取材",
+   "press_release": "声明の書き直し",
+   "syndication": "配信転載"
+  },
+  "ko": {
+   "domestic_wire": "국내 통신사 기사",
+   "foreign_wire_rewrite": "외신 재구성",
+   "original": "자체 취재",
+   "press_release": "보도자료 재구성",
+   "syndication": "전재 기사"
+  },
+  "ru": {
+   "domestic_wire": "материал национального информагентства",
+   "foreign_wire_rewrite": "переработка иностранной сводки",
+   "original": "оригинальный репортаж",
+   "press_release": "переработка заявления",
+   "syndication": "перепечатка"
+  }
+ },
+ "PROVENANCE_COUNTS": {
+  "ar": {
+   "analysis": [
+    [
+     "findings",
+     "{n} نتيجة"
+    ],
+    [
+     "supported",
+     "{n} فوق الحد"
+    ]
+   ],
+   "answers": [
+    [
+     "answers",
+     "{n} إجابة"
+    ],
+    [
+     "clusters",
+     "عبر {n} تقرير"
+    ]
+   ],
+   "corpus": [
+    [
+     "articles",
+     "{n} مقالة"
+    ],
+    [
+     "reporting_clusters",
+     "{n} تقرير مستقل"
+    ]
+   ],
+   "normalization": [
+    [
+     "categories_merged",
+     "دمج {n} تصنيف"
+    ]
+   ],
+   "page": [
+    [
+     "languages",
+     "{n} لغة"
+    ]
+   ],
+   "questions": [
+    [
+     "questions",
+     "{n} سؤالًا"
+    ]
+   ],
+   "write": [
+    [
+     "angles",
+     "{n} زاوية"
+    ],
+    [
+     "quotes",
+     "{n} اقتباس"
+    ]
+   ]
+  },
+  "es": {
+   "analysis": [
+    [
+     "findings",
+     "{n} hallazgos"
+    ],
+    [
+     "supported",
+     "{n} por encima del umbral"
+    ]
+   ],
+   "answers": [
+    [
+     "answers",
+     "{n} respuestas"
+    ],
+    [
+     "clusters",
+     "en {n} reportajes"
+    ]
+   ],
+   "corpus": [
+    [
+     "articles",
+     "{n} artículos"
+    ],
+    [
+     "reporting_clusters",
+     "{n} reportajes independientes"
+    ]
+   ],
+   "normalization": [
+    [
+     "categories_merged",
+     "{n} categorías combinadas"
+    ]
+   ],
+   "page": [
+    [
+     "languages",
+     "{n} idiomas"
+    ]
+   ],
+   "questions": [
+    [
+     "questions",
+     "{n} preguntas"
+    ]
+   ],
+   "write": [
+    [
+     "angles",
+     "{n} ángulos"
+    ],
+    [
+     "quotes",
+     "{n} citas"
+    ]
+   ]
+  },
+  "fr": {
+   "analysis": [
+    [
+     "findings",
+     "{n} résultats"
+    ],
+    [
+     "supported",
+     "{n} au-dessus du seuil"
+    ]
+   ],
+   "answers": [
+    [
+     "answers",
+     "{n} réponses"
+    ],
+    [
+     "clusters",
+     "dans {n} reportages"
+    ]
+   ],
+   "corpus": [
+    [
+     "articles",
+     "{n} articles"
+    ],
+    [
+     "reporting_clusters",
+     "{n} reportages indépendants"
+    ]
+   ],
+   "normalization": [
+    [
+     "categories_merged",
+     "{n} catégories fusionnées"
+    ]
+   ],
+   "page": [
+    [
+     "languages",
+     "{n} langues"
+    ]
+   ],
+   "questions": [
+    [
+     "questions",
+     "{n} questions"
+    ]
+   ],
+   "write": [
+    [
+     "angles",
+     "{n} angles"
+    ],
+    [
+     "quotes",
+     "{n} citations"
+    ]
+   ]
+  },
+  "hi": {
+   "analysis": [
+    [
+     "findings",
+     "{n} निष्कर्ष"
+    ],
+    [
+     "supported",
+     "{n} मानक से ऊपर"
+    ]
+   ],
+   "answers": [
+    [
+     "answers",
+     "{n} उत्तर"
+    ],
+    [
+     "clusters",
+     "{n} रिपोर्टों में"
+    ]
+   ],
+   "corpus": [
+    [
+     "articles",
+     "{n} लेख"
+    ],
+    [
+     "reporting_clusters",
+     "{n} स्वतंत्र रिपोर्टें"
+    ]
+   ],
+   "normalization": [
+    [
+     "categories_merged",
+     "{n} श्रेणियाँ मिलाई गईं"
+    ]
+   ],
+   "page": [
+    [
+     "languages",
+     "{n} भाषाएँ"
+    ]
+   ],
+   "questions": [
+    [
+     "questions",
+     "{n} सवाल"
+    ]
+   ],
+   "write": [
+    [
+     "angles",
+     "{n} दृष्टिकोण"
+    ],
+    [
+     "quotes",
+     "{n} उद्धरण"
+    ]
+   ]
+  },
+  "ja": {
+   "analysis": [
+    [
+     "findings",
+     "{n}件の発見"
+    ],
+    [
+     "supported",
+     "{n}件が基準を達成"
+    ]
+   ],
+   "answers": [
+    [
+     "answers",
+     "{n}件の回答"
+    ],
+    [
+     "clusters",
+     "{n}件の報道にわたる"
+    ]
+   ],
+   "corpus": [
+    [
+     "articles",
+     "{n}件の記事"
+    ],
+    [
+     "reporting_clusters",
+     "{n}件の独立報道"
+    ]
+   ],
+   "normalization": [
+    [
+     "categories_merged",
+     "{n}個のカテゴリを統合"
+    ]
+   ],
+   "page": [
+    [
+     "languages",
+     "{n}言語"
+    ]
+   ],
+   "questions": [
+    [
+     "questions",
+     "{n}件の質問"
+    ]
+   ],
+   "write": [
+    [
+     "angles",
+     "{n}件の視点"
+    ],
+    [
+     "quotes",
+     "{n}件の引用"
+    ]
+   ]
+  },
+  "ko": {
+   "analysis": [
+    [
+     "findings",
+     "{n}건의 결과"
+    ],
+    [
+     "supported",
+     "기준 통과 {n}건"
+    ]
+   ],
+   "answers": [
+    [
+     "answers",
+     "{n}건의 답변"
+    ],
+    [
+     "clusters",
+     "{n}건의 보도에 걸쳐"
+    ]
+   ],
+   "corpus": [
+    [
+     "articles",
+     "{n}건의 기사"
+    ],
+    [
+     "reporting_clusters",
+     "{n}건의 독립 보도 그룹"
+    ]
+   ],
+   "normalization": [
+    [
+     "categories_merged",
+     "{n}개 카테고리 병합"
+    ]
+   ],
+   "page": [
+    [
+     "languages",
+     "{n}개 언어"
+    ]
+   ],
+   "questions": [
+    [
+     "questions",
+     "{n}개의 질문"
+    ]
+   ],
+   "write": [
+    [
+     "angles",
+     "{n}개의 관점"
+    ],
+    [
+     "quotes",
+     "{n}건의 인용문"
+    ]
+   ]
+  },
+  "ru": {
+   "analysis": [
+    [
+     "findings",
+     "{n} выводов"
+    ],
+    [
+     "supported",
+     "{n} выше порога"
+    ]
+   ],
+   "answers": [
+    [
+     "answers",
+     "{n} ответов"
+    ],
+    [
+     "clusters",
+     "в {n} материалах"
+    ]
+   ],
+   "corpus": [
+    [
+     "articles",
+     "{n} статей"
+    ],
+    [
+     "reporting_clusters",
+     "{n} независимых материалов"
+    ]
+   ],
+   "normalization": [
+    [
+     "categories_merged",
+     "объединено категорий: {n}"
+    ]
+   ],
+   "page": [
+    [
+     "languages",
+     "{n} языков"
+    ]
+   ],
+   "questions": [
+    [
+     "questions",
+     "{n} вопросов"
+    ]
+   ],
+   "write": [
+    [
+     "angles",
+     "{n} ракурсов"
+    ],
+    [
+     "quotes",
+     "{n} цитат"
+    ]
+   ]
+  }
+ },
+ "SOURCE_CATEGORY": {
+  "ar": {
+   "other": "مجلة أو منشور متخصص أو بوابة إخبارية",
+   "serious": "جهة إعلامية ذات تغطية أصلية"
+  },
+  "es": {
+   "other": "revista, medio sectorial o portal",
+   "serious": "medio de reportaje original"
+  },
+  "fr": {
+   "other": "magazine, presse spécialisée ou portail",
+   "serious": "média de reportage original"
+  },
+  "hi": {
+   "other": "पत्रिका, व्यापारिक या पोर्टल माध्यम",
+   "serious": "मौलिक रिपोर्टिंग करने वाला माध्यम"
+  },
+  "ja": {
+   "other": "雑誌・専門メディア・ポータルサイト",
+   "serious": "独自取材を行う報道機関"
+  },
+  "ko": {
+   "other": "잡지·업계지·포털",
+   "serious": "자체 취재 매체"
+  },
+  "ru": {
+   "other": "журнал, отраслевое издание или портал",
+   "serious": "издание с собственными репортажами"
+  }
+ },
+ "STAT_RATE_LINE": {
+  "ar": "نسبة التقارير التي أجابت أصلًا: {left_rate}، {right_rate} (الفرق {value:+.0%}، مجال 90%: [{lo:+.0%}, {hi:+.0%}]).",
+  "es": "Proporción de reportajes que respondieron en general: {left_rate}, {right_rate} (diferencia {value:+.0%}, intervalo del 90% [{lo:+.0%}, {hi:+.0%}]).",
+  "fr": "Part des reportages ayant répondu, tous côtés confondus : {left_rate}, {right_rate} (écart {value:+.0%}, intervalle à 90 % [{lo:+.0%}, {hi:+.0%}]).",
+  "hi": "कुल मिलाकर उत्तर देने वाली रिपोर्टों का हिस्सा: {left_rate}, {right_rate} (अंतर {value:+.0%}, 90% अंतराल [{lo:+.0%}, {hi:+.0%}])।",
+  "ja": "何らかの回答をした報道の割合：{left_rate}、{right_rate}（差 {value:+.0%}、90%区間 [{lo:+.0%}, {hi:+.0%}]）。",
+  "ko": "질문에 어떤 형태로든 답변한 보도의 비율: {left_rate}, {right_rate} (차이 {value:+.0%}, 90% 구간 [{lo:+.0%}, {hi:+.0%}]).",
+  "ru": "Доля материалов, ответивших хоть как-то: {left_rate}, {right_rate} (разница {value:+.0%}, 90%-й интервал [{lo:+.0%}, {hi:+.0%}])."
+ },
+ "STAT_SHARE": {
+  "ar": "{who}: {numerator}/{denominator} ({share:.0%})",
+  "es": "{who}: {numerator}/{denominator} ({share:.0%})",
+  "fr": "{who} : {numerator}/{denominator} ({share:.0%})",
+  "hi": "{who}: {numerator}/{denominator} ({share:.0%})",
+  "ja": "{who}：{numerator}/{denominator}（{share:.0%}）",
+  "ko": "{who}: {numerator}/{denominator} ({share:.0%})",
+  "ru": "{who}: {numerator}/{denominator} ({share:.0%})"
+ },
+ "STAT_STABILITY": {
+  "ar": "عند إعادة أخذ عينات من التقارير، يتكرر النمط نفسه في **{stability:.0%}** من المرات.",
+  "es": "Cuando se vuelven a muestrear los reportajes, el mismo patrón reaparece el **{stability:.0%}** de las veces.",
+  "fr": "Lorsque les reportages sont rééchantillonnés, le même schéma réapparaît **{stability:.0%}** du temps.",
+  "hi": "जब रिपोर्टों का पुनः-प्रतिचयन किया जाता है, तो वही प्रवृत्ति **{stability:.0%}** बार फिर से दिखाई देती है।",
+  "ja": "報道を再抽出しても、同じパターンが**{stability:.0%}**の確率で再び現れます。",
+  "ko": "보도를 재표본추출했을 때, 동일한 패턴이 **{stability:.0%}**의 비율로 다시 나타납니다.",
+  "ru": "При повторной выборке материалов та же закономерность воспроизводится в **{stability:.0%}** случаев."
+ },
+ "STAT_TEMPLATE": {
+  "ar": {
+   "attention_gap": "يتطرق أحد الطرفين إلى هذا السؤال بمعدل أقل بكثير من الآخر: يختلف معدلا الإجابة بين الطرفين بمقدار **{value:+.0%}** (مجال 90%: [{lo:+.0%}, {hi:+.0%}]) — {left_rate} مقابل {right_rate}.",
+   "consensus": "لدى الطرفين الإجابة الأكثر شيوعًا نفسها: **{answer}**. وبمتوسط الطرفين، تمثل هذه الإجابة **{value:.0%}** من التقارير التي أجابت (مجال 90%: [{lo:.0%}, {hi:.0%}]) — {left_share} و{right_share}.",
+   "divergence": "تختلف الإجابة الأكثر شيوعًا بين الطرفين: {left_answer} مقابل {right_answer}. وبمتوسط هاتين الإجابتين، يبلغ الفرق بين الطرفين في الحصة **{value:.0%}** (مجال 90%: [{lo:.0%}, {hi:.0%}])."
+  },
+  "es": {
+   "attention_gap": "Un lado aborda esta pregunta con mucha menos frecuencia que el otro: las tasas de respuesta de ambos lados difieren en **{value:+.0%}** (intervalo del 90% [{lo:+.0%}, {hi:+.0%}]) — {left_rate} frente a {right_rate}.",
+   "consensus": "Ambos lados tienen la misma respuesta más común: **{answer}**. Promediado entre los dos lados, representa el **{value:.0%}** de los reportajes que respondieron (intervalo del 90% [{lo:.0%}, {hi:.0%}]) — {left_share} y {right_share}.",
+   "divergence": "La respuesta más común difiere entre los dos lados: {left_answer} frente a {right_answer}. Promediando esas dos respuestas, la diferencia de proporción entre ambos lados es de **{value:.0%}** (intervalo del 90% [{lo:.0%}, {hi:.0%}])."
+  },
+  "fr": {
+   "attention_gap": "Un côté aborde cette question bien moins souvent que l'autre : les taux de réponse des deux côtés diffèrent de **{value:+.0%}** (intervalle à 90 % [{lo:+.0%}, {hi:+.0%}]) — {left_rate} contre {right_rate}.",
+   "consensus": "Les deux côtés partagent la même réponse la plus fréquente : **{answer}**. En moyenne sur les deux côtés, elle représente **{value:.0%}** des reportages ayant répondu (intervalle à 90 % [{lo:.0%}, {hi:.0%}]) — {left_share} et {right_share}.",
+   "divergence": "La réponse la plus fréquente diffère entre les deux côtés : {left_answer} contre {right_answer}. En moyenne sur ces deux réponses, l'écart de part entre les deux côtés est de **{value:.0%}** (intervalle à 90 % [{lo:.0%}, {hi:.0%}])."
+  },
+  "hi": {
+   "attention_gap": "एक पक्ष इस सवाल को दूसरे की तुलना में बहुत कम बार संबोधित करता है: दोनों पक्षों की उत्तर दर में **{value:+.0%}** का अंतर है (90% अंतराल [{lo:+.0%}, {hi:+.0%}]) — {left_rate} बनाम {right_rate}।",
+   "consensus": "दोनों पक्षों का सबसे आम उत्तर एक समान है: **{answer}**। दोनों पक्षों के औसत के अनुसार, यह उत्तर देने वाली रिपोर्टों का **{value:.0%}** हिस्सा है (90% अंतराल [{lo:.0%}, {hi:.0%}]) — {left_share} और {right_share}।",
+   "divergence": "दोनों पक्षों में सबसे आम उत्तर अलग-अलग है: {left_answer} बनाम {right_answer}। इन दोनों उत्तरों के औसत के अनुसार, पक्षों के बीच हिस्से का अंतर **{value:.0%}** है (90% अंतराल [{lo:.0%}, {hi:.0%}])।"
+  },
+  "ja": {
+   "attention_gap": "一方はこの質問への言及頻度がもう一方よりはるかに少なくなっています：両側の回答率の差は**{value:+.0%}**です（90%区間 [{lo:+.0%}, {hi:+.0%}]）——{left_rate} 対 {right_rate}。",
+   "consensus": "双方の最多回答は同じです：**{answer}**。両側平均で、回答した報道の**{value:.0%}**を占めます（90%区間 [{lo:.0%}, {hi:.0%}]）——{left_share}、{right_share}。",
+   "divergence": "双方の最多回答は異なります：{left_answer} 対 {right_answer}。この2つの回答について、両側の割合差を平均すると**{value:.0%}**です（90%区間 [{lo:.0%}, {hi:.0%}]）。"
+  },
+  "ko": {
+   "attention_gap": "한쪽이 다른 쪽보다 이 질문을 훨씬 덜 다룹니다: 양측의 응답률 차이는 **{value:+.0%}**입니다(90% 구간 [{lo:+.0%}, {hi:+.0%}]) — {left_rate} 대 {right_rate}.",
+   "consensus": "양측에서 가장 흔한 답변이 동일합니다: **{answer}**. 양측 평균으로 볼 때 응답한 보도 중 **{value:.0%}**를 차지합니다(90% 구간 [{lo:.0%}, {hi:.0%}]) — {left_share}, {right_share}.",
+   "divergence": "양측에서 가장 흔한 답변이 서로 다릅니다: {left_answer} 대 {right_answer}. 이 두 답변의 비중 차이를 평균 내면 **{value:.0%}**입니다(90% 구간 [{lo:.0%}, {hi:.0%}])."
+  },
+  "ru": {
+   "attention_gap": "Одна сторона затрагивает этот вопрос гораздо реже другой: доли ответивших у сторон различаются на **{value:+.0%}** (90%-й интервал [{lo:+.0%}, {hi:+.0%}]) — {left_rate} против {right_rate}.",
+   "consensus": "У обеих сторон самый частый ответ совпадает: **{answer}**. В среднем по обеим сторонам он составляет **{value:.0%}** ответивших материалов (90%-й интервал [{lo:.0%}, {hi:.0%}]) — {left_share} и {right_share}.",
+   "divergence": "Самый частый ответ у сторон различается: {left_answer} против {right_answer}. В среднем по этим двум ответам разница долей между сторонами составляет **{value:.0%}** (90%-й интервал [{lo:.0%}, {hi:.0%}])."
+  }
+ },
+ "STRENGTH_LABEL": {
+  "ar": {
+   "supported": "قوي",
+   "unsupported": "بلا دليل",
+   "weak": "ضعيف"
+  },
+  "es": {
+   "supported": "fuerte",
+   "unsupported": "sin evidencia",
+   "weak": "débil"
+  },
+  "fr": {
+   "supported": "solide",
+   "unsupported": "aucune preuve",
+   "weak": "faible"
+  },
+  "hi": {
+   "supported": "मज़बूत",
+   "unsupported": "कोई प्रमाण नहीं",
+   "weak": "कमज़ोर"
+  },
+  "ja": {
+   "supported": "強",
+   "unsupported": "証拠なし",
+   "weak": "弱"
+  },
+  "ko": {
+   "supported": "강함",
+   "unsupported": "근거 없음",
+   "weak": "약함"
+  },
+  "ru": {
+   "supported": "сильно",
+   "unsupported": "нет данных",
+   "weak": "слабо"
+  }
+ },
+ "STRENGTH_TIP_POSTERIOR": {
+  "ar": {
+   "supported": "استقرار إعادة أخذ العينات لهذه النتيجة أعلى من {supported_min_probability:.0%}{stability_clause}.",
+   "unsupported": "استقرار إعادة أخذ العينات لهذه النتيجة أقل من {weak_min_probability:.0%}.",
+   "weak": "استقرار إعادة أخذ العينات لهذه النتيجة يتراوح بين {weak_min_probability:.0%} و{supported_min_probability:.0%}{stability_clause}."
+  },
+  "es": {
+   "supported": "La estabilidad de remuestreo de este hallazgo está por encima del {supported_min_probability:.0%}{stability_clause}.",
+   "unsupported": "La estabilidad de remuestreo de este hallazgo está por debajo del {weak_min_probability:.0%}.",
+   "weak": "La estabilidad de remuestreo de este hallazgo está entre el {weak_min_probability:.0%} y el {supported_min_probability:.0%}{stability_clause}."
+  },
+  "fr": {
+   "supported": "La stabilité de ce résultat au rééchantillonnage est supérieure à {supported_min_probability:.0%}{stability_clause}.",
+   "unsupported": "La stabilité de ce résultat au rééchantillonnage est inférieure à {weak_min_probability:.0%}.",
+   "weak": "La stabilité de ce résultat au rééchantillonnage se situe entre {weak_min_probability:.0%} et {supported_min_probability:.0%}{stability_clause}."
+  },
+  "hi": {
+   "supported": "इस निष्कर्ष की पुनः-प्रतिचयन स्थिरता {supported_min_probability:.0%}{stability_clause} से अधिक है।",
+   "unsupported": "इस निष्कर्ष की पुनः-प्रतिचयन स्थिरता {weak_min_probability:.0%} से कम है।",
+   "weak": "इस निष्कर्ष की पुनः-प्रतिचयन स्थिरता {weak_min_probability:.0%} और {supported_min_probability:.0%}{stability_clause} के बीच है।"
+  },
+  "ja": {
+   "supported": "この結論の再抽出安定性は{supported_min_probability:.0%}を超えています{stability_clause}。",
+   "unsupported": "この結論の再抽出安定性は{weak_min_probability:.0%}未満です。",
+   "weak": "この結論の再抽出安定性は{weak_min_probability:.0%}から{supported_min_probability:.0%}の間です{stability_clause}。"
+  },
+  "ko": {
+   "supported": "이 결과의 재표본 안정성은 {supported_min_probability:.0%}{stability_clause} 이상입니다.",
+   "unsupported": "이 결과의 재표본 안정성은 {weak_min_probability:.0%} 미만입니다.",
+   "weak": "이 결과의 재표본 안정성은 {weak_min_probability:.0%}에서 {supported_min_probability:.0%}{stability_clause} 사이입니다."
+  },
+  "ru": {
+   "supported": "Устойчивость этого вывода при повторной выборке превышает {supported_min_probability:.0%}{stability_clause}.",
+   "unsupported": "Устойчивость этого вывода при повторной выборке ниже {weak_min_probability:.0%}.",
+   "weak": "Устойчивость этого вывода при повторной выборке находится между {weak_min_probability:.0%} и {supported_min_probability:.0%}{stability_clause}."
+  }
+ },
+ "STRINGS": {
+  "ar": {
+   "annotations": "التفاصيل",
+   "appendix_collapse": "طي الكل",
+   "appendix_expand": "توسيع الكل",
+   "appendix_intro": "عرض بياني كامل لكل سؤال طُرح وكل إجابة تم توسيمها.",
+   "appendix_title": "بيانات الأسئلة والأجوبة",
+   "back_to_top": "العودة إلى الأعلى",
+   "badge_tip_addressed": "من أصل {denominator} تقريرًا مستقلًا قابلًا للقراءة تم احتسابها في هذا التحليل، أجاب {numerator} على هذا السؤال.",
+   "badge_tip_top": "أجاب {denominator} تقريرًا مستقلًا على هذا السؤال؛ قدَّم {numerator} منها الإجابة أعلاه.",
+   "badge_tip_top_full": "من أصل {total} تقريرًا مستقلًا قابلًا للقراءة تم احتسابها في هذا التحليل، أجاب {denominator} على هذا السؤال؛ قدَّم {numerator} منها الإجابة أعلاه.",
+   "category": "الإجابة",
+   "caveat_label": "مهم",
+   "cc_absent": "غير موجود",
+   "cc_below": "(دون الحد الأدنى، لم يُرسم)",
+   "cc_capped": "(تجاوز الحد الأقصى لكل طرف، لم يُرسم)",
+   "cc_foot": "المعروض: المفاهيم التي تظهر في {min_count} إجابة على الأقل، وبنسبة {threshold} أو أكثر من إجابات أحد الطرفين، بحد أقصى {cap} لكل طرف ({hidden}). الحصة = عدد مرات ظهور المفهوم ÷ كل الإجابات المصنَّفة لذلك الطرف ({totals}). مرّر المؤشر فوق أي مفهوم أو انقر عليه لترى الأرقام الدقيقة لدى الطرفين، سواء ظهر في السحابة أم لا.",
+   "cc_foot_topics": "المعروض: المفاهيم المذكورة في {min_count} تقرير مستقل على الأقل، وفي {threshold} على الأقل من تقارير أحد الطرفين، بحد أقصى {cap} لكل طرف ({hidden}). الحصة = عدد التقارير التي تذكر ذلك المفهوم ÷ كل التقارير المستقلة لذلك الطرف ({totals}). ",
+   "cc_hidden_capped": "، و{capped} تجاوزت الحد الأقصى",
+   "cc_hidden_sep": "؛ ",
+   "cc_hidden_side": "{who}: {below} دون الحد الأدنى",
+   "cc_info_open": "كيفية احتساب سحابة المفاهيم",
+   "cc_info_title": "كيفية قراءة سحابة المفاهيم",
+   "cc_lede": "نجمع كل الإجابات المصنَّفة في كل طرف، بصرف النظر عن السؤال. وكلما زادت حصة مفهوم ما من إجابات ذلك الطرف، ظهر بحجم أكبر واحتل ترتيبًا أعلى. يُرتَّب كل عمود بشكل مستقل — مرّر المؤشر فوق أي مفهوم لترى ترتيبه لدى الطرفين.",
+   "cc_lede_topics": "عدد المرات التي يذكر فيها كل طرف المفاهيم الرئيسية.",
+   "cc_side_total": "{who} {n}",
+   "cc_title": "سحابة المفاهيم",
+   "cc_total": "{n} إجابة مصنَّفة",
+   "cc_total_topics": "{n} تقرير مستقل",
+   "cluster": "تقرير",
+   "cluster_article": "{n} مقالة",
+   "cluster_articles": "{n} مقالات",
+   "cluster_col_date": "التاريخ",
+   "cluster_col_outlet": "الجهة الإعلامية",
+   "cluster_col_title": "العنوان",
+   "cluster_lede": "تم تحديد هذه المقالات كنسخ من التقرير نفسه.",
+   "cluster_original": "أصلي",
+   "cluster_tip": "فتح مجموعة التقارير هذه",
+   "cluster_title": "مجموعة التقارير",
+   "delta": "الفرق",
+   "detail_label": "المزيد",
+   "disclosure_ai": "أُنتجت كل مرحلة من مراحل هذه الصفحة — الجمع والتوسيم والكتابة والترجمة — بواسطة أنظمة ذكاء اصطناعي، وخضعت لمراجعة بشرية قبل النشر. الترجمات من إعدادنا، وليست ترجمة الناشر؛ والنص الأصلي الحرفي لكل اقتباس يبعد نقرة واحدة، وهو دائمًا المرجع المعتمد.",
+   "disclosure_collected": "اكتمل الجمع",
+   "disclosure_lede": "لقطة لإصدارات البيانات والعمليات وراء هذه الصفحة.",
+   "disclosure_open": "سجل الصفحة",
+   "disclosure_title": "سجل الصفحة",
+   "evidence_quote": "النص المقتبس",
+   "evidence_report": "مصدر التقرير",
+   "evidence_title": "التقارير الداعمة لـ «{answer}»",
+   "evidence_title_silent": "كل التقارير الموسومة في هذا الطرف",
+   "featured": "مميزة",
+   "featured_tip": "زاوية اختارها الذكاء الاصطناعي بناءً على الأدلة الإحصائية والقيمة الخبرية",
+   "footer_note": "قصة واحدة، حكايتان",
+   "home_link": "العودة إلى الصفحة الرئيسية",
+   "interval": "المجال",
+   "media_beat": "نطاق التغطية",
+   "media_category": "النوع",
+   "media_country": "الموقع",
+   "media_lang": "اللغة",
+   "media_site": "زيارة موقع الجهة الإعلامية ↗",
+   "media_tip": "عن هذه الجهة الإعلامية",
+   "method_open": "المنهجية",
+   "method_title": "المنهجية",
+   "modal_close": "إغلاق",
+   "modal_cluster": "مجموعة التقارير",
+   "modal_fetched": "تاريخ الجمع",
+   "modal_note": "لا يحتفظ هذا الموقع بالمقال كاملًا.",
+   "modal_origin": "مصدر التغطية",
+   "modal_out": "المقال الكامل لدى الناشر ↗",
+   "modal_para": "الفقرة {p}، الجملة {s}",
+   "modal_position": "الموضع",
+   "modal_topics": "عبارات رئيسية",
+   "modal_topics_concept": "المفهوم",
+   "modal_topics_source": "الصياغة",
+   "modal_topics_switch": "الصياغة ↔ المفهوم",
+   "modal_topics_tip": "بدّل بين الصياغة الأصلية للمقال ومفهومه المُعرَّب.",
+   "more_evidence": "عرض {n} إضافية",
+   "nav_tip": "الانتقال إلى الزاوية {n}",
+   "not_addressed": "لم يُجب",
+   "note": "ملاحظات",
+   "of_clusters": "تقارير مستقلة",
+   "open_annotations": "عرض كل جمل المصدر والتوسيمات",
+   "open_stats": "الإحصاءات",
+   "perspectives_title": "الزوايا",
+   "provenance_analysis": "التحليل",
+   "provenance_anonymous": "مجهول",
+   "provenance_answers": "التوسيمات",
+   "provenance_contributor": "المساهم",
+   "provenance_corpus": "لقطة المجموعة النصية",
+   "provenance_normalization": "خريطة التصنيفات",
+   "provenance_page": "لقطة الصفحة",
+   "provenance_page_actor": "راجعه {who}",
+   "provenance_page_actor_ai": "راجعه {who}، نيابةً عن المؤسس",
+   "provenance_questions": "مجموعة الأسئلة",
+   "provenance_review_lang": " (لغة المراجعة: {lang})",
+   "provenance_scope": "نطاق موقَّع",
+   "provenance_scope_actor": "وقَّعه {who}",
+   "provenance_scope_actor_ai": "وقَّعه {who}، نيابةً عن المؤسس",
+   "provenance_write": "الكتابة",
+   "quote_source": "النص الأصلي",
+   "quote_tip": "افتح سجلنا لهذه الجملة — الجهة الإعلامية، التاريخ، مجموعة التقارير، موضعها في المقال، والرابط إلى الناشر.",
+   "rank_tip": "تُرتَّب أزواج الأسئلة والأجوبة تلقائيًا وفق الدلالة الإحصائية وحجم الأثر",
+   "rate_label": "أجاب {addressed}/{total}",
+   "rate_tip": "من أصل {total} تقريرًا مستقلًا قابلًا للقراءة تم احتسابها في هذا التحليل، أجاب {addressed} على هذا السؤال.",
+   "runs": "التشغيلات المثبَّتة",
+   "scope_collected_end": "{date} (يوم الجمع)",
+   "scope_exclude": "خارج النطاق",
+   "scope_include": "ضمن النطاق",
+   "scope_note": "نطاق تم تأكيده قبل بدء جمع الأخبار",
+   "scope_open": "النطاق",
+   "scope_period": "النافذة الزمنية",
+   "scope_target": "العدد المستهدف من التقارير المستقلة لكل طرف",
+   "scope_tip": "كيفية جمع التقارير",
+   "scope_title": "النطاق",
+   "search_answers": "الأسئلة والأجوبة",
+   "search_clear": "مسح البحث",
+   "search_count": "النتائج المطابقة: {n}",
+   "search_lede": "ابحث في تفاصيل التقارير بالكلمات المفتاحية (باستثناء نص المقال).",
+   "search_more": "عرض أول {shown} من أصل {total} تقريرًا ذا صلة.",
+   "search_none": "لا يوجد تقرير يطابق كل هذه الكلمات المفتاحية.",
+   "search_open": "فتح سجل التقرير",
+   "search_phrases": "عبارات رئيسية",
+   "search_placeholder": "العنوان، العبارة، المفهوم، التاريخ، الجهة الإعلامية…",
+   "search_title": "بحث",
+   "secondary_label": "ثانوي",
+   "secondary_tip": "يرصد عدد مرات التطرق إلى السؤال، لا كيفية الإجابة عنه. قد يدعم زاوية ما لكنه لا يشكل زاوية بمفرده.",
+   "shared_answer": "إجابة الطرفين",
+   "silent_answer": "(معدل الإجابة منخفض جدًا)",
+   "stability": "استقرار الاتجاه",
+   "stats_title": "الإحصاءات",
+   "summary": "ملاحظات التوسيم",
+   "theme_tip": "التبديل بين الوضع الفاتح والداكن",
+   "tied_label": "تعادل في الصدارة",
+   "tied_tip": "تعادلت إجابتان أو أكثر في المرتبة الأولى لدى أحد الطرفين",
+   "timeline_title": "الجدول الزمني",
+   "toggle_tr": "بدّل كل اقتباس في هذه الصفحة بين نصه الأصلي الحرفي وترجمتنا.",
+   "tr_original": "النص الأصلي",
+   "tr_translated": "الترجمة",
+   "window": "{first} – {last} · {sides} · إجمالي {articles} تقريرًا مستقلًا",
+   "window_counts": "{sides} · إجمالي {articles} تقريرًا مستقلًا",
+   "window_side": "{who}: {n} تقارير",
+   "withheld": "لا نعرض أبدًا أكثر من نصف أي مقالة واحدة، لذا تُدرج هذه العلامة بموضعها فقط — اقرأها لدى الناشر."
+  },
+  "es": {
+   "annotations": "Detalles",
+   "appendix_collapse": "Colapsar todo",
+   "appendix_expand": "Expandir todo",
+   "appendix_intro": "Una vista de datos completa de cada pregunta formulada y cada respuesta anotada.",
+   "appendix_title": "Datos de preguntas y respuestas",
+   "back_to_top": "Volver arriba",
+   "badge_tip_addressed": "De los {denominator} reportajes independientes legibles contabilizados en este análisis, {numerator} respondieron esta pregunta.",
+   "badge_tip_top": "{denominator} reportajes independientes respondieron esta pregunta; {numerator} de ellos dieron la respuesta anterior.",
+   "badge_tip_top_full": "De los {total} reportajes independientes legibles contabilizados en este análisis, {denominator} respondieron esta pregunta; {numerator} de ellos dieron la respuesta anterior.",
+   "category": "respuesta",
+   "caveat_label": "importante",
+   "cc_absent": "no encontrado",
+   "cc_below": "(por debajo del umbral, no dibujado)",
+   "cc_capped": "(por encima del límite por lado, no dibujado)",
+   "cc_foot": "Se muestran: conceptos que aparecen en al menos {min_count} respuestas y en al menos {threshold} de las respuestas de un lado, con un máximo de {cap} por lado ({hidden}). Proporción = número de veces que aparece el concepto ÷ todas las respuestas clasificadas de ese lado ({totals}). Pasa el cursor o toca cualquier concepto para ver las cifras exactas de ambos lados, aparezca o no en la nube.",
+   "cc_foot_topics": "Se muestran: conceptos mencionados en al menos {min_count} reportajes independientes y en al menos {threshold} de los reportajes de un lado, con un máximo de {cap} por lado ({hidden}). Proporción = reportajes que mencionan ese concepto ÷ todos los reportajes independientes de ese lado ({totals}). ",
+   "cc_hidden_capped": ", {capped} por encima del límite",
+   "cc_hidden_sep": "; ",
+   "cc_hidden_side": "{who}: {below} por debajo del umbral",
+   "cc_info_open": "Cómo se calcula la nube de conceptos",
+   "cc_info_title": "Cómo leer la nube de conceptos",
+   "cc_lede": "Combinamos todas las respuestas clasificadas de cada lado, sin distinguir por pregunta. Cuanto mayor sea la proporción de un concepto respecto a las respuestas de ese lado, más grande aparece y más alto se clasifica. Cada columna se clasifica de forma independiente: resalta un concepto para ver dónde se ubica en ambos lados.",
+   "cc_lede_topics": "Con qué frecuencia menciona cada lado los conceptos clave.",
+   "cc_side_total": "{who} {n}",
+   "cc_title": "Nube de conceptos",
+   "cc_total": "{n} respuestas clasificadas",
+   "cc_total_topics": "{n} reportajes independientes",
+   "cluster": "reportaje",
+   "cluster_article": "{n} artículo",
+   "cluster_articles": "{n} artículos",
+   "cluster_col_date": "fecha",
+   "cluster_col_outlet": "medio",
+   "cluster_col_title": "titular",
+   "cluster_lede": "Estos artículos fueron identificados como versiones del mismo reportaje.",
+   "cluster_original": "orig.",
+   "cluster_tip": "Abrir este grupo de reportaje",
+   "cluster_title": "Grupo de reportaje",
+   "delta": "Diferencia",
+   "detail_label": "más",
+   "disclosure_ai": "Cada etapa de esta página —recopilación, anotación, redacción y traducción— fue producida por sistemas de IA y auditada por un humano antes de su publicación. Las traducciones son nuestras, no del medio original; el original textual de cada cita está a un clic de distancia y es siempre el registro definitivo.",
+   "disclosure_collected": "Recopilación finalizada",
+   "disclosure_lede": "Una instantánea de las versiones de datos y del proceso detrás de esta página.",
+   "disclosure_open": "Registro de la página",
+   "disclosure_title": "Registro de la página",
+   "evidence_quote": "texto citado",
+   "evidence_report": "fuente del reportaje",
+   "evidence_title": "Reportajes que respaldan “{answer}”",
+   "evidence_title_silent": "Todos los reportajes anotados de este lado",
+   "featured": "destacado",
+   "featured_tip": "Ángulo seleccionado por la IA según la evidencia estadística y el valor noticioso",
+   "footer_note": "Una noticia, dos relatos",
+   "home_link": "Volver al inicio",
+   "interval": "intervalo",
+   "media_beat": "cobertura",
+   "media_category": "tipo",
+   "media_country": "ubicación",
+   "media_lang": "idioma",
+   "media_site": "Visitar el medio ↗",
+   "media_tip": "Sobre este medio",
+   "method_open": "Método",
+   "method_title": "Método",
+   "modal_close": "Cerrar",
+   "modal_cluster": "grupo de reportaje",
+   "modal_fetched": "recopilado el",
+   "modal_note": "Este sitio no almacena el artículo completo.",
+   "modal_origin": "origen del reportaje",
+   "modal_out": "Artículo completo en el medio ↗",
+   "modal_para": "párrafo {p}, oración {s}",
+   "modal_position": "posición",
+   "modal_topics": "frases clave",
+   "modal_topics_concept": "concepto",
+   "modal_topics_source": "redacción",
+   "modal_topics_switch": "redacción ↔ concepto",
+   "modal_topics_tip": "Alterna entre la redacción original del artículo y su concepto localizado.",
+   "more_evidence": "Mostrar {n} más",
+   "nav_tip": "Ir al ángulo {n}",
+   "not_addressed": "no respondió",
+   "note": "Notas",
+   "of_clusters": "reportajes independientes",
+   "open_annotations": "Mostrar todas las oraciones fuente y anotaciones",
+   "open_stats": "Estadísticas",
+   "perspectives_title": "Ángulos",
+   "provenance_analysis": "Análisis",
+   "provenance_anonymous": "Anónimo",
+   "provenance_answers": "Anotaciones",
+   "provenance_contributor": "Colaborador",
+   "provenance_corpus": "Instantánea del corpus",
+   "provenance_normalization": "Mapa de categorías",
+   "provenance_page": "Instantánea de la página",
+   "provenance_page_actor": "Revisado por {who}",
+   "provenance_page_actor_ai": "Revisado por {who}, en representación del fundador",
+   "provenance_questions": "Conjunto de preguntas",
+   "provenance_review_lang": " (idioma de revisión: {lang})",
+   "provenance_scope": "Alcance firmado",
+   "provenance_scope_actor": "Firmado por {who}",
+   "provenance_scope_actor_ai": "Firmado por {who}, en representación del fundador",
+   "provenance_write": "Redacción",
+   "quote_source": "original",
+   "quote_tip": "Abre nuestro registro de esta oración: medio, fecha, grupo de reportaje, dónde aparece en el artículo y el enlace al medio.",
+   "rank_tip": "Los pares de preguntas y respuestas se clasifican automáticamente por significancia estadística y magnitud del efecto",
+   "rate_label": "respondió {addressed}/{total}",
+   "rate_tip": "De los {total} reportajes independientes legibles contabilizados en este análisis, {addressed} respondieron esta pregunta.",
+   "runs": "Ejecuciones fijadas",
+   "scope_collected_end": "{date} (el día en que recopilamos)",
+   "scope_exclude": "Fuera del alcance",
+   "scope_include": "Dentro del alcance",
+   "scope_note": "Alcance confirmado antes de iniciar la recopilación de noticias",
+   "scope_open": "Alcance",
+   "scope_period": "Ventana",
+   "scope_target": "Reportajes independientes objetivo por lado",
+   "scope_tip": "Cómo se recopilaron los reportajes",
+   "scope_title": "Alcance",
+   "search_answers": "Preguntas y respuestas",
+   "search_clear": "Borrar búsqueda",
+   "search_count": "Coincidencias: {n}",
+   "search_lede": "Busca detalles de reportajes por palabra clave (se excluye el texto del artículo).",
+   "search_more": "Mostrando los primeros {shown} de {total} reportajes relacionados.",
+   "search_none": "Ningún reportaje coincide con todas esas palabras clave.",
+   "search_open": "Abrir registro del reportaje",
+   "search_phrases": "frases clave",
+   "search_placeholder": "Título, frase, concepto, fecha, medio…",
+   "search_title": "Buscar",
+   "secondary_label": "secundario",
+   "secondary_tip": "Registra con qué frecuencia se aborda la pregunta, no cómo se responde. Puede respaldar un ángulo, pero no puede ser un ángulo por sí solo.",
+   "shared_answer": "Respuesta de ambos lados",
+   "silent_answer": "(tasa de respuesta demasiado baja)",
+   "stability": "estabilidad de dirección",
+   "stats_title": "Estadísticas",
+   "summary": "notas de anotación",
+   "theme_tip": "Alternar entre modo claro y oscuro",
+   "tied_label": "empate en primer lugar",
+   "tied_tip": "Dos o más respuestas empatan en primer lugar en un lado",
+   "timeline_title": "Cronología",
+   "toggle_tr": "Alterna todas las citas de esta página entre su original textual y nuestra traducción.",
+   "tr_original": "original",
+   "tr_translated": "traducción",
+   "window": "{first} – {last} · {sides} · {articles} reportajes independientes en total",
+   "window_counts": "{sides} · {articles} reportajes independientes en total",
+   "window_side": "{who}: {n} reportajes",
+   "withheld": "Nunca mostramos más de la mitad de ningún artículo, así que este ancla se indica solo por su ubicación: léela en el medio original."
+  },
+  "fr": {
+   "annotations": "Détails",
+   "appendix_collapse": "Tout réduire",
+   "appendix_expand": "Tout développer",
+   "appendix_intro": "Une vue complète des données pour chaque question posée et chaque réponse annotée.",
+   "appendix_title": "Données Q&R",
+   "back_to_top": "Retour en haut",
+   "badge_tip_addressed": "Sur les {denominator} reportages indépendants lisibles pris en compte dans cette analyse, {numerator} ont répondu à cette question.",
+   "badge_tip_top": "{denominator} reportages indépendants ont répondu à cette question ; {numerator} d'entre eux ont donné la réponse ci-dessus.",
+   "badge_tip_top_full": "Sur les {total} reportages indépendants lisibles pris en compte dans cette analyse, {denominator} ont répondu à cette question ; {numerator} d'entre eux ont donné la réponse ci-dessus.",
+   "category": "réponse",
+   "caveat_label": "important",
+   "cc_absent": "absent",
+   "cc_below": "(sous le seuil, non affiché)",
+   "cc_capped": "(au-delà du plafond par côté, non affiché)",
+   "cc_foot": "Affichés : les concepts apparaissant dans au moins {min_count} réponses et représentant au moins {threshold} des réponses d'un côté, avec un maximum de {cap} par côté ({hidden}). Part = le nombre d'occurrences du concept ÷ l'ensemble des réponses classées de ce côté ({totals}). Survolez ou touchez un concept pour voir les chiffres exacts des deux côtés, qu'il apparaisse ou non dans le nuage.",
+   "cc_foot_topics": "Affichés : les concepts mentionnés dans au moins {min_count} reportages indépendants et dans au moins {threshold} des reportages d'un côté, avec un maximum de {cap} par côté ({hidden}). Part = reportages mentionnant ce concept ÷ tous les reportages indépendants de ce côté ({totals}). ",
+   "cc_hidden_capped": ", {capped} au-delà du plafond",
+   "cc_hidden_sep": " ; ",
+   "cc_hidden_side": "{who} : {below} sous le seuil",
+   "cc_info_open": "Comment le nuage de concepts est calculé",
+   "cc_info_title": "Comment lire le nuage de concepts",
+   "cc_lede": "Nous additionnons toutes les réponses classées de chaque côté, indépendamment de la question. Plus la part d'un concept dans les réponses de ce côté est grande, plus il apparaît en grand et plus il est classé haut. Chaque colonne est classée indépendamment — mettez un concept en surbrillance pour voir son rang des deux côtés.",
+   "cc_lede_topics": "Fréquence à laquelle chaque côté mentionne les concepts clés.",
+   "cc_side_total": "{who} {n}",
+   "cc_title": "Nuage de concepts",
+   "cc_total": "{n} réponses classées",
+   "cc_total_topics": "{n} reportages indépendants",
+   "cluster": "reportage",
+   "cluster_article": "{n} article",
+   "cluster_articles": "{n} articles",
+   "cluster_col_date": "date",
+   "cluster_col_outlet": "média",
+   "cluster_col_title": "titre",
+   "cluster_lede": "Ces articles ont été identifiés comme des versions d'un même reportage.",
+   "cluster_original": "orig.",
+   "cluster_tip": "Ouvrir ce groupe de reportages",
+   "cluster_title": "Groupe de reportages",
+   "delta": "Écart",
+   "detail_label": "plus",
+   "disclosure_ai": "Chaque étape de cette page — collecte, annotation, rédaction et traductions — a été produite par des systèmes d'IA et vérifiée par un humain avant publication. Les traductions sont les nôtres, pas celles de l'éditeur ; le texte original exact de chaque citation est à un clic, et c'est lui qui fait foi.",
+   "disclosure_collected": "Collecte terminée",
+   "disclosure_lede": "Un instantané des versions de données et de processus à l'origine de cette page.",
+   "disclosure_open": "Fiche de la page",
+   "disclosure_title": "Fiche de la page",
+   "evidence_quote": "texte cité",
+   "evidence_report": "source du reportage",
+   "evidence_title": "Reportages étayant « {answer} »",
+   "evidence_title_silent": "Tous les reportages annotés de ce côté",
+   "featured": "à la une",
+   "featured_tip": "Angle sélectionné par l'IA en fonction des preuves statistiques et de sa valeur journalistique",
+   "footer_note": "Une histoire, deux récits",
+   "home_link": "Retour à l'accueil",
+   "interval": "intervalle",
+   "media_beat": "couverture",
+   "media_category": "type",
+   "media_country": "localisation",
+   "media_lang": "langue",
+   "media_site": "Visiter le média ↗",
+   "media_tip": "À propos de ce média",
+   "method_open": "Méthode",
+   "method_title": "Méthode",
+   "modal_close": "Fermer",
+   "modal_cluster": "groupe de reportages",
+   "modal_fetched": "collecté le",
+   "modal_note": "Ce site ne conserve pas l'article complet.",
+   "modal_origin": "origine du reportage",
+   "modal_out": "Article complet chez l'éditeur ↗",
+   "modal_para": "paragraphe {p}, phrase {s}",
+   "modal_position": "position",
+   "modal_topics": "expressions clés",
+   "modal_topics_concept": "concept",
+   "modal_topics_source": "libellé",
+   "modal_topics_switch": "libellé ↔ concept",
+   "modal_topics_tip": "Basculer entre le libellé original de l'article et son concept localisé.",
+   "more_evidence": "Afficher {n} de plus",
+   "nav_tip": "Aller à l'angle {n}",
+   "not_addressed": "n'a pas répondu",
+   "note": "Notes",
+   "of_clusters": "reportages indépendants",
+   "open_annotations": "Afficher toutes les phrases sources et annotations",
+   "open_stats": "Statistiques",
+   "perspectives_title": "Angles",
+   "provenance_analysis": "Analyse",
+   "provenance_anonymous": "Anonyme",
+   "provenance_answers": "Annotations",
+   "provenance_contributor": "Contributeur",
+   "provenance_corpus": "Instantané du corpus",
+   "provenance_normalization": "Table des catégories",
+   "provenance_page": "Instantané de la page",
+   "provenance_page_actor": "Révisé par {who}",
+   "provenance_page_actor_ai": "Révisé par {who}, à la place du fondateur",
+   "provenance_questions": "Jeu de questions",
+   "provenance_review_lang": " (langue de révision : {lang})",
+   "provenance_scope": "Périmètre signé",
+   "provenance_scope_actor": "Signé par {who}",
+   "provenance_scope_actor_ai": "Signé par {who}, à la place du fondateur",
+   "provenance_write": "Rédaction",
+   "quote_source": "original",
+   "quote_tip": "Ouvrir notre fiche pour cette phrase — média, date, groupe de reportages, son emplacement dans l'article, et le lien vers l'éditeur.",
+   "rank_tip": "Les paires question-réponse sont classées automatiquement selon leur significativité statistique et l'ampleur de l'effet",
+   "rate_label": "a répondu {addressed}/{total}",
+   "rate_tip": "Sur les {total} reportages indépendants lisibles pris en compte dans cette analyse, {addressed} ont répondu à cette question.",
+   "runs": "Exécutions épinglées",
+   "scope_collected_end": "{date} (jour de la collecte)",
+   "scope_exclude": "Exclu",
+   "scope_include": "Inclus",
+   "scope_note": "Périmètre confirmé avant le début de la collecte",
+   "scope_open": "Périmètre",
+   "scope_period": "Période",
+   "scope_target": "Objectif de reportages indépendants par côté",
+   "scope_tip": "Comment les reportages ont été collectés",
+   "scope_title": "Périmètre",
+   "search_answers": "Q&R",
+   "search_clear": "Effacer la recherche",
+   "search_count": "Résultats : {n}",
+   "search_lede": "Rechercher les détails des reportages par mot-clé (texte de l'article exclu).",
+   "search_more": "Affichage des {shown} premiers reportages sur {total} correspondants.",
+   "search_none": "Aucun reportage ne correspond à tous ces mots-clés.",
+   "search_open": "Ouvrir la fiche du reportage",
+   "search_phrases": "expressions clés",
+   "search_placeholder": "Titre, expression, concept, date, média…",
+   "search_title": "Recherche",
+   "secondary_label": "secondaire",
+   "secondary_tip": "Mesure la fréquence à laquelle la question est abordée, pas la teneur de la réponse. Cela peut étayer un angle, mais ne peut constituer un angle à lui seul.",
+   "shared_answer": "Réponse des deux côtés",
+   "silent_answer": "(taux de réponse trop faible)",
+   "stability": "stabilité de la tendance",
+   "stats_title": "Statistiques",
+   "summary": "notes d'annotation",
+   "theme_tip": "Basculer entre le mode clair et le mode sombre",
+   "tied_label": "ex æquo en tête",
+   "tied_tip": "Deux réponses ou plus sont à égalité en tête d'un côté",
+   "timeline_title": "Chronologie",
+   "toggle_tr": "Basculer toutes les citations de cette page entre leur texte original et notre traduction.",
+   "tr_original": "original",
+   "tr_translated": "traduction",
+   "window": "{first} – {last} · {sides} · {articles} reportages indépendants au total",
+   "window_counts": "{sides} · {articles} reportages indépendants au total",
+   "window_side": "{who} : {n} reportages",
+   "withheld": "Nous n'affichons jamais plus de la moitié d'un même article ; ce repère n'est donc indiqué que par sa position — lisez-le chez l'éditeur."
+  },
+  "hi": {
+   "annotations": "विवरण",
+   "appendix_collapse": "सभी संक्षिप्त करें",
+   "appendix_expand": "सभी विस्तृत करें",
+   "appendix_intro": "पूछे गए हर सवाल और एनोटेट किए गए हर उत्तर का पूरा डेटा दृश्य।",
+   "appendix_title": "प्रश्नोत्तर डेटा",
+   "back_to_top": "ऊपर वापस जाएँ",
+   "badge_tip_addressed": "इस विश्लेषण में गिनी गई {denominator} पठनीय स्वतंत्र रिपोर्टों में से, {numerator} ने इस सवाल का उत्तर दिया।",
+   "badge_tip_top": "{denominator} स्वतंत्र रिपोर्टों ने इस सवाल का उत्तर दिया; उनमें से {numerator} ने ऊपर दिया गया उत्तर दिया।",
+   "badge_tip_top_full": "इस विश्लेषण में गिनी गई {total} पठनीय स्वतंत्र रिपोर्टों में से, {denominator} ने इस सवाल का उत्तर दिया; उनमें से {numerator} ने ऊपर दिया गया उत्तर दिया।",
+   "category": "उत्तर",
+   "caveat_label": "महत्वपूर्ण",
+   "cc_absent": "नहीं मिला",
+   "cc_below": "(सीमा से कम, नहीं दिखाया गया)",
+   "cc_capped": "(पक्ष-सीमा से अधिक, नहीं दिखाया गया)",
+   "cc_foot": "दिखाया गया: वे अवधारणाएँ जो कम से कम {min_count} उत्तरों में मौजूद हैं और किसी पक्ष के उत्तरों के {threshold} या उससे अधिक हिस्से में हैं, हर पक्ष में अधिकतम {cap} ({hidden})। हिस्सा = उस अवधारणा की संख्या ÷ उस पक्ष के सभी वर्गीकृत उत्तर ({totals})। किसी भी अवधारणा पर होवर या टैप करके दोनों पक्षों के सटीक आँकड़े देखें, चाहे वह क्लाउड में दिख रही हो या नहीं।",
+   "cc_foot_topics": "दिखाया गया: वे अवधारणाएँ जिनका उल्लेख कम से कम {min_count} स्वतंत्र रिपोर्टों में हुआ है और जो किसी पक्ष की रिपोर्टों के कम से कम {threshold} हिस्से में हैं, हर पक्ष में अधिकतम {cap} ({hidden})। हिस्सा = उस अवधारणा का उल्लेख करने वाली रिपोर्टें ÷ उस पक्ष की सभी स्वतंत्र रिपोर्टें ({totals})। ",
+   "cc_hidden_capped": ", अधिकतम सीमा पार करने वाली {capped}",
+   "cc_hidden_sep": "; ",
+   "cc_hidden_side": "{who}: सीमा से कम {below}",
+   "cc_info_open": "अवधारणा क्लाउड की गणना कैसे होती है",
+   "cc_info_title": "अवधारणा क्लाउड कैसे पढ़ें",
+   "cc_lede": "हम हर पक्ष के सभी वर्गीकृत उत्तरों को, सवाल की परवाह किए बिना, एक साथ जोड़ते हैं। किसी अवधारणा का उस पक्ष के उत्तरों में जितना बड़ा हिस्सा होगा, वह उतनी ही बड़ी और ऊँची रैंक पर दिखेगी। हर स्तंभ स्वतंत्र रूप से रैंक किया जाता है — किसी अवधारणा को हाइलाइट करके देखें कि वह दोनों पक्षों में कहाँ रैंक करती है।",
+   "cc_lede_topics": "हर पक्ष प्रमुख अवधारणाओं का कितनी बार उल्लेख करता है।",
+   "cc_side_total": "{who} {n}",
+   "cc_title": "अवधारणा क्लाउड",
+   "cc_total": "{n} वर्गीकृत उत्तर",
+   "cc_total_topics": "{n} स्वतंत्र रिपोर्टें",
+   "cluster": "रिपोर्ट",
+   "cluster_article": "{n} लेख",
+   "cluster_articles": "{n} लेख",
+   "cluster_col_date": "तारीख़",
+   "cluster_col_outlet": "माध्यम",
+   "cluster_col_title": "शीर्षक",
+   "cluster_lede": "इन लेखों को एक ही रिपोर्ट के अलग-अलग संस्करण माना गया है।",
+   "cluster_original": "मूल",
+   "cluster_tip": "यह रिपोर्ट समूह खोलें",
+   "cluster_title": "रिपोर्ट समूह",
+   "delta": "अंतर",
+   "detail_label": "अधिक",
+   "disclosure_ai": "इस पृष्ठ का हर चरण — संग्रह, एनोटेशन, लेखन और अनुवाद — AI प्रणालियों द्वारा तैयार किया गया और प्रकाशन से पहले एक इंसान द्वारा जाँचा गया। अनुवाद हमारे हैं, प्रकाशक के नहीं; हर उद्धरण का शब्दशः मूल पाठ एक क्लिक दूर है और हमेशा असली रिकॉर्ड है।",
+   "disclosure_collected": "संग्रह पूर्ण हुआ",
+   "disclosure_lede": "इस पृष्ठ के पीछे के डेटा और प्रक्रिया संस्करणों का स्नैपशॉट।",
+   "disclosure_open": "पृष्ठ रिकॉर्ड",
+   "disclosure_title": "पृष्ठ रिकॉर्ड",
+   "evidence_quote": "उद्धृत पाठ",
+   "evidence_report": "रिपोर्ट स्रोत",
+   "evidence_title": "“{answer}” का समर्थन करने वाली रिपोर्टें",
+   "evidence_title_silent": "इस पक्ष की हर एनोटेट रिपोर्ट",
+   "featured": "चयनित",
+   "featured_tip": "सांख्यिकीय प्रमाण और समाचार मूल्य के आधार पर AI द्वारा चुना गया दृष्टिकोण",
+   "footer_note": "एक कहानी, दो बयान",
+   "home_link": "होम पर वापस जाएँ",
+   "interval": "अंतराल",
+   "media_beat": "कवरेज क्षेत्र",
+   "media_category": "प्रकार",
+   "media_country": "स्थान",
+   "media_lang": "भाषा",
+   "media_site": "माध्यम की वेबसाइट देखें ↗",
+   "media_tip": "इस माध्यम के बारे में",
+   "method_open": "पद्धति",
+   "method_title": "पद्धति",
+   "modal_close": "बंद करें",
+   "modal_cluster": "रिपोर्ट समूह",
+   "modal_fetched": "संग्रह तिथि",
+   "modal_note": "यह साइट पूरा लेख संग्रहीत नहीं करती।",
+   "modal_origin": "रिपोर्टिंग मूल",
+   "modal_out": "प्रकाशक की वेबसाइट पर पूरा लेख ↗",
+   "modal_para": "पैराग्राफ़ {p}, वाक्य {s}",
+   "modal_position": "स्थिति",
+   "modal_topics": "प्रमुख वाक्यांश",
+   "modal_topics_concept": "अवधारणा",
+   "modal_topics_source": "शब्द",
+   "modal_topics_switch": "शब्द ↔ अवधारणा",
+   "modal_topics_tip": "लेख के मूल शब्दों और उसकी स्थानीयकृत अवधारणा के बीच स्विच करें।",
+   "more_evidence": "{n} और दिखाएँ",
+   "nav_tip": "दृष्टिकोण {n} पर जाएँ",
+   "not_addressed": "उत्तर नहीं दिया",
+   "note": "नोट्स",
+   "of_clusters": "स्वतंत्र रिपोर्टें",
+   "open_annotations": "सभी मूल वाक्य और एनोटेशन दिखाएँ",
+   "open_stats": "आँकड़े",
+   "perspectives_title": "दृष्टिकोण",
+   "provenance_analysis": "विश्लेषण",
+   "provenance_anonymous": "अज्ञात",
+   "provenance_answers": "एनोटेशन",
+   "provenance_contributor": "योगदानकर्ता",
+   "provenance_corpus": "कॉर्पस स्नैपशॉट",
+   "provenance_normalization": "श्रेणी मानचित्र",
+   "provenance_page": "पृष्ठ स्नैपशॉट",
+   "provenance_page_actor": "{who} द्वारा समीक्षित",
+   "provenance_page_actor_ai": "{who} द्वारा समीक्षित, संस्थापक की ओर से",
+   "provenance_questions": "प्रश्न सेट",
+   "provenance_review_lang": " (समीक्षा भाषा: {lang})",
+   "provenance_scope": "हस्ताक्षरित कार्यक्षेत्र",
+   "provenance_scope_actor": "{who} द्वारा हस्ताक्षरित",
+   "provenance_scope_actor_ai": "{who} द्वारा हस्ताक्षरित, संस्थापक की ओर से",
+   "provenance_write": "लेखन",
+   "quote_source": "मूल पाठ",
+   "quote_tip": "इस वाक्य का हमारा रिकॉर्ड खोलें — माध्यम, तारीख़, रिपोर्ट समूह, लेख में इसकी स्थिति, और प्रकाशक का लिंक।",
+   "rank_tip": "प्रश्नोत्तर जोड़े सांख्यिकीय महत्व और प्रभाव आकार के आधार पर स्वतः रैंक किए जाते हैं",
+   "rate_label": "उत्तर दिया {addressed}/{total}",
+   "rate_tip": "इस विश्लेषण में गिनी गई {total} पठनीय स्वतंत्र रिपोर्टों में से, {addressed} ने इस सवाल का उत्तर दिया।",
+   "runs": "पिन किए गए रन",
+   "scope_collected_end": "{date} (जिस दिन हमने संग्रह किया)",
+   "scope_exclude": "बाहर",
+   "scope_include": "शामिल",
+   "scope_note": "समाचार संग्रह शुरू होने से पहले तय किया गया कार्यक्षेत्र",
+   "scope_open": "कार्यक्षेत्र",
+   "scope_period": "समय अवधि",
+   "scope_target": "प्रति पक्ष लक्षित स्वतंत्र रिपोर्टें",
+   "scope_tip": "रिपोर्टें कैसे एकत्र की गईं",
+   "scope_title": "कार्यक्षेत्र",
+   "search_answers": "प्रश्नोत्तर",
+   "search_clear": "खोज साफ़ करें",
+   "search_count": "मिलान: {n}",
+   "search_lede": "कीवर्ड से रिपोर्ट विवरण खोजें (लेख का मूल पाठ शामिल नहीं)।",
+   "search_more": "कुल {total} संबंधित रिपोर्टों में से पहली {shown} दिखाई जा रही हैं।",
+   "search_none": "कोई भी रिपोर्ट उन सभी कीवर्ड से मेल नहीं खाती।",
+   "search_open": "रिपोर्ट रिकॉर्ड खोलें",
+   "search_phrases": "प्रमुख वाक्यांश",
+   "search_placeholder": "शीर्षक, वाक्यांश, अवधारणा, तारीख़, माध्यम…",
+   "search_title": "खोजें",
+   "secondary_label": "गौण",
+   "secondary_tip": "यह ट्रैक करता है कि सवाल को कितनी बार संबोधित किया गया, न कि उसका उत्तर क्या दिया गया। यह किसी दृष्टिकोण का समर्थन कर सकता है, लेकिन खुद अकेले एक दृष्टिकोण नहीं बन सकता।",
+   "shared_answer": "दोनों पक्षों का उत्तर",
+   "silent_answer": "(उत्तर दर बहुत कम)",
+   "stability": "दिशा स्थिरता",
+   "stats_title": "आँकड़े",
+   "summary": "एनोटेशन नोट्स",
+   "theme_tip": "लाइट और डार्क मोड के बीच स्विच करें",
+   "tied_label": "बराबरी पर अग्रणी",
+   "tied_tip": "एक पक्ष में दो या अधिक उत्तर पहले स्थान के लिए बराबरी पर हैं",
+   "timeline_title": "समयरेखा",
+   "toggle_tr": "इस पृष्ठ के हर उद्धरण को उसके मूल पाठ और हमारे अनुवाद के बीच स्विच करें।",
+   "tr_original": "मूल",
+   "tr_translated": "अनुवाद",
+   "window": "{first} – {last} · {sides} · कुल {articles} स्वतंत्र रिपोर्टें",
+   "window_counts": "{sides} · कुल {articles} स्वतंत्र रिपोर्टें",
+   "window_side": "{who}: {n} रिपोर्टें",
+   "withheld": "हम किसी भी लेख का आधे से अधिक हिस्सा कभी नहीं दिखाते, इसलिए यह एंकर केवल पते के रूप में सूचीबद्ध है — इसे प्रकाशक की वेबसाइट पर पढ़ें।"
+  },
+  "ja": {
+   "annotations": "詳細",
+   "appendix_collapse": "すべて折りたたむ",
+   "appendix_expand": "すべて展開",
+   "appendix_intro": "提起されたすべての質問と、標注されたすべての回答の完全なデータ一覧です。",
+   "appendix_title": "Q&A データ",
+   "back_to_top": "トップに戻る",
+   "badge_tip_addressed": "本分析で対象となった閲覧可能な独立報道{denominator}件のうち、{numerator}件がこの質問に回答しました。",
+   "badge_tip_top": "{denominator}件の独立報道がこの質問に回答し、そのうち{numerator}件が上記の回答を示しました。",
+   "badge_tip_top_full": "本分析で対象となった閲覧可能な独立報道{total}件のうち、{denominator}件がこの質問に回答し、そのうち{numerator}件が上記の回答を示しました。",
+   "category": "回答",
+   "caveat_label": "注意",
+   "cc_absent": "該当なし",
+   "cc_below": "（閾値未満のため非表示）",
+   "cc_capped": "（上限を超えたため非表示）",
+   "cc_foot": "表示条件：少なくとも{min_count}件の回答に現れ、かつその側の回答の{threshold}以上を占める概念（各側最大{cap}個、{hidden}）。割合＝その概念の件数 ÷ その側の分類済み回答の総数（{totals}）。概念にカーソルを合わせる（またはタップする）と、クラウドに表示されているかどうかに関わらず、両側の正確な数値を確認できます。",
+   "cc_foot_topics": "表示条件：少なくとも{min_count}件の独立報道で言及され、かつ一方の側の報道の{threshold}以上で言及されている概念（各側最大{cap}個、{hidden}）。割合＝その概念に言及する報道数 ÷ その側の独立報道の総数（{totals}）。",
+   "cc_hidden_capped": "、上限超過が{capped}件",
+   "cc_hidden_sep": "；",
+   "cc_hidden_side": "{who}：閾値未満が{below}件",
+   "cc_info_open": "コンセプトクラウドの算出方法",
+   "cc_info_title": "コンセプトクラウドの読み方",
+   "cc_lede": "各側で分類されたすべての回答を、質問を問わずまとめて集計します。ある概念がその側の回答全体に占める割合が大きいほど、文字は大きく表示され、順位も上がります。各列はそれぞれ独立して順位付けされます——概念をハイライトすると、両側でのそれぞれの順位を確認できます。",
+   "cc_lede_topics": "各側が主要な概念にどれだけ言及しているか。",
+   "cc_side_total": "{who} {n}",
+   "cc_title": "コンセプトクラウド",
+   "cc_total": "分類済み回答{n}件",
+   "cc_total_topics": "独立報道{n}件",
+   "cluster": "報道",
+   "cluster_article": "{n}件",
+   "cluster_articles": "{n}件",
+   "cluster_col_date": "日付",
+   "cluster_col_outlet": "媒体",
+   "cluster_col_title": "見出し",
+   "cluster_lede": "これらの記事は同一報道の異なるバージョンと判定されました。",
+   "cluster_original": "原",
+   "cluster_tip": "この報道グループを開く",
+   "cluster_title": "独立報道グループ",
+   "delta": "差",
+   "detail_label": "詳細",
+   "disclosure_ai": "このページのすべての工程——採集、標注、執筆、翻訳——は AI システムによって作成され、公開前に人による監査を受けています。翻訳は本サイト独自のものであり、掲載元によるものではありません。すべての引用の逐語原文はワンクリックで確認でき、それが常に唯一の記録です。",
+   "disclosure_collected": "採集完了",
+   "disclosure_lede": "このページを支えるデータと処理のバージョンのスナップショットです。",
+   "disclosure_open": "ページ記録",
+   "disclosure_title": "ページ記録",
+   "evidence_quote": "引用文",
+   "evidence_report": "報道の出典",
+   "evidence_title": "「{answer}」を裏付ける報道",
+   "evidence_title_silent": "この側の全標注済み報道",
+   "featured": "注目",
+   "featured_tip": "統計的根拠とニュース価値に基づき AI が選んだ視点",
+   "footer_note": "一つの出来事、二つの物語",
+   "home_link": "ホームに戻る",
+   "interval": "区間",
+   "media_beat": "報道範囲",
+   "media_category": "媒体種別",
+   "media_country": "所在地",
+   "media_lang": "使用言語",
+   "media_site": "媒体サイトを見る ↗",
+   "media_tip": "この媒体について",
+   "method_open": "統計手法",
+   "method_title": "統計手法",
+   "modal_close": "閉じる",
+   "modal_cluster": "独立報道グループ",
+   "modal_fetched": "採集日",
+   "modal_note": "本サイトは記事全文を保存していません。",
+   "modal_origin": "報道の出所種別",
+   "modal_out": "掲載元で全文を読む ↗",
+   "modal_para": "第{p}段落・第{s}文",
+   "modal_position": "位置",
+   "modal_topics": "キーフレーズ",
+   "modal_topics_concept": "概念",
+   "modal_topics_source": "原文表現",
+   "modal_topics_switch": "原文表現 ↔ 概念",
+   "modal_topics_tip": "記事の原文表現と、ローカライズされた概念表示を切り替えます。",
+   "more_evidence": "他{n}件を表示",
+   "nav_tip": "視点{n}へ移動",
+   "not_addressed": "未回答",
+   "note": "メモ",
+   "of_clusters": "独立報道",
+   "open_annotations": "すべての原文と標注を表示",
+   "open_stats": "統計",
+   "perspectives_title": "視点",
+   "provenance_analysis": "分析",
+   "provenance_anonymous": "匿名",
+   "provenance_answers": "標注",
+   "provenance_contributor": "投稿者",
+   "provenance_corpus": "コーパススナップショット",
+   "provenance_normalization": "カテゴリマッピング",
+   "provenance_page": "ページスナップショット",
+   "provenance_page_actor": "{who}が審査",
+   "provenance_page_actor_ai": "{who}が創設者の代理として審査",
+   "provenance_questions": "質問セット",
+   "provenance_review_lang": "（審査言語：{lang}）",
+   "provenance_scope": "承認済み採集範囲",
+   "provenance_scope_actor": "{who}が承認",
+   "provenance_scope_actor_ai": "{who}が創設者の代理として承認",
+   "provenance_write": "執筆",
+   "quote_source": "原文",
+   "quote_tip": "この一文についての記録を開きます——媒体、日付、報道グループ、記事内での位置、そして掲載元へのリンクです。",
+   "rank_tip": "Q&A の組は統計的有意性と効果量に基づき自動的に順位付けされています",
+   "rate_label": "回答率 {addressed}/{total}",
+   "rate_tip": "本分析で対象となった閲覧可能な独立報道{total}件のうち、{addressed}件がこの質問に回答しました。",
+   "runs": "固定された実行",
+   "scope_collected_end": "{date}（採集当日）",
+   "scope_exclude": "対象外",
+   "scope_include": "収録対象",
+   "scope_note": "報道採集開始前に確定した範囲",
+   "scope_open": "採集範囲",
+   "scope_period": "期間",
+   "scope_target": "各側の目標独立報道数",
+   "scope_tip": "報道がどのように採集されたか",
+   "scope_title": "採集範囲",
+   "search_answers": "Q&A",
+   "search_clear": "検索をクリア",
+   "search_count": "該当件数：{n}",
+   "search_lede": "キーワードで報道の詳細情報を検索します（本文は対象外）。",
+   "search_more": "関連報道{total}件のうち、最初の{shown}件を表示しています。",
+   "search_none": "これらのキーワードすべてに一致する報道はありません。",
+   "search_open": "報道記録を開く",
+   "search_phrases": "キーフレーズ",
+   "search_placeholder": "タイトル、フレーズ、概念、日付、媒体名など…",
+   "search_title": "検索",
+   "secondary_label": "副次的",
+   "secondary_tip": "この質問がどれだけ取り上げられたかを追うもので、どう回答されたかではありません。視点を補強することはあっても、単独で視点にはなり得ません。",
+   "shared_answer": "双方の回答",
+   "silent_answer": "（回答率が低すぎる）",
+   "stability": "方向安定性",
+   "stats_title": "統計",
+   "summary": "標注メモ",
+   "theme_tip": "ライトモードとダークモードを切り替え",
+   "tied_label": "同率首位",
+   "tied_tip": "一方の側で2つ以上の回答が同率で首位に並んでいます",
+   "timeline_title": "タイムライン",
+   "toggle_tr": "このページ内のすべての引用を、原文とその翻訳との間で切り替えます。",
+   "tr_original": "原文",
+   "tr_translated": "翻訳",
+   "window": "{first} – {last} · {sides} · 独立報道合計{articles}件",
+   "window_counts": "{sides} · 独立報道合計{articles}件",
+   "window_side": "{who}：{n}件",
+   "withheld": "一つの記事について、その半分を超える分量は表示しません。そのためこのアンカーは位置のみを記載しています——本文は掲載元でお読みください。"
+  },
+  "ko": {
+   "annotations": "세부 정보",
+   "appendix_collapse": "모두 접기",
+   "appendix_expand": "모두 펼치기",
+   "appendix_intro": "제기된 모든 질문과 주석 처리된 모든 답변의 전체 데이터를 보여줍니다.",
+   "appendix_title": "질의응답 데이터",
+   "back_to_top": "맨 위로",
+   "badge_tip_addressed": "이 분석에 포함된 읽을 수 있는 독립 보도 {denominator}건 중 {numerator}건이 이 질문에 답했습니다.",
+   "badge_tip_top": "{denominator}건의 독립 보도가 이 질문에 답했으며, 그중 {numerator}건이 위의 답변을 제시했습니다.",
+   "badge_tip_top_full": "이 분석에 포함된 읽을 수 있는 독립 보도 {total}건 중 {denominator}건이 이 질문에 답했으며, 그중 {numerator}건이 위의 답변을 제시했습니다.",
+   "category": "답변",
+   "caveat_label": "주의",
+   "cc_absent": "발견되지 않음",
+   "cc_below": "(기준 미달, 표시되지 않음)",
+   "cc_capped": "(측별 상한 초과, 표시되지 않음)",
+   "cc_foot": "표시 기준: 최소 {min_count}건의 답변에 등장하고 해당 측 답변의 {threshold} 이상을 차지하는 개념, 측당 최대 {cap}개({hidden}). 비중 = 해당 개념의 건수 ÷ 그 측의 분류된 전체 답변({totals}). 클라우드에 표시되었는지 여부와 관계없이 개념 위에 마우스를 올리거나 탭하면 양측의 정확한 수치를 볼 수 있습니다.",
+   "cc_foot_topics": "표시 기준: 최소 {min_count}건의 독립 보도에서 언급되고 한쪽 보도의 {threshold} 이상에서 언급된 개념, 측당 최대 {cap}개({hidden}). 비중 = 해당 개념을 언급한 보도 수 ÷ 그 측의 전체 독립 보도({totals}).",
+   "cc_hidden_capped": ", 상한 초과 {capped}개",
+   "cc_hidden_sep": "; ",
+   "cc_hidden_side": "{who}: 기준 미달 {below}개",
+   "cc_info_open": "개념 클라우드 계산 방식",
+   "cc_info_title": "개념 클라우드 읽는 법",
+   "cc_lede": "질문과 관계없이 각 측의 분류된 답변을 모두 합산합니다. 한 개념이 해당 측 답변에서 차지하는 비중이 클수록 더 크게 표시되고 순위도 높아집니다. 두 열은 각각 독립적으로 순위가 매겨집니다 — 개념을 강조 표시하면 양측에서 각각 몇 위인지 확인할 수 있습니다.",
+   "cc_lede_topics": "각 측이 핵심 개념을 언급하는 빈도입니다.",
+   "cc_side_total": "{who} {n}",
+   "cc_title": "개념 클라우드",
+   "cc_total": "분류된 답변 {n}건",
+   "cc_total_topics": "독립 보도 {n}건",
+   "cluster": "보도",
+   "cluster_article": "{n}건",
+   "cluster_articles": "{n}건",
+   "cluster_col_date": "날짜",
+   "cluster_col_outlet": "매체",
+   "cluster_col_title": "제목",
+   "cluster_lede": "이 기사들은 동일한 보도의 여러 판본으로 확인되었습니다.",
+   "cluster_original": "원본",
+   "cluster_tip": "이 보도 그룹 열기",
+   "cluster_title": "보도 그룹",
+   "delta": "차이",
+   "detail_label": "더보기",
+   "disclosure_ai": "이 페이지의 모든 단계 — 수집, 주석, 작성, 번역 — 는 AI 시스템이 제작했으며, 발행 전에 사람이 검수했습니다. 번역문은 발행처가 아닌 저희가 작성한 것입니다. 모든 인용문의 원문은 클릭 한 번이면 확인할 수 있으며, 언제나 원문이 기록의 기준입니다.",
+   "disclosure_collected": "수집 완료",
+   "disclosure_lede": "이 페이지를 구성하는 데이터와 프로세스 버전의 스냅샷입니다.",
+   "disclosure_open": "페이지 기록",
+   "disclosure_title": "페이지 기록",
+   "evidence_quote": "인용문",
+   "evidence_report": "보도 출처",
+   "evidence_title": "“{answer}”를 뒷받침하는 보도",
+   "evidence_title_silent": "이쪽의 모든 주석 처리된 보도",
+   "featured": "주요",
+   "featured_tip": "통계적 근거와 뉴스 가치를 기준으로 AI가 선정한 관점",
+   "footer_note": "하나의 이야기, 두 개의 서사",
+   "home_link": "홈으로 돌아가기",
+   "interval": "구간",
+   "media_beat": "보도 범위",
+   "media_category": "유형",
+   "media_country": "소재지",
+   "media_lang": "언어",
+   "media_site": "매체 방문 ↗",
+   "media_tip": "이 매체 소개",
+   "method_open": "방법론",
+   "method_title": "방법론",
+   "modal_close": "닫기",
+   "modal_cluster": "보도 그룹",
+   "modal_fetched": "수집일",
+   "modal_note": "이 사이트는 기사 전문을 저장하지 않습니다.",
+   "modal_origin": "보도 출처 유형",
+   "modal_out": "발행처에서 전문 보기 ↗",
+   "modal_para": "{p}번째 단락, {s}번째 문장",
+   "modal_position": "위치",
+   "modal_topics": "핵심 문구",
+   "modal_topics_concept": "개념",
+   "modal_topics_source": "표현",
+   "modal_topics_switch": "표현 ↔ 개념",
+   "modal_topics_tip": "기사 원문 표현과 현지화된 개념 사이를 전환합니다.",
+   "more_evidence": "{n}개 더 보기",
+   "nav_tip": "관점 {n}로 이동",
+   "not_addressed": "답변하지 않음",
+   "note": "메모",
+   "of_clusters": "독립 보도",
+   "open_annotations": "모든 원문 문장과 주석 보기",
+   "open_stats": "통계",
+   "perspectives_title": "관점",
+   "provenance_analysis": "분석",
+   "provenance_anonymous": "익명",
+   "provenance_answers": "주석",
+   "provenance_contributor": "기여자",
+   "provenance_corpus": "말뭉치 스냅샷",
+   "provenance_normalization": "카테고리 매핑",
+   "provenance_page": "페이지 스냅샷",
+   "provenance_page_actor": "{who} 검수",
+   "provenance_page_actor_ai": "{who}가 창립자를 대신하여 검수",
+   "provenance_questions": "질문 세트",
+   "provenance_review_lang": " (검수 언어: {lang})",
+   "provenance_scope": "서명된 범위",
+   "provenance_scope_actor": "{who} 서명",
+   "provenance_scope_actor_ai": "{who}가 창립자를 대신하여 서명",
+   "provenance_write": "작성",
+   "quote_source": "원문",
+   "quote_tip": "이 문장에 대한 저희 기록을 엽니다 — 매체, 날짜, 보도 그룹, 기사 내 위치, 발행처 링크까지 포함됩니다.",
+   "rank_tip": "질의응답 쌍은 통계적 유의성과 효과 크기에 따라 자동으로 순위가 매겨집니다",
+   "rate_label": "응답 {addressed}/{total}",
+   "rate_tip": "이 분석에 포함된 읽을 수 있는 독립 보도 {total}건 중 {addressed}건이 이 질문에 답했습니다.",
+   "runs": "고정된 실행",
+   "scope_collected_end": "{date} (수집한 날)",
+   "scope_exclude": "제외",
+   "scope_include": "포함",
+   "scope_note": "뉴스 수집을 시작하기 전에 확정된 범위",
+   "scope_open": "수집 범위",
+   "scope_period": "기간",
+   "scope_target": "측당 목표 독립 보도 수",
+   "scope_tip": "보도 수집 방식",
+   "scope_title": "수집 범위",
+   "search_answers": "질의응답",
+   "search_clear": "검색 지우기",
+   "search_count": "일치 항목: {n}건",
+   "search_lede": "키워드로 보도 상세 정보를 검색합니다(기사 본문 제외).",
+   "search_more": "관련 보도 {total}건 중 처음 {shown}건을 표시합니다.",
+   "search_none": "이 키워드를 모두 충족하는 보도가 없습니다.",
+   "search_open": "보도 기록 열기",
+   "search_phrases": "핵심 문구",
+   "search_placeholder": "제목, 문구, 개념, 날짜, 매체명…",
+   "search_title": "검색",
+   "secondary_label": "부차적",
+   "secondary_tip": "이 질문이 어떻게 답변되었는지가 아니라 얼마나 자주 다루어졌는지를 추적합니다. 관점을 뒷받침할 수는 있지만 그 자체로 하나의 관점이 될 수는 없습니다.",
+   "shared_answer": "양측의 답변",
+   "silent_answer": "(응답률이 너무 낮음)",
+   "stability": "방향 안정성",
+   "stats_title": "통계",
+   "summary": "주석 메모",
+   "theme_tip": "라이트 모드와 다크 모드 전환",
+   "tied_label": "공동 1위",
+   "tied_tip": "한쪽에서 두 개 이상의 답변이 공동 1위입니다",
+   "timeline_title": "타임라인",
+   "toggle_tr": "이 페이지의 모든 인용문을 원문 그대로와 저희 번역문 사이에서 전환합니다.",
+   "tr_original": "원문",
+   "tr_translated": "번역문",
+   "window": "{first} – {last} · {sides} · 총 {articles}건의 독립 보도",
+   "window_counts": "{sides} · 총 {articles}건의 독립 보도",
+   "window_side": "{who}: {n}건",
+   "withheld": "저희는 한 기사의 절반을 넘는 분량을 표시하지 않으므로, 이 앵커는 위치만 표시됩니다 — 원문은 발행처에서 확인하세요."
+  },
+  "ru": {
+   "annotations": "Подробности",
+   "appendix_collapse": "Свернуть всё",
+   "appendix_expand": "Развернуть всё",
+   "appendix_intro": "Полное представление данных: все заданные вопросы и все размеченные ответы.",
+   "appendix_title": "Данные вопросов и ответов",
+   "back_to_top": "Наверх",
+   "badge_tip_addressed": "Из {denominator} доступных для чтения независимых материалов, учтённых в этом анализе, {numerator} ответили на этот вопрос.",
+   "badge_tip_top": "{denominator} независимых материалов ответили на этот вопрос; {numerator} из них дали ответ, указанный выше.",
+   "badge_tip_top_full": "Из {total} доступных для чтения независимых материалов, учтённых в этом анализе, {denominator} ответили на этот вопрос; {numerator} из них дали ответ, указанный выше.",
+   "category": "ответ",
+   "caveat_label": "важно",
+   "cc_absent": "не встречается",
+   "cc_below": "(ниже порога, не отображено)",
+   "cc_capped": "(сверх лимита на сторону, не отображено)",
+   "cc_foot": "Показаны: понятия, встречающиеся как минимум в {min_count} ответах и составляющие не менее {threshold} ответов стороны, не более {cap} на сторону ({hidden}). Доля = число упоминаний понятия ÷ все классифицированные ответы этой стороны ({totals}). Наведите курсор или коснитесь любого понятия, чтобы увидеть точные цифры для обеих сторон — независимо от того, показано ли оно в облаке.",
+   "cc_foot_topics": "Показаны: понятия, упомянутые как минимум в {min_count} независимых материалах и как минимум в {threshold} материалов одной стороны, не более {cap} на сторону ({hidden}). Доля = число материалов, упоминающих понятие ÷ все независимые материалы этой стороны ({totals}). ",
+   "cc_hidden_capped": ", {capped} сверх лимита",
+   "cc_hidden_sep": "; ",
+   "cc_hidden_side": "{who}: {below} ниже порога",
+   "cc_info_open": "Как рассчитывается облако понятий",
+   "cc_info_title": "Как читать облако понятий",
+   "cc_lede": "Мы объединяем все классифицированные ответы каждой стороны, независимо от вопроса. Чем больше доля понятия среди ответов этой стороны, тем крупнее оно отображается и выше стоит в списке. Каждый столбец ранжируется независимо — выделите понятие, чтобы увидеть его место у обеих сторон.",
+   "cc_lede_topics": "Как часто каждая сторона упоминает ключевые понятия.",
+   "cc_side_total": "{who} {n}",
+   "cc_title": "Облако понятий",
+   "cc_total": "{n} классифицированных ответов",
+   "cc_total_topics": "{n} независимых материалов",
+   "cluster": "материал",
+   "cluster_article": "{n} статья",
+   "cluster_articles": "{n} статей",
+   "cluster_col_date": "дата",
+   "cluster_col_outlet": "издание",
+   "cluster_col_title": "заголовок",
+   "cluster_lede": "Эти статьи определены как версии одного и того же материала.",
+   "cluster_original": "ориг.",
+   "cluster_tip": "Открыть эту группу материалов",
+   "cluster_title": "Группа материалов",
+   "delta": "Разница",
+   "detail_label": "подробнее",
+   "disclosure_ai": "Каждый этап создания этой страницы — сбор данных, разметка, написание текста и переводы — выполнен системами ИИ и проверен человеком перед публикацией. Переводы сделаны нами, а не издателем; дословный оригинал каждой цитаты находится в одном клике и всегда остаётся первоисточником записи.",
+   "disclosure_collected": "Сбор данных завершён",
+   "disclosure_lede": "Снимок версий данных и процессов, лежащих в основе этой страницы.",
+   "disclosure_open": "Запись страницы",
+   "disclosure_title": "Запись страницы",
+   "evidence_quote": "цитируемый текст",
+   "evidence_report": "источник материала",
+   "evidence_title": "Материалы, подтверждающие «{answer}»",
+   "evidence_title_silent": "Все размеченные материалы этой стороны",
+   "featured": "рекомендуем",
+   "featured_tip": "Ракурс, выбранный ИИ на основе статистических данных и новостной значимости",
+   "footer_note": "Одна история, два рассказа",
+   "home_link": "На главную",
+   "interval": "интервал",
+   "media_beat": "охват тем",
+   "media_category": "тип",
+   "media_country": "местоположение",
+   "media_lang": "язык",
+   "media_site": "Перейти на сайт издания ↗",
+   "media_tip": "Об этом издании",
+   "method_open": "Метод",
+   "method_title": "Метод",
+   "modal_close": "Закрыть",
+   "modal_cluster": "группа материалов",
+   "modal_fetched": "собрано",
+   "modal_note": "Этот сайт не хранит полный текст статьи.",
+   "modal_origin": "тип происхождения материала",
+   "modal_out": "Полный текст на сайте издания ↗",
+   "modal_para": "абзац {p}, предложение {s}",
+   "modal_position": "положение",
+   "modal_topics": "ключевые фразы",
+   "modal_topics_concept": "понятие",
+   "modal_topics_source": "формулировка",
+   "modal_topics_switch": "формулировка ↔ понятие",
+   "modal_topics_tip": "Переключение между оригинальной формулировкой статьи и локализованным понятием.",
+   "more_evidence": "Показать ещё {n}",
+   "nav_tip": "Перейти к ракурсу {n}",
+   "not_addressed": "не ответили",
+   "note": "Заметки",
+   "of_clusters": "независимые материалы",
+   "open_annotations": "Показать все исходные предложения и разметку",
+   "open_stats": "Статистика",
+   "perspectives_title": "Ракурсы",
+   "provenance_analysis": "Анализ",
+   "provenance_anonymous": "Анонимно",
+   "provenance_answers": "Разметка",
+   "provenance_contributor": "Автор предложения",
+   "provenance_corpus": "Снимок корпуса",
+   "provenance_normalization": "Карта категорий",
+   "provenance_page": "Снимок страницы",
+   "provenance_page_actor": "Проверено: {who}",
+   "provenance_page_actor_ai": "Проверено: {who}, от имени основателя",
+   "provenance_questions": "Набор вопросов",
+   "provenance_review_lang": " (язык проверки: {lang})",
+   "provenance_scope": "Утверждённый охват",
+   "provenance_scope_actor": "Утверждено: {who}",
+   "provenance_scope_actor_ai": "Утверждено: {who}, от имени основателя",
+   "provenance_write": "Написание текста",
+   "quote_source": "оригинал",
+   "quote_tip": "Открыть нашу запись об этом предложении: издание, дата, группа материалов, положение в статье и ссылка на издателя.",
+   "rank_tip": "Пары «вопрос-ответ» ранжируются автоматически по статистической значимости и величине эффекта",
+   "rate_label": "ответили {addressed}/{total}",
+   "rate_tip": "Из {total} доступных для чтения независимых материалов, учтённых в этом анализе, {addressed} ответили на этот вопрос.",
+   "runs": "Закреплённые версии",
+   "scope_collected_end": "{date} (день сбора данных)",
+   "scope_exclude": "Вне охвата",
+   "scope_include": "Входит в охват",
+   "scope_note": "Охват утверждён до начала сбора новостей",
+   "scope_open": "Охват",
+   "scope_period": "Период",
+   "scope_target": "Целевое число независимых материалов на сторону",
+   "scope_tip": "Как собирались материалы",
+   "scope_title": "Охват",
+   "search_answers": "Вопрос-ответ",
+   "search_clear": "Очистить поиск",
+   "search_count": "Совпадений: {n}",
+   "search_lede": "Поиск по данным материалов по ключевым словам (текст статей не включён).",
+   "search_more": "Показаны первые {shown} из {total} релевантных материалов.",
+   "search_none": "Ни один материал не соответствует всем этим ключевым словам.",
+   "search_open": "Открыть запись материала",
+   "search_phrases": "ключевые фразы",
+   "search_placeholder": "Заголовок, фраза, понятие, дата, издание…",
+   "search_title": "Поиск",
+   "secondary_label": "второстепенное",
+   "secondary_tip": "Отражает, как часто затрагивается вопрос, а не то, как на него отвечают. Может подкреплять ракурс, но не может быть отдельным ракурсом.",
+   "shared_answer": "Ответ обеих сторон",
+   "silent_answer": "(доля ответивших слишком мала)",
+   "stability": "устойчивость направления",
+   "stats_title": "Статистика",
+   "summary": "заметки разметки",
+   "theme_tip": "Переключение между светлой и тёмной темой",
+   "tied_label": "разделённое первое место",
+   "tied_tip": "Два или более ответа делят первое место у одной стороны",
+   "timeline_title": "Хронология",
+   "toggle_tr": "Переключить все цитаты на странице между дословным оригиналом и нашим переводом.",
+   "tr_original": "оригинал",
+   "tr_translated": "перевод",
+   "window": "{first} – {last} · {sides} · всего {articles} независимых материалов",
+   "window_counts": "{sides} · всего {articles} независимых материалов",
+   "window_side": "{who}: {n} материалов",
+   "withheld": "Мы никогда не показываем больше половины какой-либо статьи, поэтому этот якорь указан только по адресу — читайте его на сайте издания."
+  }
+ },
+ "TIER_LABEL": {
+  "ar": {
+   "reader": "مخصص",
+   "template": "قياسي"
+  },
+  "es": {
+   "reader": "personalizada",
+   "template": "estándar"
+  },
+  "fr": {
+   "reader": "personnalisée",
+   "template": "standard"
+  },
+  "hi": {
+   "reader": "विशेष",
+   "template": "मानक"
+  },
+  "ja": {
+   "reader": "カスタム",
+   "template": "標準"
+  },
+  "ko": {
+   "reader": "맞춤",
+   "template": "표준"
+  },
+  "ru": {
+   "reader": "уникальный",
+   "template": "стандартный"
+  }
+ },
+ "TIER_TIP": {
+  "ar": {
+   "reader": "سؤال كُتب خصيصًا لهذا الموضوع.",
+   "template": "سؤال قياسي يُطرح في كل موضوع."
+  },
+  "es": {
+   "reader": "Una pregunta escrita exclusivamente para este tema.",
+   "template": "Una pregunta estándar de plantilla para cada tema."
+  },
+  "fr": {
+   "reader": "Une question rédigée uniquement pour ce sujet.",
+   "template": "Une question type standard applicable à tous les sujets."
+  },
+  "hi": {
+   "reader": "केवल इसी विषय के लिए लिखा गया सवाल।",
+   "template": "हर विषय के लिए एक मानक टेम्पलेट सवाल।"
+  },
+  "ja": {
+   "reader": "このトピックのために書かれた質問です。",
+   "template": "すべてのトピックに共通する標準テンプレートの質問です。"
+  },
+  "ko": {
+   "reader": "이 주제만을 위해 작성된 질문입니다.",
+   "template": "모든 주제에 적용되는 표준 템플릿 질문입니다."
+  },
+  "ru": {
+   "reader": "Вопрос, составленный специально для этой темы.",
+   "template": "Стандартный шаблонный вопрос для каждой темы."
+  }
+ }
+}

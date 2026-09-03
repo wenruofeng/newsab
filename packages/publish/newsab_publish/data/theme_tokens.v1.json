@@ -1,0 +1,78 @@
+{
+  "schema_version": "theme-tokens-1.0.0",
+  "default_token": "ember",
+  "themes": [
+    {
+      "token": "ember",
+      "labels": {
+        "en": "Ember",
+        "zh-CN": "余烬",
+        "ru": "Уголёк",
+        "fr": "Braise",
+        "ko": "잉걸불",
+        "hi": "अंगार",
+        "es": "Brasa",
+        "ja": "残り火",
+        "ar": "جمر"
+      },
+      "accent_light": "#8C2F1E",
+      "accent_dark": "#E08265",
+      "default_mode": "system",
+      "decoration": "plain"
+    },
+    {
+      "token": "ocean",
+      "labels": {
+        "en": "Ocean",
+        "zh-CN": "海洋",
+        "ru": "Океан",
+        "fr": "Océan",
+        "ko": "바다",
+        "hi": "सागर",
+        "es": "Océano",
+        "ja": "海",
+        "ar": "محيط"
+      },
+      "accent_light": "#285F7A",
+      "accent_dark": "#82BDD7",
+      "default_mode": "system",
+      "decoration": "fine-rule"
+    },
+    {
+      "token": "plum",
+      "labels": {
+        "en": "Plum",
+        "zh-CN": "梅紫",
+        "ru": "Слива",
+        "fr": "Prune",
+        "ko": "자두빛",
+        "hi": "जामुनी",
+        "es": "Ciruela",
+        "ja": "梅",
+        "ar": "برقوقي"
+      },
+      "accent_light": "#6A4273",
+      "accent_dark": "#C491CF",
+      "default_mode": "system",
+      "decoration": "plain"
+    },
+    {
+      "token": "pine",
+      "labels": {
+        "en": "Pine",
+        "zh-CN": "松绿",
+        "ru": "Сосна",
+        "fr": "Pin",
+        "ko": "솔빛",
+        "hi": "चीड़",
+        "es": "Pino",
+        "ja": "松",
+        "ar": "صنوبري"
+      },
+      "accent_light": "#2F6655",
+      "accent_dark": "#80BFA7",
+      "default_mode": "system",
+      "decoration": "fine-rule"
+    }
+  ]
+}

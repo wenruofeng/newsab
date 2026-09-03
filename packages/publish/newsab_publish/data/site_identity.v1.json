@@ -1,0 +1,39 @@
+{
+  "about": {
+    "en": "Narrative Diff Toolkit is a local, operator-configured example for comparing how two media samples answer the same questions.",
+    "zh-CN": "叙事差异工具包是一个由本地运营者配置的示例，用相同问题比较两组媒体样本的回答。",
+    "ru": "Narrative Diff Toolkit — локальный пример, настраиваемый оператором, для сравнения того, как две выборки СМИ отвечают на одни и те же вопросы.",
+    "fr": "Narrative Diff Toolkit est un exemple local, configuré par l'opérateur, permettant de comparer comment deux échantillons de médias répondent aux mêmes questions.",
+    "ko": "Narrative Diff Toolkit은 두 매체 표본이 같은 질문에 어떻게 답하는지 비교하기 위한, 로컬에서 운영자가 구성하는 예시 도구입니다.",
+    "hi": "Narrative Diff Toolkit एक स्थानीय, संचालक-कॉन्फ़िगर किया गया उदाहरण है, जो यह तुलना करता है कि मीडिया के दो नमूने एक ही सवालों के उत्तर कैसे देते हैं।",
+    "es": "Narrative Diff Toolkit es un ejemplo local, configurado por el operador, para comparar cómo dos muestras de medios responden a las mismas preguntas.",
+    "ja": "Narrative Diff Toolkit は、二つのメディアサンプルが同じ質問にどう回答するかを比較するための、運営者がローカルに設定するサンプル実装です。",
+    "ar": "«مجموعة أدوات مقارنة السرد» مثال محلي يُهيّئه المشغّل لمقارنة كيفية إجابة عيّنتين إعلاميتين على الأسئلة نفسها."
+  },
+  "contact": {
+    "en": "Configure an operator contact before publishing.",
+    "zh-CN": "发布前请配置运营者联系方式。",
+    "ru": "Настройте контакт оператора перед публикацией.",
+    "fr": "Configurez un contact opérateur avant de publier.",
+    "ko": "발행하기 전에 운영자 연락처를 설정하세요.",
+    "hi": "प्रकाशित करने से पहले संचालक का संपर्क कॉन्फ़िगर करें।",
+    "es": "Configura un contacto de operador antes de publicar.",
+    "ja": "公開前に運営者の連絡先を設定してください。",
+    "ar": "يُرجى تهيئة وسيلة تواصل مع المشغّل قبل النشر."
+  },
+  "dashboard_title": "Narrative Diff Toolkit review",
+  "domain_label": "local-toolkit.example",
+  "identity_version": "site-identity-1.0.0",
+  "site_name": "Narrative Diff Toolkit",
+  "tagline": {
+    "en": "One story, two tellings",
+    "zh-CN": "同一故事，两种讲述",
+    "ru": "Одна история, два изложения",
+    "fr": "Une histoire, deux récits",
+    "ko": "하나의 이야기, 두 가지 서술",
+    "hi": "एक कहानी, दो बयान",
+    "es": "Una historia, dos relatos",
+    "ja": "一つの物語、二つの語り",
+    "ar": "قصة واحدة، روايتان"
+  }
+}

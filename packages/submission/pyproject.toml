@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "newsab-submission"
+version = "0.1.0"
+description = "Topic submission archives: closed-list pack, streaming inspect, and the G0/G1/G2 local verification gates."
+requires-python = ">=3.10"
+dependencies = ["newsab-schema", "newsab-a1", "newsab-editorial", "newsab-publish"]
+
+[project.scripts]
+newsab-submission = "newsab_submission.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["newsab_submission*"]

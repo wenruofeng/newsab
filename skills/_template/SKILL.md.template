@@ -1,0 +1,49 @@
+---
+name: stage-name
+description: What this stage turns into what, and when to run it (after which stage, before which). Harnesses route on this line.
+compatibility: Requires this repository and Python 3.
+metadata:
+  newsab-stage: "stage-name"
+  newsab-version: "0.1.0"
+  newsab-inputs: "artifact_kinds,this_stage_reads"
+  newsab-outputs: "artifact_kinds,this_stage_writes"
+  newsab-language: "source-local"
+---
+
+# stage-name
+
+One or two sentences: what input becomes what artifact. One sentence on what this stage
+does **not** do (the neighbouring stage that owns it).
+
+## Start here
+
+Working directory: repo root. Inputs: `topics/<topic_id>/...` (what must exist and what
+makes it valid to start).
+
+    python skills/stage-name/scripts/preflight.py topics <topic_id>
+
+## Choose a mode
+
+*(Only if genuinely different flows exist — otherwise delete this section.)*
+
+- **new** — first run for a topic. Read `references/<mode>.md` only for this mode.
+- **extend** — append-only addition to an existing artifact; read `references/incremental.md`.
+
+## Core loop
+
+1. *(judgement)* The semantic step, stated as a decision rule, not a tutorial.
+2. *(command)* `python skills/stage-name/scripts/tool.py topics <topic_id> ...`
+3. *(judgement / command)* 3–7 steps total; keep the check → fix → recheck loop explicit.
+
+## Done
+
+    python skills/stage-name/scripts/check.py topics <topic_id> --strict
+
+Exit 0 and artifacts at `topics/<topic_id>/<family>/...`; the run's provenance
+(`skill_version`, `model_id`, `run_id`) is stamped by the finalize command, never typed.
+
+## Stop and return upstream when
+
+- A condition that moves the problem across the stage boundary (name the stage to return
+  to and what to hand back).
+- A condition that needs the user (risk, ambiguity a guess would silently resolve).

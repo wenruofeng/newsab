@@ -1,0 +1,62 @@
+# One staged article. Copy to `<group>-<serial>-<outlet-slug>.yaml` in this directory.
+# Filenames are append-only working labels; article IDs are content-addressed from URLs.
+#
+# Everything here is what you can read off the page. Nothing derived — no article_id, no
+# sentence IDs, no cluster — those are computed by `python -m newsab_corpus build`.
+
+group_id: cn                    # collector's judgement against manifest group definitions
+source_id: example_daily        # look it up: python -m newsab_corpus registry find --id example
+
+# ---------------------------------------------------------------------------------------
+# Registration block — ONLY for an outlet `registry find` did not return. Leave the whole
+# block out otherwise; the registry is the definition and staging never overwrites it.
+# It is all-or-nothing: the build refuses a half-filled block rather than inventing the
+# rest, because nobody reviews this file later. See references/source-registration.md.
+# ---------------------------------------------------------------------------------------
+# source_country: CN                 # ISO alpha-2, upper case (GB, never UK)
+# source_url: https://example.com/   # the outlet's FRONT PAGE, not this article
+# source_name_en: Example Daily      # masthead a reader sees on the media card
+# source_name_zh: 示例日报
+# source_name_native:                # required when the outlet publishes in neither en nor zh
+# source_category: serious           # serious (reports under its own byline) | other
+# source_beat_scope: general         # general (all-news newsroom) | vertical (industry desk)
+# source_notes_en: >                 # ONE sentence for a reader: what kind of institution
+#   A provincial daily published by the example prefecture government.
+# source_notes_zh: 示例地区政府主办的地方日报。
+
+# Retired field: relevance is a binary INCLUSION decision made before staging (the
+# deletion test — references/search-strategy.md §3); everything staged counts. Leave at
+# the default; nothing reads it any more (kept append-only for historical runs).
+topic_relevance: core
+url: https://example.com/2026/07/01/story
+title: 签证收紧引发留学家庭担忧
+subtitle:                       # optional; becomes P00:S02
+publish_date: 2026-07-01
+lang: zh-CN                     # BCP-47 language of this article
+access_level: full              # full | partial  (partial = title + lead only)
+
+origin:
+  # original | domestic_wire | foreign_wire_rewrite | syndication | press_release
+  # press_release = a ministry/regulator/association/company statement this outlet rewrote
+  type: original
+  wire_source:                  # required unless type=original; for press_release, the
+                                # body that ISSUED the statement, not where you found it
+  headline_changed:             # optional, for syndicated copy
+  lead_changed:
+
+# How this body marks a paragraph boundary. Declare it; the builder never guesses.
+#   blank_line     (default) body copied out of rendered HTML: blank line between grafs,
+#                  single newlines are soft wraps and get joined
+#   single_newline body taken from a JSON-LD `articleBody`: every "\n" is a real paragraph
+#                  break (read as blank_line, the whole article collapses into P01)
+paragraph_break: blank_line
+
+# Body text, in the convention declared above.
+# Paste verbatim — a reader must be able to Ctrl-F any quoted sentence on the original
+# page (§2.5), so do not fix typography, punctuation or spacing.
+body: |
+  第一段第一句。第一段第二句。
+
+  第二段。
+
+note: 为什么收这篇 / 抓取时的异常，会进 collection_log

@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "newsab-a1"
+version = "0.2.0"
+description = "Deterministic statistics layer: feature matrix, candidate scans, metric vector, R-gate (blueprint §3.3 A1, D10)."
+requires-python = ">=3.10"
+dependencies = ["newsab-schema", "PyYAML>=6"]
+
+[project.optional-dependencies]
+parquet = ["pyarrow>=14"]
+
+[project.scripts]
+newsab-a1 = "newsab_a1.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["newsab_a1*"]
+
+[tool.setuptools.package-data]
+newsab_a1 = ["configs/*.yaml"]

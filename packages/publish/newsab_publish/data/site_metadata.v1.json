@@ -1,0 +1,36 @@
+{
+  "categories": [
+    {
+      "category_id": "local-demo",
+      "labels": {
+        "ar": "عرض توضيحي محلي",
+        "en": "Local demo",
+        "es": "Demo local",
+        "fr": "Démo locale",
+        "hi": "स्थानीय डेमो",
+        "ja": "ローカルデモ",
+        "ko": "로컬 데모",
+        "ru": "Локальная демонстрация",
+        "zh-CN": "本地示例"
+      }
+    }
+  ],
+  "locales": [
+    "zh-CN",
+    "en",
+    "ru",
+    "fr",
+    "ko",
+    "hi",
+    "es",
+    "ja",
+    "ar"
+  ],
+  "metadata_version": "site-metadata-1.0.1",
+  "taxonomy_version": "taxonomy-1.0.1",
+  "topic_categories": {
+    "aabb-river-light-2026": [
+      "local-demo"
+    ]
+  }
+}
