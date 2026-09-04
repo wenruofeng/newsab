@@ -155,9 +155,15 @@ def main(argv: list[str] | None = None) -> int:
                     card = sentence_index.card(sentence_id)
                     if card is None:
                         raise SystemExit(f"anchor does not resolve: {sentence_id}")
+                    # page-check hard-refuses a quote whose sentence is not
+                    # English if it has no `translation.en` — flag it here, where the
+                    # quote gets picked, not after the fact.
+                    needs_en = " [quoted → needs Quote.translation.en]" if (
+                        card.lang.split("-")[0] != "en"
+                    ) else ""
                     out.append(
                         f"  - `{sentence_id}` ({card.source_name}, {card.publish_date}, "
-                        f"{card.lang}): {card.text}"
+                        f"{card.lang}): {card.text}{needs_en}"
                     )
             out.append("")
 

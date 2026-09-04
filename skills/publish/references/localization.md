@@ -46,9 +46,11 @@ Records written before this field omit it; supply the set with `prepare
 --reviewed-locales`, taking it from the `locales` of the publication that review was
 bound into, never from memory.
 
-**This byte re-prove is the only thing that passes on every touchpoint-two path.** The
-site-wide backfill below is the single exception, and it does not loosen this check —
-it proves the same thing a different way. Read that section before assuming otherwise.
+**This byte re-prove is what passes whenever the candidate comes from the run the
+reviewer's bytes came from.** The two paths that re-render from a *different* run — the
+per-topic locale-plan expansion and the site-wide backfill, both below — are the
+exceptions, and neither loosens this check: both go through `backfill-locales`, which
+proves the same thing a different way. Read those sections before assuming otherwise.
 
 ## Expanding one topic ahead of the site (the locale-plan)
 
@@ -87,27 +89,49 @@ asking again:
     "
 
 Localize the topic's `page.json` into each locale in `target_locales` beyond what
-already exists (`references/localize.md`'s bulk tools —
-`scripts/prepare_localized_page.py --locale <l>` for lexicon maps,
-`scripts/apply_angle_localizations.py --lang <l>` for angle prose), gate each new locale
+already exists (render-localize's `scripts/localization_units.py --lang <l>` to extract
+the whole page's work list, `scripts/apply_localization.py --lang <l>` to merge it back —
+it refuses to overwrite an already-approved language, which is what makes running it
+against reviewed bytes safe), gate each new locale
 through its own L2 `check_localization_judge.py` pass exactly as any other language —
 **a locale-plan authorizes shipping a language, it does not exempt it from the judge**.
-Then prepare and activate the wider candidate, citing the plan as the human
-authorization behind it:
+Then ship the wider set with `backfill-locales`, citing the plan as the human
+authorization behind it. **Not `prepare --locales`** — that is the one thing this path
+cannot use, for a mechanical reason worth stating once: the disclosure panel prints the
+page run's own id and timestamp, and an expansion run *is* a new run, so re-rendering the
+reviewed locale set from it can never reproduce `review.page_hash`. `prepare` refuses
+(`reviewed page hash does not match deterministic production bytes`), and its `baseline`
+escape hatch — the equivalence proof that absorbs exactly that provenance drift — is
+reachable only from `backfill-locales`. The batch command is per-topic addressable and
+its `--help` already claims this case ("a topic's editorial run gets a content-only rerun
+on its non-reviewed languages"), so use it:
 
-    python -m newsab_publish prepare <topics_root> <site_root> <topic_id> \
-      --page-run <the expansion rl run> --review <path to the PublicationReview> \
-      --site-metadata <metadata.json> --locales <target_locales, comma-separated> \
-      --reviewed-locales <the review's original locale set>
-    python -m newsab_publish activate <topics_root> <site_root> <publication_id> \
-      --approval <a HumanApproval citing the locale-plan file> \
+    python -m newsab_publish backfill-locales <topics_root> <site_root> \
+      --topic <topic_id> --page-run <topic_id>=<the expansion rl run> \
       --site-metadata <metadata.json> --production <public_dir> \
-      --base-url <https://origin> --reason "expanding <topic_id> per locale-plan-<topic_id>-<hash8>.json"
+      --base-url <https://origin> --reviewer <who approved the plan> \
+      --reason "expanding <topic_id> per locale-plan-<topic_id>-<hash8>.json"
 
-`--reviewed-locales` is required whenever the original review predates that field or
-shipped a narrower set than `target_locales` — read it off the review record, never from
-memory (same rule as the site-wide backfill below). Finally mark the plan spent so a
-resumed or repeated expansion run does not silently replay it:
+This exact `--page-run TOPIC=RUN` plus plan-consumption sequence has no end-to-end test
+of its own yet (`pending_locale_plan`/`consume_locale_plan` are unit-tested in isolation,
+in `test_dev_shell.py`) — and it is the one that was measured wrong once already: an
+earlier version of this very section described a command sequence for this expansion path
+that did not actually run, and nobody caught it until an agent tried to copy it. The fix
+landed in prose then; the `backfill-locales` command shape and the equivalence proof it
+shares with the site-wide path below are now cli_e2e-tested end to end in
+`packages/publish/tests/test_localization_expansion_cli_e2e.py`, which is the fix landing
+in the accuracy layer prose alone cannot provide.
+
+This requires the topic to already have a live publication of its approved locales — that
+publication's signed bytes are the baseline the proof chains from. A topic reaching
+touchpoint two for the first time therefore ships in two moves: `prepare`/`activate` the
+approved set (`--locales` at the floor), then this command to widen. The resulting
+supersede's `reviewed_equivalence` should name only the provenance rules
+(`provenance-lineage`, `provenance-language-count`); anything else fired means content
+moved and belongs in a review, not a backfill.
+
+Finally mark the plan spent so a resumed or repeated expansion run does not silently
+replay it:
 
     python -c "
     from newsab_schema.paths import SitePaths
@@ -144,7 +168,12 @@ reviewer:
    `prepare`'s `required_langs` refusal and is reported for stage-6 localization; a topic
    whose active run drifted in content fails and is reported for the ordinary review
    path. The command is resumable: current publications are skipped, prepared candidates
-   reused, approvals reread.
+   reused, approvals reread. `--topic <t>` naming a topic with **no live publication at
+   all** is reported failed too, with the exact `prepare` command to run first — this
+   command only widens an existing release, it never mints the first one. A topic's
+   launch is therefore always two commands, never one: `prepare` + `activate` in its
+   reviewed languages, *then* `backfill-locales` to widen it — cli_e2e-tested end to end
+   in `packages/publish/tests/test_localization_expansion_cli_e2e.py`.
 
    **How the approval is re-proved here, and why it is not the byte re-prove.** A
    backfill runs long after the review, against the topic's active editorial run and with

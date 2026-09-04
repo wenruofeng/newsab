@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Optional
 
 from newsab_schema.common import LangText, normalize_lang
+from newsab_schema.ids import validate_run_id
 from newsab_schema.io import ArtifactError
 from newsab_schema.models.publication import HumanApproval, PublicationReview
 from newsab_schema.paths import SitePaths
@@ -28,6 +29,8 @@ from .cost import (
     read_usage_jsonl,
     portable,
     rebuild_index,
+    topic_active_run_ids,
+    topic_manifest_entries,
     topic_run_ids,
     write_report,
 )
@@ -55,6 +58,7 @@ from .dev_shell import (
     write_review_manifest,
 )
 from .metadata import default_metadata_path, load_site_metadata
+from .taxonomy import adopt_taxonomy
 from .themes import load_theme_registry, render_theme_panel, resolve_theme
 from .web_gate import run_web_gate
 
@@ -279,6 +283,25 @@ def main(argv: Optional[list[str]] = None) -> int:
         ),
     )
 
+    adopt = sub.add_parser(
+        "adopt-taxonomy",
+        help="fold one founder-approved topic-categories decision into site metadata",
+    )
+    adopt.add_argument("site_root")
+    adopt.add_argument("topic_id")
+    adopt.add_argument(
+        "--approval",
+        help=(
+            "the topic-categories-<topic>-<hash8>.json to adopt (default: the sole "
+            "matching file under site/private/approvals/; multiple matches require "
+            "this to be explicit)"
+        ),
+    )
+    adopt.add_argument(
+        "--site-metadata",
+        help="metadata revision to update in place (default: the checked-in site_metadata.v1.json)",
+    )
+
     theme_panel = sub.add_parser("theme-panel", help="render the controlled visual theme chooser")
     theme_panel.add_argument("-o", "--out", required=True)
     theme_panel.add_argument("--theme-registry")
@@ -358,7 +381,33 @@ def main(argv: Optional[list[str]] = None) -> int:
         help="write this publication's agent wall clock and token spend to site/audit/cost/",
     )
     cost.add_argument("site_root")
-    cost.add_argument("publication_id")
+    cost.add_argument(
+        "publication_id",
+        nargs="?",
+        help=(
+            "a live publication id, read for its topic_id/submission_id (mutually "
+            "exclusive with --topic-id, which works before any publication exists)"
+        ),
+    )
+    cost.add_argument(
+        "--topic-id",
+        help=(
+            "report on a topic directly, without a publication — costs to date, before "
+            "touchpoint two ever runs. Defaults to the topic's currently active run per "
+            "stage (manifest/active.json); pass --run-id to scope it explicitly instead"
+        ),
+    )
+    cost.add_argument(
+        "--run-id",
+        action="append",
+        default=[],
+        metavar="RUN_ID",
+        help=(
+            "scope the report to exactly these run ids (repeatable), instead of every run "
+            "id the topic's artifacts mention (with PUBLICATION_ID) or its active pointers "
+            "(with --topic-id). Also the only way to see one specific run in isolation."
+        ),
+    )
     cost.add_argument(
         "--projects-dir",
         help="Claude Code transcript directory (default: discovered from --repo-root)",
@@ -633,6 +682,21 @@ def main(argv: Optional[list[str]] = None) -> int:
                 f"{len(failed)} failed"
             )
             return 1 if failed else 0
+        if args.command == "adopt-taxonomy":
+            result = adopt_taxonomy(
+                args.site_root,
+                args.topic_id,
+                approval_path=args.approval,
+                metadata_path=args.site_metadata,
+            )
+            print(json.dumps({
+                "status": result.status,
+                "metadata_path": str(result.metadata_path),
+                "topic_id": result.topic_id,
+                "category_ids": list(result.category_ids),
+                "approval": str(result.approval_path),
+            }, ensure_ascii=False, indent=2))
+            return 0
         if args.command == "theme-panel":
             target = Path(args.out)
             if target.exists():
@@ -725,22 +789,46 @@ def main(argv: Optional[list[str]] = None) -> int:
             )
             return 0
         if args.command == "cost-report":
-            site_paths = SitePaths.at(args.site_root)
-            record = json.loads(
-                (site_paths.publications_dir / args.publication_id / "publication.json").read_text(
-                    encoding="utf-8"
+            if bool(args.publication_id) == bool(args.topic_id):
+                raise ArtifactError(
+                    "cost-report needs exactly one of PUBLICATION_ID (a live publication) "
+                    "or --topic-id (works before activation, before touchpoint two ever "
+                    "runs) — pass one, not both, not neither"
                 )
-            )
+            site_paths = SitePaths.at(args.site_root)
             rates = load_rates(args.rates)
-            topic_id = record["topic_id"]
-            # A publication that came from a submission keeps its topic tree in the
-            # import namespace, and says so in its own record.
-            run_ids = topic_run_ids(
-                submission_topics_root(site_paths, record["submission_id"])
-                if record.get("submission_id")
-                else args.topics_root,
-                topic_id,
-            )
+            explicit_run_ids = {validate_run_id(rid) for rid in args.run_id}
+            if args.publication_id:
+                record = json.loads(
+                    (
+                        site_paths.publications_dir / args.publication_id / "publication.json"
+                    ).read_text(encoding="utf-8")
+                )
+                topic_id = record["topic_id"]
+                # A publication that came from a submission keeps its topic tree in the
+                # import namespace, and says so in its own record.
+                report_topics_root = (
+                    submission_topics_root(site_paths, record["submission_id"])
+                    if record.get("submission_id")
+                    else args.topics_root
+                )
+                # Every run id the topic's artifacts mention, unchanged from before
+                # --run-id existed — a live publication has a settled history to sum.
+                run_ids = explicit_run_ids or topic_run_ids(report_topics_root, topic_id)
+            else:
+                topic_id = args.topic_id
+                report_topics_root = args.topics_root
+                if explicit_run_ids:
+                    run_ids = explicit_run_ids
+                else:
+                    active = topic_active_run_ids(report_topics_root, topic_id)
+                    run_ids = set(active.values())
+                    if not run_ids:
+                        raise ArtifactError(
+                            f"{topic_id}: manifest/active.json has no active run for any "
+                            "stage yet — pass --run-id explicitly, or run a stage first"
+                        )
+            manifest_entries = topic_manifest_entries(report_topics_root, topic_id)
             sessions = []
             configured: set[str] = set()
             observed: set[str] = set()
@@ -820,6 +908,8 @@ def main(argv: Optional[list[str]] = None) -> int:
                 rates,
                 reader="combined",
                 coverage=coverage,
+                target_run_ids=run_ids,
+                manifest_entries=manifest_entries,
             )
             if args.dry_run:
                 included = sum(candidate["included"] for candidate in report.candidates)
@@ -848,6 +938,9 @@ def main(argv: Optional[list[str]] = None) -> int:
                             "models": sorted(report.totals_by_model),
                             "by_harness": serial_harness,
                             "partial_sessions": partial_sessions,
+                            "by_run": report.by_run,
+                            "by_skill": report.by_skill,
+                            "cross_stage": report.cross_stage,
                         },
                         ensure_ascii=False,
                     )
@@ -863,6 +956,25 @@ def main(argv: Optional[list[str]] = None) -> int:
                 else f"${report.priced_usd:,.2f} priced + unpriced usage"
             )
             print(f"{report.wall_clock_minutes:.0f} min  {price}  ({report.pricing_status})")
+            for skill in report.by_skill:
+                skill_tokens = skill["total_tokens"]
+                skill_wall = (
+                    f"{skill['wall_clock_minutes']:.0f} min"
+                    if skill["wall_clock_minutes"] is not None
+                    else "n/a"
+                )
+                skill_usd = f"${skill['usd']:,.2f}" if skill["usd"] is not None else "n/a"
+                print(
+                    f"  {skill['skill_id']}: {skill_tokens} tok  {skill_wall}  {skill_usd}  "
+                    f"({skill['pricing_status']}, {skill['runs_with_data']}/{skill['runs']} "
+                    "runs with an exclusive session)"
+                )
+            if report.cross_stage["sessions"]:
+                print(
+                    f"  cross-stage (unsplit): {report.cross_stage['total_tokens']} tok across "
+                    f"{len(report.cross_stage['sessions'])} session(s) touching more than one "
+                    "queried run — see cross_stage.note in the JSON report"
+                )
             return 0
         if args.command == "verify-site":
             metadata, _ = _metadata(args)

@@ -3,11 +3,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: 24tsag_mn
@@ -50,9 +50,9 @@ sources:
   channel:
     checked_at: '2026-08-27'
     fetch_notes: Article pages fetch fine. The served body omits the standfirst; site search is JS-rendered.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: TR
   id: aa_tr
@@ -87,7 +87,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; Hindi body in article container.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Aaajtak.in+{query}
     status: ok
@@ -117,11 +117,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: abcgazetesi_tr
@@ -151,11 +151,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: IN
   id: abplive_in
@@ -185,9 +185,9 @@ sources:
       teaser <p>, div.article-body-guide, a.article-body-recommend and div.article-body-aera-book-wrap.
       The landing URL shows one line only — use ?page=1 then ?page=2. Stock caption 写真はイメージ（写真：アフロ） is
       chrome.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: aera_jp
@@ -229,11 +229,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: agrarheute_de
@@ -265,11 +265,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: allthatsinteresting_us
@@ -301,7 +301,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; Hindi body in article container.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Aamarujala.com+{query}
     status: ok
@@ -328,11 +328,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: antara_id
@@ -364,9 +364,9 @@ sources:
     checked_at: '2026-08-29'
     fetch_notes: 'Body: .RichTextStoryBody — a generic largest-div heuristic returns the whole nav tree
       instead (measured: 19,724 chars of chrome for a 3,056-char article).'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: US
   id: ap_us
@@ -404,9 +404,9 @@ sources:
       the コメントプラス panel and the truncation fragment. Paywall signal: the subscribe link iref — freeArticlePW
       = free in full, articlePW = 有料記事 with 残り<b>N</b>文字. robots.txt disallows /*/search/results* for
       *, so discovery must not use the site search.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: asahi_jp
@@ -445,14 +445,38 @@ sources:
         доступна только по подписке, поэтому некоторые статьи здесь представлены лишь во вводной части.
       zh-CN: 朝日新闻社出版的全国性日报，依托自有的国内外记者站署名报道，社论立场偏自由派、常批评保守派政府；大量报道需付费订阅，故本处部分文章只有导语。
   url: https://www.asahi.com/
+- beat_scope: vertical
+  category: other
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 'HTTP 200; body article.article-detail-container. Review pages open with a grade letter
+      + share block and close with cast/crew spec lines and Join the discussion — strip both ends. site:
+      cell not yet tried.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: avclub_us
+  lang: en
+  name:
+    values:
+      en: The A.V. Club
+      zh-CN: The A.V. Club
+  notes:
+    values:
+      en: A US pop-culture and entertainment website with named staff writers, covering film, television
+        and music criticism.
+      zh-CN: 美国流行文化娱乐网站，有署名专职撰稿人，报道影视与音乐评论。
+  url: https://www.avclub.com/
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: axios_us
@@ -482,11 +506,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: GB
   id: bbc_uk
@@ -513,9 +537,9 @@ sources:
     checked_at: '2026-08-27'
     fetch_notes: 'Body: div.article-body. Vue SSR fragment markers <!--[--> / <!--]--> are Comment nodes
       that a naive text walk emits as "[[" and "]]" inside the text — skip comment nodes.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: DE
   id: bild_de
@@ -546,11 +570,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: bisnis_indonesia_id
@@ -581,12 +605,14 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: Body div.article-content on news.bjd.com.cn; strip the trailing 来源：北京日报客户端 line and the
+      bjdapp.bjd.com.cn app-promo <p> — both are chrome and the last real paragraph carries no marker.
+      robots.txt has no group addressed to us.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: CN
   id: bjd_cn
   lang: zh-CN
@@ -613,12 +639,15 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at: '2026-08-29'
+    checked_at: '2026-09-03'
     fetch_notes: 'Body: .content. Article pages fetch over plain HTTP. Trailing 我要评论 is chrome. Signed
-      commentary runs as 新京报快评 with 撰稿 / <name> at the foot.'
+      commentary runs as 新京报快评 with 撰稿 / <name> at the foot.
+
+      [2026-09-03] ddg site:bjnews.com.cn returns 403 at both layers; the same endpoint unscoped, with
+      新京报 in the query text, returns its articles fine.'
     origin_field: 页尾的 撰稿／记者 署名；转载稿在正文首行标注来源
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: CN
   id: bjnews_cn
@@ -651,9 +680,9 @@ sources:
     checked_at: '2026-08-27'
     fetch_notes: 'Body: the article div; share and feedback furniture ("Link kopiert", leser-bk@berlinerverlag.com)
       sits inside it and is not stripped by the build.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: DE
   id: bkurier_de
@@ -683,13 +712,13 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
+    checked_at: null
     fetch_notes: Site search is client-rendered, so keyword discovery has to happen elsewhere; article
       pages fetch fine over plain HTTP. Long stories paginate at /2, /3 — taking page 1 only truncates
       the body with no error.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: discovery_blocked
   country: ID
   id: bloomberg_technoz_id
@@ -720,11 +749,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: blueprint_ng
@@ -749,12 +778,13 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: Plain HTTP, full body despite being a generally metered site; container article.article|rail
+      article-body. Chrome is a Get Starting Point newsletter block and image captions.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: US
   id: boston_globe_us
   lang: en
@@ -783,11 +813,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: JP
   id: bsn_jp
@@ -818,11 +848,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: businessday_ng
@@ -854,8 +884,8 @@ sources:
   category: other
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: https://www.bz-berlin.de/suche.bz.html — search box exists in the DOM (disabled placeholder)
       but stayed non-interactive behind what the page calls a consent requirement ("Um Ihre Suchergebnisse
@@ -891,7 +921,7 @@ sources:
     checked_at: '2026-08-29'
     fetch_notes: 'Body: the article div. Paywalled pieces serve only the lead — stage those as access_level
       partial.'
-    origin_field:
+    origin_field: null
     rate_limit: none observed
     search_channel: https://www.berliner-zeitung.de/suche?q={query}
     status: ok
@@ -927,9 +957,9 @@ sources:
     checked_at: '2026-08-18'
     fetch_notes: 'Serves a lead and paywalls the rest -> access_level: partial, stage title + lead only.
       Do not attempt to defeat it (⑦, D14).'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: CN
   id: caixin_cn
@@ -962,11 +992,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KE
   id: capitalfm_ke
@@ -996,11 +1026,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: cartoonbrew_us
@@ -1028,7 +1058,7 @@ sources:
     fetch_notes: Some 2005 legacy paths return 403 to plain HTTP while other CCTV archive paths remain
       readable.
     origin_field: Legacy pages state CCTV.com消息 or name the supplying publication in the lead.
-    rate_limit:
+    rate_limit: null
     search_channel: https://search.cctv.com/
     status: ok
   country: CN
@@ -1059,11 +1089,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: challenges_fr
@@ -1094,11 +1124,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: channelstv_ng
@@ -1128,12 +1158,17 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at: '2026-08-23'
+    checked_at: '2026-09-03'
     fetch_notes: 'Body: div.left_zw. Do NOT use div#cont_1_1_2.content — it starts at the headline but
       trails a 经济新闻精选 rail of 10 unrelated headlines. Legacy GB2312 pages decode as gb18030. Search sou.chinanews.com.cn
-      works in a browser but returns <=10 undated results.'
+      works in a browser but returns <=10 undated results.
+
+      [2026-09-03] div.left_zw on /cul/ pages; editor line in div.left_name.right. The 来源 line for pickups
+      sits inline near the top of left_zw, not in a separate metadata div (differs from news.cn). ddg
+      site:chinanews.com.cn returns 403 at both layers, but the same endpoint unscoped, with the outlet
+      name in the query text, returns its articles fine.'
     origin_field: the page's 来源： metadata line plus the in-text byline suffix
-    rate_limit:
+    rate_limit: null
     search_channel: https://sou.chinanews.com.cn/
     status: ok
   country: CN
@@ -1168,9 +1203,9 @@ sources:
     checked_at: '2026-08-29'
     fetch_notes: 'Some feature articles sit behind a free-registration wall that truncates the body —
       stage those at access_level: partial. Body: .article-body.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: TW
   id: chinatimes_tw
@@ -1198,14 +1233,38 @@ sources:
         доступ к некоторым материалам бесплатной регистрацией.
       zh-CN: 台北报纸《中国时报》网站，设国际与娱乐等版块，部分特稿需免费注册后阅读。
   url: https://www.chinatimes.com/
+- beat_scope: vertical
+  category: serious
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: Body div.end_article, ends at </tr></table></center>. 来源 and author sit on one line above
+      the body, separated by a full-width bar (来源：澎湃新闻　|　孔德罡).
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: CN
+  id: chinawriter_cn
+  lang: zh-CN
+  name:
+    values:
+      en: China Writer Net
+      zh-CN: 中国作家网
+  notes:
+    values:
+      en: The official news portal of the China Writers Association, covering literary and cultural affairs
+        (including film adaptations of literary works) under its own editorial desk and bylines, alongside
+        republished commentary it credits to source.
+      zh-CN: 中国作家协会主办的官方新闻网站，设有文学、文化新闻编辑部门，也转载并注明来源的外部评论。
+  url: https://www.chinawriter.com.cn/
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KR
   id: chosun_kr
@@ -1236,11 +1295,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: chronicle_higher_ed_us
@@ -1276,8 +1335,8 @@ sources:
       works in a browser but recall is low and every list is padded with fixed homepage rows.'
     origin_field: articleDetail.author.name — names the ORIGINATING outlet; every in-period item here
       was another newsroom or a wire.
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: CN
   id: cls_cn
@@ -1317,8 +1376,8 @@ sources:
     fetch_notes: 'Body: .paragraph. Traditional characters; simplified-character queries do not reach
       it.'
     origin_field: opening （中央社台北N日電） plus a foot （編輯：<name>） — CNA's own compiled copy
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: TW
   id: cna_tw
@@ -1349,11 +1408,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: cnbce_tr
@@ -1384,11 +1443,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: cnbcindonesia_id
@@ -1424,11 +1483,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: CN
   id: cnr_cn
@@ -1456,12 +1515,13 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: Plain HTTP; container div.entry-content (WordPress wp-block-post-content). No chrome
+      beyond the container this round.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: US
   id: comingsoon_us
   lang: en
@@ -1484,11 +1544,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: CN
   id: cqcb_cn
@@ -1518,11 +1578,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: GB
   id: creativebloq_uk
@@ -1555,7 +1615,7 @@ sources:
     checked_at: '2026-08-20'
     fetch_notes: Article HTML exposes a clean div#abody.
     origin_field: Original reports identify 国际在线／中国国际广播电台 and the reporter in the lead.
-    rate_limit:
+    rate_limit: null
     search_channel: https://news.cri.cn/
     status: ok
   country: CN
@@ -1588,8 +1648,8 @@ sources:
     checked_at: '2026-08-29'
     fetch_notes: 'robots.txt returns 404 (no restrictions apply). Body: .content.'
     origin_field: 首行 极目新闻记者 <name> for own copy; a foot line 红星新闻记者 <name> means the piece is 红星新闻 copy
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: CN
   id: ctdsb_cn
@@ -1620,11 +1680,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: dailypost_ng
@@ -1653,11 +1713,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: dailytrust_ng
@@ -1687,11 +1747,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: dallas_morning_news_us
@@ -1724,7 +1784,7 @@ sources:
     checked_at: '2026-08-30'
     fetch_notes: HTTP returned 403; the honest-identity browser fetched normal article pages; body under
       story__content.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Adawn.com+{query}
     status: ok
@@ -1749,13 +1809,36 @@ sources:
       zh-CN: Dawn Media Group 出版的巴基斯坦英文全国性日报。
   url: https://www.dawn.com/
 - beat_scope: vertical
+  category: serious
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 'Same PMC template family. Plain HTTP works. Extra chrome: a "Watch on Deadline" video-embed
+      prompt line.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: deadline_us
+  lang: en
+  name:
+    values:
+      en: Deadline
+      zh-CN: Deadline Hollywood
+  notes:
+    values:
+      en: A US entertainment-industry trade publication owned by PMC, covering the film and television
+        business with named reporters.
+      zh-CN: 隶属 PMC 集团的美国娱乐产业行业媒体，报道影视商业动态，记者均署名。
+  url: https://deadline.com/
+- beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: detikfinance_id
@@ -1786,11 +1869,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: deutschlandfunk_de
@@ -1825,11 +1908,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: deutschlandfunkkultur_de
@@ -1871,9 +1954,9 @@ sources:
     fetch_notes: 'Body: section.article-body, minus div.central, div.figure-center, div#guideframetext,
       div[id^=gpt-dol], div.guideframe and div.related-info. Multi-page. Stock photo caption 写真はイメージです
       Photo:PIXTA is chrome.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: diamond_jp
@@ -1917,11 +2000,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: CN
   id: dili360_cn
@@ -1948,14 +2031,37 @@ sources:
         своих культурных и географических изданий, а не новости.
       zh-CN: 《中国国家地理》杂志社网站，刊登旗下文化与地理类刊物的专题文章，不做新闻。
   url: https://www.dili360.com/
+- beat_scope: vertical
+  category: other
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: HTTP 200, no robots restriction. Body article.col.s12.l8. A Read Next block and a donation
+      appeal sit at the very end; the author bio line just before them is chrome too.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: dissentmagazine_us
+  lang: en
+  name:
+    values:
+      en: Dissent
+      zh-CN: Dissent 杂志
+  notes:
+    values:
+      en: A US quarterly magazine of left political and cultural commentary, publishing long signed essays
+        by scholars, journalists and critics; founded 1954.
+      zh-CN: 美国左翼政治与文化评论季刊，创刊于1954年，刊登学者、记者与评论家的长篇署名文章。
+  url: https://www.dissentmagazine.org/
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KR
   id: donga_kr
@@ -1986,11 +2092,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
+    checked_at: null
     fetch_notes: Publishes some pieces in English; exclude those per article, never the outlet.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: dunia_energi_id
@@ -2018,11 +2124,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: dunya_tr
@@ -2054,7 +2160,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; Urdu body under news-section.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Adunya.com.pk+{query}
     status: ok
@@ -2084,7 +2190,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; articleBody available and visible.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Aeconomictimes.indiatimes.com+{query}
     status: ok
@@ -2115,9 +2221,9 @@ sources:
     fetch_notes: 'Body: div#articleText.content.clearfix on www.ce.cn; on the paper.ce.cn e-paper it is
       the <founder-content> block inside div#ozoom (the id attribute is unquoted on the page, so bind
       on founder-content). Articles carry 本报记者 bylines and the print page/edition line.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: CN
   id: economicdaily_cn
@@ -2153,11 +2259,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: eguur_mn
@@ -2195,11 +2301,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: ekonomim_tr
@@ -2228,11 +2334,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: environnementmagazine_fr
@@ -2266,8 +2372,8 @@ sources:
     checked_at: '2026-08-29'
     fetch_notes: 'Body: .story. Traditional characters.'
     origin_field: 記者<name>／綜合報導 at the head; the mainland outlet it rewrote is named in the body as 據《…》報導
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: TW
   id: ettoday_tw
@@ -2299,11 +2405,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: evanston_roundtable_us
@@ -2334,7 +2440,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; Urdu body under main_container.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Aexpress.pk+{query}
     status: ok
@@ -2362,11 +2468,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: face2face_africa_us
@@ -2397,8 +2503,8 @@ sources:
   category: serious
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: https://www.faz.net/suche/?query={query}&sort=date
     status: ok
@@ -2437,8 +2543,8 @@ sources:
       be produced by テレビ西日本, 北海道文化放送 and the like, not by the host network.'
     origin_field: JSON-LD author (mirrored in the byline block under the headline and in the ad-targeting
       authors value) — プライムオンライン編集部 or a Fuji programme means the host network own
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: fnn_jp
@@ -2482,8 +2588,8 @@ sources:
   category: other
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: no working search endpoint found this session (/suche/ and /suche/#query= both 404;
       no visible search trigger on the homepage in the fetched DOM)
@@ -2517,11 +2623,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: focus_mn
@@ -2557,12 +2663,14 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: 'Plain HTTP, full body. Chrome: a leading video-embed block, a "NEWYou can now listen"
+      audio prompt, ALL-CAPS inline cross-promo review teasers between paragraphs, and a trailing reporter-contact
+      byline.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: US
   id: foxnews_us
   lang: en
@@ -2595,9 +2703,9 @@ sources:
     fetch_notes: 'Body: div.t-content__body. The standfirst is a separate .t-content__chapo outside it
       and IS the AFP lede — take it or the article loses its first sentence. The body wrapper is class
       …beside-sidebar; a naive chrome blocklist deletes the whole article.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: FR
   id: france24_fr
@@ -2631,8 +2739,8 @@ sources:
   category: serious
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: https://www.freiepresse.de/suche?q={query}
     status: ok
@@ -2667,7 +2775,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; body under articlebodycontent.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Afrontline.thehindu.com+{query}
     status: ok
@@ -2693,11 +2801,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: gazeteoksijen_tr
@@ -2728,11 +2836,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: gazetepencere_tr
@@ -2765,7 +2873,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; body under detail-body.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Ageo.tv+{query}
     status: ok
@@ -2791,11 +2899,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: gereg_mn
@@ -2836,7 +2944,7 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at: '2026-09-01'
+    checked_at: '2026-09-03'
     fetch_notes: 'STILL NO KEYWORD SEARCH: s.huanqiu.com is 403 to plain HTTP and to a browser alike (re-measured
       2026-08-19). But the channel LIST api is plain-HTTP 200 and is enough to route around it when you
       already know roughly when a piece ran: https://world.huanqiu.com/api/list?node="<catnode>"&offset=<n>&limit=<=50
@@ -2852,13 +2960,17 @@ sources:
       [2026-09-01] DDG''s site: index for huanqiu.com is heavily stale: it returns pre-window archives
       even while the outlet publishes daily inside the window. Recovered by adding dated phrasing to the
       query (measured in a pub-repo run, 2026-09-01). Do not book a thin DDG site: grid as this outlet''s
-      silence.'
+      silence.
+
+      [2026-09-03] quality.huanqiu.com and ent.huanqiu.com use the same textarea.article-content pattern
+      as the main host. article-time is a ms epoch and is the only date on the page — no human-readable
+      string to cross-check a boundary date against.'
     origin_field: <textarea class="article-source-name"> — names the wire and links its original (e.g.
       新华网 linking the exact news.cn URL). Where present this settles origin by lookup, not judgement.
     rate_limit: 'No throttling observed: ~20 list-API calls plus article fetches back to back with no
       pacing, all 200.'
     search_channel: https://world.huanqiu.com/api/list?node="{catnode}"&offset={offset}&limit={limit}
-    status: discovery_blocked
+    status: ok
   country: CN
   id: globaltimes_cn
   lang: zh-CN
@@ -2887,12 +2999,16 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: 'Two body templates: wenyi./news.gmw.cn use div.u-mainText#ContentPh ending at div.m-zbTool;
+      epaper.gmw.cn (光明日报 print) uses div.m-article-text ending at <!--/enpcontent-->, author in span.m-article-author.
+      epaper pages ALSO duplicate the whole body in a later inline articleBody string that concatenates
+      trailing chrome with no tag boundary — extract only the real <p> sequence. Where both carry a piece,
+      news.gmw.cn 来源 links to the epaper URL: epaper is the original.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: CN
   id: gmw_cn
   lang: zh-CN
@@ -2920,11 +3036,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: gogo_mn
@@ -2966,11 +3082,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: goodplanet_fr
@@ -3002,13 +3118,18 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at: '2026-08-23'
+    checked_at: '2026-09-03'
     fetch_notes: 'Search needs a browser (navigate, do not fetch); guancha.cn/search?s= is an empty shell
       at both layers. &page=N is ignored — depth comes from more keywords, not deeper pages. Body: div.content.all-txt
       (div.content starts at site nav; div.main.content-main drags in share widget, 举报 menu, 相关推荐 and
       快讯 rails). Drop the trailing 本文系观察者网独家稿件 copyright paragraph. NO date meta tag and no JSON-LD —
-      the datetime is page text in the header and also in the URL path.'
-    origin_field:
+      the datetime is page text in the header and also in the URL path.
+
+      [2026-09-03] Body div.content.all-txt, but a naive class-string regex first matches a CSS selector
+      inside <style> — match the tag and walk to the balanced </div>. Signed columns under author-slug
+      paths (/yanmo/, /guanwangwenyu/) are original. user.guancha.cn (风闻) is a separate UGC column, out
+      of scope.'
+    origin_field: null
     rate_limit: none observed at 3s spacing
     search_channel: https://www.guancha.cn/api/search.htm?click=news&keyword={query}
     status: ok
@@ -3039,11 +3160,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: guardian_ng
@@ -3073,11 +3194,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: gzt_tr
@@ -3108,11 +3229,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: haberturk_tr
@@ -3143,11 +3264,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KR
   id: hani_kr
@@ -3178,11 +3299,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KR
   id: hankookilbo_kr
@@ -3214,11 +3335,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: hibya_tr
@@ -3253,7 +3374,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; body under articlePage.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Ahindustantimes.com+{query}
     status: ok
@@ -3282,9 +3403,9 @@ sources:
     checked_at: '2026-08-29'
     fetch_notes: Article URLs carry a Chinese-character path segment; percent-encode it for the fetcher.
       Traditional characters.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: HK
   id: hk01_hk
@@ -3312,11 +3433,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: hogapage_de
@@ -3353,8 +3474,8 @@ sources:
       caption 訪日客数の増減率推移 that 47NEWS also uses. robots.txt disallows /search/ for *.'
     origin_field: <div id="article_source" value="共同通信"> plus "newsSource" in the page JSON; absent =
       the paper own copy
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: hokkaidonp_jp
@@ -3394,15 +3515,38 @@ sources:
       zh-CN: 北海道的地方性日报，由北海道新闻社在札幌出版，在全道各地派驻记者署名报道当地新闻；多数文章设有订阅墙，同时也刊登共同通信的通稿，网页上会另行标注。
   url: https://www.hokkaido-np.co.jp/
 - beat_scope: vertical
+  category: serious
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 'Same PMC template as Variety: div.pmc-paywall, same recirculation-block shape. Plain
+      HTTP works.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: hollywoodreporter_us
+  lang: en
+  name:
+    values:
+      en: The Hollywood Reporter
+      zh-CN: 好莱坞报道
+  notes:
+    values:
+      en: A US entertainment-industry trade publication owned by PMC, covering film and television with
+        named critics and reporters.
+      zh-CN: 隶属 PMC 集团的美国娱乐业行业媒体，报道影视产业，记者与影评人均署名。
+  url: https://www.hollywoodreporter.com/
+- beat_scope: vertical
   category: other
   channel:
     checked_at: '2026-08-23'
     fetch_notes: 'Body: div.article-content, minus the in-page 目次 (which duplicates the section headings
       verbatim), the ▲ photo/chart captions, 関連記事 links, ads and the membership block. Member wall on
       some articles — expect access_level partial.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: honichi_jp
@@ -3427,11 +3571,11 @@ sources:
         y marketing de empresas japonesas: la mayor parte de sus contenidos resume estadísticas del gobierno
         y de la JNTO o promociona sus informes exclusivos para socios, por lo que es un servicio sectorial
         y no una redacción de noticias general.'
-      fr: "Un site d'information sur le tourisme entrant géré par l'entreprise tokyoïte de marketing web\
-        \ mov Inc. en parallèle de ses propres services de marketing, destiné au personnel marketing et\
-        \ tourisme entrant des entreprises japonaises : la plupart de ses contenus résument des statistiques\
-        \ gouvernementales et de JNTO ou font la promotion de ses rapports réservés aux membres, il s'agit\
-        \ donc d'un service professionnel plutôt que d'une rédaction généraliste."
+      fr: 'Un site d''information sur le tourisme entrant géré par l''entreprise tokyoïte de marketing
+        web mov Inc. en parallèle de ses propres services de marketing, destiné au personnel marketing
+        et tourisme entrant des entreprises japonaises : la plupart de ses contenus résument des statistiques
+        gouvernementales et de JNTO ou font la promotion de ses rapports réservés aux membres, il s''agit
+        donc d''un service professionnel plutôt que d''une rédaction généraliste.'
       hi: 'टोक्यो की वेब-मार्केटिंग कंपनी mov Inc. द्वारा अपनी मार्केटिंग सेवाओं के साथ-साथ चलाई जाने
         वाली इनबाउंड-पर्यटन सूचना साइट, जो जापानी कंपनियों के इनबाउंड और मार्केटिंग स्टाफ़ के लिए लिखी
         जाती है: इसकी अधिकांश सामग्री सरकारी और जेएनटीओ आँकड़ों का सार प्रस्तुत करती है या अपनी सदस्यों-मात्र
@@ -3449,11 +3593,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: CN
   id: hqrw_cn
@@ -3479,6 +3623,30 @@ sources:
         формата, а не оперативным новостям.
       zh-CN: 人民日报社主管的《环球人物》杂志，以人物特稿为主，不是新闻编辑部。
   url: http://www.hqrw.com.cn/
+- beat_scope: vertical
+  category: other
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: Body div.article__content (balanced-div walk). Culture/entertainment copy is near-100%
+      attributed WeChat-account reprints opening 本文来自微信公众号：X，作者：Y — stage as syndication with that account
+      as wire_source. No robots restriction on /article/*.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: CN
+  id: huxiu_cn
+  lang: zh-CN
+  name:
+    values:
+      en: Huxiu
+      zh-CN: 虎嗅
+  notes:
+    values:
+      en: A Beijing tech-and-business commentary portal; its culture/entertainment coverage is overwhelmingly
+        attributed republication of WeChat public-account essays rather than staff-bylined reporting.
+      zh-CN: 北京的科技与商业资讯评论门户，其文娱类内容以注明来源的微信公众号转载为主，鲜少本社记者署名报道。
+  url: https://www.huxiu.com/
 - beat_scope: general
   category: serious
   channel:
@@ -3487,9 +3655,9 @@ sources:
       — decode as gb18030; percentages are full-width ％. National/international pages are Xinhua copy,
       usually printed with NO source line, so origin must come from matching the wire text rather than
       from the page.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: CN
   id: hzdaily_cn
@@ -3529,11 +3697,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: GB
   id: ibtimes_uk
@@ -3557,11 +3725,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: idxchannel_id
@@ -3594,12 +3762,14 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: 'na./ent./i.ifeng.com are one platform hosting third-party accounts via ishare.ifeng.com/mediaShare:
+      the index_sourceTitleText_* span names the real author (凤凰网娱乐 = own; anything else is a hosted reprint
+      — prefer the original outlet domain). Body div class is a per-page CSS-modules hash, no stable selector.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: CN
   id: ifeng_cn
   lang: zh-CN
@@ -3628,11 +3798,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: ikon_mn
@@ -3669,11 +3839,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: GB
   id: independent_uk
@@ -3700,7 +3870,7 @@ sources:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; body under the main article container; magazine paywall
       retained partial.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Aindiatoday.in+{query}
     status: ok
@@ -3729,7 +3899,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; premium pages retained as title and visible lead only.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Aindianexpress.com+{query}
     status: ok
@@ -3755,12 +3925,15 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: 'Plain HTTP; the body container is a hashed CSS-module class that rotates per build —
+      match on the fragment _templateArticle_ rather than a full name. Heavy chrome: breadcrumbs, author-bio
+      widget, three More stories teasers, the social-share list, a Google Preferred Source prompt and
+      inline image credits.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: US
   id: indiewire_us
   lang: en
@@ -3785,11 +3958,36 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 'Body div.nfzm-content__fulltext, stop at the <!--fulltext end--> comment. Metered wall:
+      2-5 free paragraphs then nfzm-article-jumbotron--unauth -> access_level partial. Podcast-only pieces
+      have no transcript. Publish datetime in nfzm-content__publish[data-time].'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: CN
+  id: infzm_cn
+  lang: zh-CN
+  name:
+    values:
+      en: Southern Weekly
+      zh-CN: 南方周末
+  notes:
+    values:
+      en: A Guangzhou-based weekly newspaper under Nanfang Media Group, one of mainland China's most influential
+        general-interest serious papers, with reported feature journalism across politics, society and
+        culture.
+      zh-CN: 广州南方报业传媒集团旗下的综合性严肃周报，以深度调查与特稿报道见长，覆盖时政、社会与文化。
+  url: https://www.infzm.com/
+- beat_scope: general
+  category: serious
+  channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: PH
   id: inquirer_ph
@@ -3819,11 +4017,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: inside_higher_ed_us
@@ -3851,11 +4049,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: internethaber_tr
@@ -3886,11 +4084,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: investor_id
@@ -3924,9 +4122,9 @@ sources:
     checked_at: '2026-08-27'
     fetch_notes: imedee.mn serves the same site. No meta date; the publication date is recoverable from
       the og:image asset path (/uploads/news/4x3/YYYY/MM/DD/).
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: MN
   id: isee_mn
@@ -3965,11 +4163,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: itoim_mn
@@ -4014,11 +4212,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: jf_de
@@ -4051,13 +4249,17 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at: '2026-08-23'
+    checked_at: '2026-09-03'
     fetch_notes: 'Body: div.article-content. Date: data-article-publish-time (unix seconds). www.jiemian.com/search*
       is 404; on the a.jiemian.com endpoint the parameter is msg= — keyword= silently returns the day
-      homepage feed.'
+      homepage feed.
+
+      [2026-09-03] A JMedia suffix in <title> marks the contributor/reprint platform, not the newsroom:
+      a named outlet byline (文｜毒眸) is syndication with that outlet as wire_source; a solo self-media byline
+      is UGC. 界面新闻记者/编辑 bylines and staff roundtables are original.'
     origin_field: 'hidden <input id=''origin'' value=''N''>: 1 = the outlet''s own item (未经正式授权严禁转载本文),
       4 = reprint (本文为转载内容). Corroborates the in-text credit line.'
-    rate_limit:
+    rate_limit: null
     search_channel: https://a.jiemian.com/index.php?m=search&a=index&opt=old&msg={query}
     status: ok
   country: CN
@@ -4092,9 +4294,9 @@ sources:
     fetch_notes: 'www.jiji.com/jc/searchresult 404s. Readable host: https://sp.m.jiji.com/article/show/<id>;
       body div.newsArticle (article <section> in div#main on equity.jiji.com). Publish datetime in a [class*=date]
       element. Body ends with the ［時事通信社］ credit.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: jiji_jp
@@ -4138,9 +4340,9 @@ sources:
     checked_at: '2026-08-23'
     fetch_notes: 'Body: div.content_text. The deck belongs in subtitle; the ※画像＝ caption line and the
       定期購読 CTAs are chrome.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: jwing_jp
@@ -4189,9 +4391,9 @@ sources:
     fetch_notes: 'Body: div.article-content. A commented-out duplicate div.article-content leaves the
       stray text "2021.08.19 Delete -->" at the head of the container — drop it. URLs encode YYMMDDHHMM.
       Returned a transient 403 after several rapid requests; cleared after ~40s.'
-    origin_field:
+    origin_field: null
     rate_limit: pace at 10-15s; a burst drew a transient 403
-    search_channel:
+    search_channel: null
     status: ok
   country: JP
   id: kankokeizai_jp
@@ -4236,11 +4438,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: karar_tr
@@ -4271,11 +4473,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: katadata_id
@@ -4306,11 +4508,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KR
   id: kbs_kr
@@ -4343,11 +4545,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: kendari_pos_id
@@ -4369,7 +4571,7 @@ sources:
     checked_at: '2026-08-20'
     fetch_notes: Article pages are readable as server-rendered HTML.
     origin_field: Staff byline and explicit external-media attribution appear on the page.
-    rate_limit:
+    rate_limit: null
     search_channel: https://www.kenyans.co.ke/
     status: ok
   country: KE
@@ -4399,9 +4601,9 @@ sources:
     checked_at: '2026-08-29'
     fetch_notes: HTTP 403 to the fetcher; the Playwright browser gets a normal 200. Browser required,
       not a block.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: IN
   id: koimoi_in
@@ -4426,11 +4628,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: kompas_id
@@ -4457,12 +4659,12 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
+    checked_at: null
     fetch_notes: The body container leaks a `Menarik Dibaca:` recommendation paragraph that must be stripped
       before staging.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: kontan_id
@@ -4494,8 +4696,8 @@ sources:
   category: other
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: harness websearch domain filter [kotaku.com] accepts; tails pad with off-topic filler
     status: ok
@@ -4525,11 +4727,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: ksta_de
@@ -4561,8 +4763,8 @@ sources:
   category: other
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: harness websearch domain filter [mydrivers.com] accepts; article pages fetch over
       HTTP
@@ -4604,8 +4806,8 @@ sources:
       kyodo.co.jp is a different legal entity (株式会社共同通信社) with a corporate/lifestyle site, which is why
       the registered front page is 47NEWS.'
     origin_field: article.user.title
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: kyodo_jp
@@ -4651,8 +4853,8 @@ sources:
     fetch_notes: 'Body: div.article-body, cut at 京都新聞ＩＤへの会員登録. The caption is the first node inside the
       body container — drop it.'
     origin_field: GTM dataLayer category = 配信ニュース>共同通信>ニュースパックCN/CO; the 全国の記事 breadcrumb agrees
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: kyotonp_jp
@@ -4695,11 +4897,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KR
   id: kyunghyang_kr
@@ -4730,11 +4932,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: lacroix_fr
@@ -4765,11 +4967,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: laprovence_fr
@@ -4799,12 +5001,13 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: Plain HTTP, full body; container div.ct-rich-text-children. Advertisement markers, inline
+      Movies / For Subscribers widget cards and a trailing More to Read block all strip by exact text.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: US
   id: latimes_us
   lang: en
@@ -4838,9 +5041,9 @@ sources:
       what the page shows. The page also carries many <article class="w-full"> teaser cards for other
       stories; require the container to contain the article own standfirst or one of those cards is extracted
       instead.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: FR
   id: latribune_fr
@@ -4871,11 +5074,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: leadership_ng
@@ -4899,11 +5102,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: ledauphine_fr
@@ -4934,11 +5137,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: lefigaro_fr
@@ -4969,11 +5172,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: legit_ng
@@ -5012,9 +5215,9 @@ sources:
     fetch_notes: Article pages fetch fine over HTTP under the honest identity. The on-site /recherche/
       page sits behind a bot challenge that survives headless Playwright — discover through an engine,
       not on-site search.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: FR
   id: lemonde_fr
@@ -5047,11 +5250,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: lenergeek_fr
@@ -5082,11 +5285,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: lepetitjournal_fr
@@ -5117,11 +5320,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: lexpress_fr
@@ -5149,14 +5352,38 @@ sources:
         публикующий как собственные материалы, так и большой объём агентских сообщений.
       zh-CN: 法国综合新闻周刊及网站，业主为 Alain Weill，自采报道与大量通讯社稿件并存。
   url: https://www.lexpress.fr/
+- beat_scope: vertical
+  category: serious
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: robots.txt disallows / site-wide -> every article is access_level partial. h5/article/detail.do?artId=
+      exposes title, byline, MM-DD date and a one-line lead in div.d.d_zy; the full body sits behind a
+      WeChat-mirror js_content container behind a login wall.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: CN
+  id: lifeweek_cn
+  lang: zh-CN
+  name:
+    values:
+      en: Life Week (Sanlian Lifeweek)
+      zh-CN: 三联生活周刊
+  notes:
+    values:
+      en: A Beijing current-affairs and culture weekly published by SDX Joint Publishing (a China Publishing
+        Group house), long known for reported feature journalism.
+      zh-CN: 生活·读书·新知三联书店旗下的北京时政文化周刊，以深度特稿见长。
+  url: https://www.lifeweek.com.cn/
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: livetv_mn
@@ -5197,11 +5424,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: lopinion_fr
@@ -5232,11 +5459,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: lto_de
@@ -5267,11 +5494,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: lz_de
@@ -5309,9 +5536,9 @@ sources:
       and prints 残りN文字（全文M文字）; expect access_level partial. THE URL PATH DATE IS OFTEN WRONG — 4 of 11
       rows disagreed with the page (e.g. /20260228/ published 2026-03-02); read JSON-LD datePublished.
       robots.txt returns 200 and contains only AI-crawler product-token groups with no User-agent:* group.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: mainichi_jp
@@ -5353,11 +5580,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KE
   id: malindikenya_ke
@@ -5390,9 +5617,9 @@ sources:
     checked_at: '2026-08-23'
     fetch_notes: 'The station own free full view is ?display=1 — the default view truncates at a plain
       続きを読む link (no wall). Body: div.article-body.ad_pc_article_body.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: mbc_jp
@@ -5432,9 +5659,9 @@ sources:
   channel:
     checked_at: '2026-08-27'
     fetch_notes: No meta date; the page states it as "Нийтэлсэн YYYY.MM.DD" in the sidebar.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: MN
   id: medee_mn
@@ -5478,11 +5705,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: medyascope_tr
@@ -5513,11 +5740,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: mercury_news_us
@@ -5547,11 +5774,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: mining_mn
@@ -5591,9 +5818,9 @@ sources:
     checked_at: '2026-08-27'
     fetch_notes: State wire. Article HTML hard-wraps lines inside paragraphs; those newlines render as
       spaces, so fold them — only <br> is a break. Blank lines separate real paragraphs, so paragraph_break=blank_line.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: MN
   id: montsame_mn
@@ -5634,8 +5861,8 @@ sources:
   category: other
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: https://www.mopo.de/cse?q={query}
     status: ok
@@ -5667,11 +5894,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: mpr_news_us
@@ -5699,11 +5926,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: mpress_mn
@@ -5748,7 +5975,7 @@ sources:
     checked_at: '2026-08-20'
     fetch_notes: Feature pages are readable as server-rendered HTML.
     origin_field: Page byline and explicit attributions are available in the article body.
-    rate_limit:
+    rate_limit: null
     search_channel: https://nairobileo.co.ke/
     status: ok
   country: KE
@@ -5773,11 +6000,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: natgeo_us
@@ -5807,11 +6034,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: nbcnews_us
@@ -5839,14 +6066,18 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at: '2026-08-23'
+    checked_at: '2026-09-03'
     fetch_notes: 'Body: div.g-articl-text. Search is JSON POST only: {"keyword":"<raw Chinese, NOT url-encoded>","from":0,"size":20,"platform":[0,1],"includeAd":true};
       GET=405, form-encoded=415, percent-encoded keyword=0 hits. TRAP: 每经 runs the same item twice, once
       as a text 快讯 and once as a 视频快讯 whose body container holds only a video embed and the editor credit
       — the URL does not distinguish them, the u-column label does. A video item cannot be staged (no
-      verbatim text).'
-    origin_field:
-    rate_limit:
+      verbatim text).
+
+      [2026-09-03] mrjjxw.com is the same outlet under another domain, not a new source (meta original-source
+      = nbd.com.cn, meta publisher = 每日经济新闻社). Body div.m-articleContent; own-reporting pieces close with
+      ｜每日经济新闻 nbdnews 原创文章｜.'
+    origin_field: null
+    rate_limit: null
     search_channel: POST https://www.nbd.com.cn/news-search/queryByMatch (application/json)
     status: ok
   country: CN
@@ -5884,7 +6115,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; body under story-content or infinite-wrapper.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Anewindianexpress.com+{query}
     status: ok
@@ -5910,11 +6141,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: new_york_post_us
@@ -5938,11 +6169,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: GB
   id: newafrican_uk
@@ -5970,11 +6201,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KR
   id: newsis_kr
@@ -6008,11 +6239,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: newsweek_us
@@ -6055,9 +6286,9 @@ sources:
       to the relaunch; newsweb/search 404s). ARTICLES EXPIRE after a few weeks. robots.txt on news.web.nhk
       lists only AI-crawler tokens with Disallow:/ and has NO User-agent:* group; www3.nhk.or.jp disallows
       only /*/r/ for *.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: nhk_jp
@@ -6098,11 +6329,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: nigerianobservernews_ng
@@ -6136,11 +6367,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: nikel_co_id
@@ -6176,8 +6407,8 @@ sources:
       articleBody — treat as access_level partial, title + lead only. Search caps at 10 results and &page=2
       is ignored (a もっと見る button only); vary the query instead. DO NOT date an article from its id — DGXZQOUC27AIP0X20C26A1
       is 2026-02-08, not January; read article:published_time.'
-    origin_field:
-    rate_limit:
+    origin_field: null
+    rate_limit: null
     search_channel: https://www.nikkei.com/search?keyword={query}&sortType=date
     status: ok
   country: JP
@@ -6227,8 +6458,8 @@ sources:
       one piece under it was the paper own bylined reporting.'
     origin_field: 'source badge span.button-theme-1 plus JSON-LD author: a named Person = own copy, Organization
       共同通信 = wire'
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: nishinippon_jp
@@ -6271,12 +6502,14 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: 'The fetcher reads NPRs robots as a purpose-addressed TDM reservation (retention: RESERVED)
+      on every URL tried — stage access_level partial (title + lead) every time, even though the browser
+      layer renders the full page.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: US
   id: npr_us
   lang: en
@@ -6305,11 +6538,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: JP
   id: nst_jp
@@ -6344,7 +6577,7 @@ sources:
     fetch_notes: 'Body: div.wrapper-article. Server-rendered site search works over HTTP. The container
       also holds the kicker+headline as one heading, which a text walk glues into one word — strip the
       leading block that repeats og:title.'
-    origin_field:
+    origin_field: null
     rate_limit: none observed
     search_channel: 'CORRECTION: n-tv.de robots.txt * group explicitly disallows /suche/ (confirmed via
       curl, 2026-08-29) — the search channel used in earlier rounds violated the hard floor (fetch-extract.md
@@ -6382,11 +6615,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: JP
   id: ntv_jp
@@ -6417,11 +6650,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: nw_de
@@ -6449,14 +6682,41 @@ sources:
         и агентскими материалами на национальных полосах.
       zh-CN: 德国东威斯特法伦比勒费尔德地区的地方日报，设本地采编部门，全国版面用通讯社稿件。
   url: https://www.nw.de/
+- beat_scope: vertical
+  category: serious
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: HTTP 200; body div.article-col.article-main-content.paywall-article. Despite the paywall-article
+      class the Mendelsohn essay rendered in full — JSON-LD articleBody (28,419 chars) matched the rendered
+      container (28,355), so judge access per article by that length comparison, not by the class name.
+      Two bare Advertisement markers inline.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: nybooks_us
+  lang: en
+  name:
+    values:
+      en: The New York Review of Books
+      zh-CN: 纽约书评
+  notes:
+    values:
+      en: A US biweekly magazine of literary and cultural criticism, publishing long signed essays by
+        scholars, critics and writers.
+      zh-CN: 美国双周刊文学与文化评论杂志，刊登学者、评论家与作家的长篇署名文章。
+  url: https://www.nybooks.com/
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 2/2 article URLs failed both layers (HTTP 403, then browser 403 or ERR_NETWORK_CHANGED).
+      No teaser text obtained. Recorded as backfill debt from a recent collect run; no alternate browser context
+      tried yet.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: nytimes_us
@@ -6478,9 +6738,9 @@ sources:
     fetch_notes: Reached as an affiliate station whose copy is hosted on a network platform (FNN or TBS
       NEWS DIG); the producing station is named on the host page, and that field is authoritative. No
       direct measurement of the station own site was made in this run.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: JP
   id: obs_jp
@@ -6512,11 +6772,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: odatv_tr
@@ -6550,8 +6810,8 @@ sources:
     checked_at: '2026-08-23'
     fetch_notes: 'Body: div.article-body.js-article-summary; photo captions sit outside it (div.article-header__caption).'
     origin_field: miu.locationInfo['subcategory'] — e.g. ,premium,経済,共同通信,
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: okinawatimes_jp
@@ -6598,9 +6858,9 @@ sources:
     checked_at: '2026-08-27'
     fetch_notes: Body carries the site furniture ("Keşfet ile ziyaret ettiğin", a recommended-reading
       list) at its foot; left verbatim, never anchored on.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: TR
   id: onedio_tr
@@ -6632,8 +6892,8 @@ sources:
   category: serious
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: harness websearch domain filter [openthemagazine.com] accepts
     status: ok
@@ -6659,11 +6919,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: opinioninternationale_fr
@@ -6697,7 +6957,7 @@ sources:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP on main and profit subdomains; body under main article
       container.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Apakistantoday.com.pk+{query}
     status: ok
@@ -6723,11 +6983,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: patronlar_tr
@@ -6758,11 +7018,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: pbs_newshour_us
@@ -6797,7 +7057,7 @@ sources:
       (the .rm_txt_con/.text_con_left wrappers pull in 今日资讯 and 分享让更多人看到). GROUP TRAP: japan.people.com.cn
       is the CHINESE-language Japan channel with a Tokyo byline and belongs to a Chinese-language group;
       *.j.people.com.cn is the 日本語版 and is a foreign-language service.'
-    origin_field:
+    origin_field: null
     rate_limit: 'robots.txt sets Crawl-delay: 120 — two minutes between requests, honoured as written'
     search_channel: http://search.people.cn/s/?keyword={query}&st=0
     status: ok
@@ -6828,11 +7088,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: polit_mn
@@ -6874,9 +7134,9 @@ sources:
       and div.m-login-frame*. Multi-page, and pages 3+ sit behind a FREE-REGISTRATION wall — stage only
       the free pages and mark access_level partial. Stock caption ※写真はイメージです is chrome. Pages are commissioned
       columns, book extracts and digests of other outlets rather than reported copy.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: president_jp
@@ -6921,11 +7181,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: pulse_ng
@@ -6960,11 +7220,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: punchng_ng
@@ -6995,8 +7255,8 @@ sources:
   category: serious
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: https://www.rbb24.de/suche/index.html?q={query}
     status: ok
@@ -7034,9 +7294,9 @@ sources:
     fetch_notes: Reached as an affiliate station whose copy is hosted on a network platform (FNN or TBS
       NEWS DIG); the producing station is named on the host page, and that field is authoritative. No
       direct measurement of the station own site was made in this run.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: JP
   id: rbc_jp
@@ -7073,11 +7333,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: reelnews_mn
@@ -7120,9 +7380,9 @@ sources:
     checked_at: '2026-08-27'
     fetch_notes: Same template as France 24 (div.t-content__body, chapo outside). "Publié le :" and "À
       lire aussi …" lines sit inside the body container and are stripped by strip-0.3.0.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: FR
   id: rfi_fr
@@ -7154,11 +7414,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: riffreporter_de
@@ -7185,12 +7445,60 @@ sources:
         лонгриды — вне рамок какого-либо издательского дома.
       zh-CN: 德国的记者合作社，靠读者付费运营、独立于任何出版集团，以长篇报道为主。
   url: https://www.riffreporter.de/
+- beat_scope: vertical
+  category: serious
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 'robots.txt itself 403s at the HTTP layer (RFC 9309: 4xx means unavailable, no restrictions
+      apply); the article page fetched fine at the browser layer. Body div.entry-content / article.post-*.review.
+      One page dumped a video players caption/subtitle settings widget into the text — recognisable by
+      the long list of language names, strip entirely.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: rogerebert_us
+  lang: en
+  name:
+    values:
+      en: RogerEbert.com
+      zh-CN: RogerEbert.com
+  notes:
+    values:
+      en: A US film-criticism website founded in Roger Ebert's name, publishing signed reviews by a roster
+        of professional critics.
+      zh-CN: 以罗杰·伊伯特之名创办的美国影评网站，刊登一批职业影评人的署名评论。
+  url: https://www.rogerebert.com/
+- beat_scope: vertical
+  category: other
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: Same PMC pmc-paywall template family as Variety/THR/Deadline. Editors picks / Related
+      Content / Trending Stories blocks strip by exact match.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: rollingstone_us
+  lang: en
+  name:
+    values:
+      en: Rolling Stone
+      zh-CN: 滚石
+  notes:
+    values:
+      en: A US music and culture magazine with named staff and contributing critics, covering film alongside
+        music.
+      zh-CN: 美国音乐与文化杂志，有署名专职与特约影评人，兼报道电影与音乐。
+  url: https://www.rollingstone.com/
 - beat_scope: general
   category: serious
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: https://rp-online.de/suche/?q={query} — redirects to a tracking/ad-consent gate (rp-online.de/info/consent/)
       before showing results; article pages themselves fetch fine directly
@@ -7224,12 +7532,12 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
+    checked_at: null
     fetch_notes: Site search matches loosely (OR-ish), so a zero-result query there is a query artefact
       and never evidence of silence.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: ruang_energi_id
@@ -7255,8 +7563,8 @@ sources:
   category: serious
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: 'No working search entry found this session: homepage has a form with a "search" GET
       param targeting the homepage itself, but ?search={query} returns the plain homepage unfiltered;
@@ -7297,9 +7605,9 @@ sources:
       is NOT a reliable cue: a piece under /economics/ (rather than /kyodo/) carried no credit at all
       and turned out to be Kyodo copy, settled only by finding the identical lead on another paper that
       declares the wire.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: ryukyushimpo_jp
@@ -7356,7 +7664,7 @@ sources:
       lead + first subhead only. robots.txt disallows */print/ for * — the clean print view is the forbidden
       URL. article:published_time is present but the URL slug date CAN disagree with the page; trust the
       page.'
-    origin_field:
+    origin_field: null
     rate_limit: none observed; 23 serial requests at 3s
     search_channel: https://www.sankei.com/search/?q={query}
     status: ok
@@ -7399,11 +7707,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KR
   id: sbs_kr
@@ -7434,11 +7742,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: sciencenews_us
@@ -7467,11 +7775,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: sciencesetavenir_fr
@@ -7503,11 +7811,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: IN
   id: scroll_in
@@ -7532,11 +7840,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KR
   id: seoul_kr
@@ -7567,11 +7875,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: sfen_fr
@@ -7587,9 +7895,9 @@ sources:
         الجمعية العلمية لصناعة الطاقة النووية الفرنسية — تُجري تغطيتها الخاصة لكنها تدافع عن الطاقة النووية.
       en: The news review of the Société Française d'Énergie Nucléaire, the French nuclear industry's
         learned society — it does its own reporting but advocates for nuclear power.
-      es: "La revista de noticias de la Société Française d'Énergie Nucléaire, la sociedad científica\
-        \ de la industria nuclear francesa: realiza su propio periodismo pero defiende activamente la\
-        \ energía nuclear."
+      es: 'La revista de noticias de la Société Française d''Énergie Nucléaire, la sociedad científica
+        de la industria nuclear francesa: realiza su propio periodismo pero defiende activamente la energía
+        nuclear.'
       fr: La revue d'actualité de la Société Française d'Énergie Nucléaire, la société savante de l'industrie
         nucléaire française — elle produit ses propres reportages mais milite en faveur de l'énergie nucléaire.
       hi: Société Française d'Énergie Nucléaire की समाचार समीक्षा, जो फ्रांसीसी परमाणु उद्योग का विद्वत
@@ -7608,7 +7916,7 @@ sources:
     checked_at: '2026-08-20'
     fetch_notes: Legacy news pages are retrievable as GB2312/GB18030 HTML.
     origin_field: Page body or footer commonly names the originating newspaper or news agency.
-    rate_limit:
+    rate_limit: null
     search_channel: https://search.sina.com.cn/
     status: ok
   country: CN
@@ -7637,14 +7945,39 @@ sources:
         работу.
       zh-CN: 中国大型商业门户，新闻页面以注明来源的转载为主，自采报道很少。
   url: https://news.sina.com.cn/
+- beat_scope: general
+  category: serious
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 'ddg site: works. HTTP 200; body div.article__body. Heaviest chrome measured this round:
+      5 consecutive bare Advertisement markers, a duplicated pull-quote lifted from the paragraph above
+      it, a Slate-Plus gift prompt, and a Related From Slate block that interrupts the article mid-stream
+      — real content resumes right after it, do not truncate there.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: slate_us
+  lang: en
+  name:
+    values:
+      en: Slate
+      zh-CN: Slate
+  notes:
+    values:
+      en: A US online magazine of news and culture with a named editorial staff, covering politics, culture
+        and criticism.
+      zh-CN: 美国新闻文化类网络杂志，有署名编辑团队，报道政治、文化与评论。
+  url: https://slate.com/
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: smithsonianmag_us
@@ -7713,9 +8046,9 @@ sources:
     checked_at: '2026-08-27'
     fetch_notes: Article pages fetch fine over HTTP. Site search (/arama?q=) is a JS SPA and returns the
       default feed to a plain fetch.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: TR
   id: sozcu_tr
@@ -7747,8 +8080,8 @@ sources:
   category: serious
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: https://www.spiegel.de/suche/?suchbegriff={query}&sortierung=zeit
     status: ok
@@ -7786,7 +8119,7 @@ sources:
       recovery.
     origin_field: Byline and outlet page identify original Standard reporting unless another source is
       named.
-    rate_limit:
+    rate_limit: null
     search_channel: https://www.standardmedia.co.ke/search
     status: ok
   country: KE
@@ -7817,9 +8150,9 @@ sources:
   channel:
     checked_at: '2026-08-29'
     fetch_notes: Trailing ↓追蹤《星島頭條》WhatsApp頻道↓ is chrome. Traditional characters.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: HK
   id: stheadline_hk
@@ -7850,11 +8183,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: SG
   id: straitstimes_sg
@@ -7884,11 +8217,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: suedkurier_de
@@ -7918,11 +8251,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: t24_tr
@@ -7953,11 +8286,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: tag24_de
@@ -7988,11 +8321,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: tagesschau_de
@@ -8033,11 +8366,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: tagesspiegel_de
@@ -8068,11 +8401,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: tambang_co_id
@@ -8108,7 +8441,7 @@ sources:
     checked_at: '2026-08-29'
     fetch_notes: 'Body: article.module (the wider container carries the reader comments). The lead has
       a drop-cap span, so the first block reads "D er" unless single-letter+space at the start is rejoined.'
-    origin_field:
+    origin_field: null
     rate_limit: none observed
     search_channel: https://taz.de/Suche/!s={query}/
     status: ok
@@ -8149,8 +8482,8 @@ sources:
       does NOT name the producer for ordinary articles (all are /articles/-/).'
     origin_field: the analytics mwdata block (article_station_id, article_author, publishing_station_*),
       agreeing with the visible broadcaster badge above the timestamp
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: tbs_jp
@@ -8192,11 +8525,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: telegraph_ng
@@ -8228,11 +8561,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: tempo_id
@@ -8261,7 +8594,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; body under post content.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Anation.com.pk+{query}
     status: ok
@@ -8290,7 +8623,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; body under detail-content.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Athenews.com.pk+{query}
     status: ok
@@ -8316,12 +8649,14 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: 'Plain HTTP, full body — all 8 articles this round read to a natural close, none paywall-truncated.
+      Container div[class*=articlebody]. Inline "Read: <title>" and "<Author>: <title>" recirculation
+      links are single-line paragraphs, strip by pattern.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: US
   id: theatlantic_us
   lang: en
@@ -8345,11 +8680,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: thecable_ng
@@ -8374,11 +8709,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: AU
   id: theconversation_au
@@ -8406,12 +8741,15 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: Body <section class="article-content">, one <p class="formatted"> per paragraph. Some
+      <img> src query strings carry a raw unescaped > that breaks a naive <[^>]+> stripper — strip img
+      tags with a lookahead-bounded regex first. Video articles hold only a byline, no verbatim text.
+      robots.txt 404s.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: CN
   id: thecover_cn
   lang: zh-CN
@@ -8440,11 +8778,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: GB
   id: theguardian_uk
@@ -8473,8 +8811,8 @@ sources:
   category: serious
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: https://www.thehindu.com/search/#gsc.q={query} (Google CSE; render in browser, results
       in .gsc-webResult)
@@ -8501,11 +8839,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: AE
   id: thenational_ae
@@ -8529,11 +8867,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: thenationonlineng_ng
@@ -8558,13 +8896,17 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at: '2026-08-23'
+    checked_at: '2026-09-03'
     fetch_notes: 'NO body in the rendered HTML: the article is only in __NEXT_DATA__ props.pageProps.detailData.contentDetail.content
       (HTML fragment, one <p> per paragraph, so paragraph_break=blank_line). Search: https://www.thepaper.cn/searchResult?id={query}
-      — ?keyword= renders the homepage feed.'
+      — ?keyword= renders the homepage feed.
+
+      [2026-09-03] nodeInfo.name separates thepaper own desks (文化课/私家历史/思想市场/翻书党/有戏 = original) from 澎湃号·湃客,
+      a self-publishing contributor platform to be treated as UGC unless the byline is an institution.
+      ddg site:thepaper.cn recall is good, including title fragments.'
     origin_field: contentDetail.nodeInfo.name + authorInfo.sname (澎湃号·政务/·媒体 = a hosted account, NOT The
       Paper reporting). originalFlag is NOT an originality flag and must not be trusted.
-    rate_limit:
+    rate_limit: null
     search_channel: https://www.thepaper.cn/searchResult?id={query}
     status: ok
   country: CN
@@ -8597,7 +8939,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; body under td-post-content.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Ahindi.theprint.in+{query}
     status: ok
@@ -8621,14 +8963,38 @@ sources:
       ru: Издание на хинди индийской цифровой редакции ThePrint.
       zh-CN: 印度数字新闻媒体 ThePrint 的印地语版。
   url: https://hindi.theprint.in/
+- beat_scope: vertical
+  category: other
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 'ddg site: works. HTTP 200 direct; body article.* matched on the font-bradford class
+      fragment. Recirculation widgets (More on X, podcast cards) repeat 2-3x verbatim inside the container
+      — drop any paragraph occurring twice before trusting it as body.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: theringer_us
+  lang: en
+  name:
+    values:
+      en: The Ringer
+      zh-CN: The Ringer
+  notes:
+    values:
+      en: A US sports and pop-culture website owned by Spotify, with named staff and contributing critics
+        covering film and television.
+      zh-CN: 隶属于 Spotify 的美国体育与流行文化网站，有署名的专职与特约影评人。
+  url: https://www.theringer.com/
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KE
   id: thestar_ke
@@ -8650,14 +9016,37 @@ sources:
       ru: Найробийская ежедневная газета, издаваемая Radio Africa Group, с собственной редакцией.
       zh-CN: 内罗毕的日报，由 Radio Africa Group 出版，有自有编辑部。
   url: https://www.the-star.co.ke/
+- beat_scope: vertical
+  category: serious
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 'ddg site: works. HTTP 200; body div.entry-content.container. Strip the leading "Getting
+      your Trinity Audio player ready" line and the repeated "Read Next" teaser pairs.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: thewrap_us
+  lang: en
+  name:
+    values:
+      en: The Wrap
+      zh-CN: The Wrap
+  notes:
+    values:
+      en: A US entertainment-industry trade news site with a named editorial staff covering the Hollywood
+        business and awards races.
+      zh-CN: 美国娱乐产业行业新闻网站，有署名编辑团队，报道好莱坞商业与颁奖季。
+  url: https://www.thewrap.com/
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: thisdaylive_ng
@@ -8687,12 +9076,14 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: Plain HTTP, full body; container div.article-body. Advertisement markers and image-credit
+      lines throughout; a trailing one-line post-publication correction notice is an editorial note, not
+      review prose.
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: US
   id: time_us
   lang: en
@@ -8718,7 +9109,7 @@ sources:
   channel:
     checked_at: '2026-08-30'
     fetch_notes: Article pages fetched over HTTP; visible articleBody retained.
-    origin_field:
+    origin_field: null
     rate_limit: 2 seconds between same-host requests
     search_channel: https://html.duckduckgo.com/html/?q=site%3Atimesofindia.indiatimes.com+{query}
     status: ok
@@ -8749,9 +9140,9 @@ sources:
     fetch_notes: Reached as an affiliate station whose copy is hosted on a network platform (FNN or TBS
       NEWS DIG); the producing station is named on the host page, and that field is authoritative. No
       direct measurement of the station own site was made in this run.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: JP
   id: tnc_jp
@@ -8788,9 +9179,9 @@ sources:
     checked_at: '2026-08-23'
     fetch_notes: robots.txt disallows /search and /service/login for * — reach this outlet through an
       external engine, not its site search. Article pages are unrestricted.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: tokyonp_jp
@@ -8828,11 +9219,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: ID
   id: topbusiness_id
@@ -8869,9 +9260,9 @@ sources:
       and div#page-number-*. A standing syndication line beginning ※外部配信先では図表 sits INSIDE a body paragraph
       (a span within a <p>) — leave it verbatim and never anchor on it. Much of the site is commissioned
       outside commentary rather than reported copy.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: toyokeizai_jp
@@ -8922,9 +9313,9 @@ sources:
     fetch_notes: 'Body: section#content (body only) — div.content-section and div#article-content prepend
       the headline, date and the 編集部 byline. Drop the ⇒詳細はこちら link line. Items are typically rewrites
       of an airline or tourist-board announcement.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: traicy_jp
@@ -8976,9 +9367,9 @@ sources:
     fetch_notes: 'Body: div[class*=articleBody] (the outer articleContent wrapper adds the section label
       and byline). /article/<id> 308-redirects to a trailing slash. Search https://www.traveldaily.cn/search/article/?kw={query};
       ?keyword= renders the default feed labelled 文章（10000+）.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: CN
   id: traveldaily_cn
@@ -9014,9 +9405,9 @@ sources:
       Share/メールに転送/英語で読む/このページを印刷 rail present on every article. Drop the trailing image block whose caption
       is a reuse-licence notice repeated verbatim on every 図解 instalment. NO on-site search (?s= renders
       the front page); the date is in the URL as /YYYYMMDD-<id>.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: travelvoice_jp
@@ -9058,11 +9449,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: tribuneonlineng_ng
@@ -9092,11 +9483,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: turkiyeturizm_tr
@@ -9132,8 +9523,8 @@ sources:
       div.relatedblock, div.image-area (photo + caption) and div.news__next. Multi-section pages concatenate
       section-1..n.'
     origin_field: the keywords meta's second field names the producing station
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: tvasahi_jp
@@ -9176,11 +9567,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: ubn_mn
@@ -9221,9 +9612,9 @@ sources:
     fetch_notes: Reached as an affiliate station whose copy is hosted on a network platform (FNN or TBS
       NEWS DIG); the producing station is named on the host page, and that field is authoritative. No
       direct measurement of the station own site was made in this run.
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: JP
   id: uhb_jp
@@ -9257,11 +9648,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: upworthy_us
@@ -9289,12 +9680,16 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: 'Plain HTTP, full body. Structural trap: newsletter/promo sentences are run into the
+      same paragraph as real body text with no separating punctuation (e.g. a Best-selling Booklist plug
+      glued onto the next real sentence) — the promo fragment is a short nav/newsletter phrase and the
+      real sentence resumes mid-string. Recirculation headline run-ons appear inline too; drop the whole
+      line.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: US
   id: usatoday_us
   lang: en
@@ -9317,11 +9712,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: NG
   id: vanguardngr_ng
@@ -9351,11 +9746,58 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 'ddg site: works well. HTTP 200; body div.article-body__content. Duplicate Save Story
+      widget lines at the top and a More Great Stories block at the end.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: vanityfair_us
+  lang: en
+  name:
+    values:
+      en: Vanity Fair
+      zh-CN: 名利场
+  notes:
+    values:
+      en: A US Conde Nast culture and politics magazine with named staff writers and contributing editors.
+      zh-CN: 康泰纳仕旗下的美国文化与政治杂志，撰稿人均署名。
+  url: https://www.vanityfair.com/
+- beat_scope: vertical
+  category: serious
+  channel:
+    checked_at: '2026-09-03'
+    fetch_notes: 'PMC template: body under div.pmc-paywall even on pages that are not actually walled
+      (metered, renders full to a first visit). The JSON-LD articleBody is a short teaser only — do NOT
+      use it; take the rendered pmc-paywall container. Related Stories / Popular on Variety boxes interleave
+      mid-article as stable strings.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
+  country: US
+  id: variety_us
+  lang: en
+  name:
+    values:
+      en: Variety
+      zh-CN: 综艺
+  notes:
+    values:
+      en: A US entertainment-industry trade publication owned by PMC, covering film and television with
+        named critics and reporters.
+      zh-CN: 隶属 PMC 集团的美国娱乐业行业媒体，报道影视产业，记者与影评人均署名。
+  url: https://variety.com/
+- beat_scope: vertical
+  category: other
+  channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: vip76_mn
@@ -9396,11 +9838,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: voa_us
@@ -9418,11 +9860,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: volksstimme_de
@@ -9451,11 +9893,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: washington_examiner_us
@@ -9483,11 +9925,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: webagron_tr
@@ -9519,9 +9961,9 @@ sources:
   channel:
     checked_at: '2026-08-23'
     fetch_notes: 'Body: div.article-body, minus div.image-area. Multi-page. Open to anonymous requests.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: wedge_jp
@@ -9570,8 +10012,8 @@ sources:
   category: serious
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: https://www.welt.de/suche/?q={query}
     status: discovery_blocked
@@ -9605,11 +10047,11 @@ sources:
 - beat_scope: general
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: CN
   id: wenzhaibao_cn
@@ -9644,11 +10086,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: US
   id: whyy_us
@@ -9677,11 +10119,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: wiwo_de
@@ -9712,11 +10154,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: CN
   id: xhby_cn
@@ -9752,12 +10194,18 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at: '2026-08-23'
+    checked_at: '2026-09-03'
     fetch_notes: 'Body: div#detail. Every body ends with a lone 【纠错】 line (site error-report widget) and
       often 【责任编辑:X】; strip_residue knows the latter, not the former — leave it verbatim and never anchor
-      on it. Date on page matches the URL path.'
-    origin_field:
-    rate_limit:
+      on it. Date on page matches the URL path.
+
+      [2026-09-03] Body span#detailContent inside div#detail on www.news.cn, ending before div#articleEdit;
+      the app.xinhuanet.com variant uses div#detail-content inside div.text with the source outlet in
+      div.article_auth .name_nolink. On a wire pickup the body last line often carries 文/北京青年报记者 X — authoritative
+      alongside the page-level 来源 div. ddg site: returns 403 both layers; unscoped queries naming the
+      outlet work.'
+    origin_field: null
+    rate_limit: null
     search_channel: https://so.news.cn/
     status: ok
   country: CN
@@ -9788,12 +10236,15 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
-    status: unknown
+    checked_at: '2026-09-03'
+    fetch_notes: 'paper.xinmin.cn e-paper: body is one blob in p.dzb-desc-box using <br/><br/> as the
+      paragraph separator (split on (?:<br\s*/?>\s*){2,}); the byline is the FIRST line of the blob, not
+      a trailing one. Two other epaper URLs returned 200 with only 29 chars at both layers — tt./wap.xinmin.cn
+      variants untried.'
+    origin_field: null
+    rate_limit: null
+    search_channel: null
+    status: ok
   country: CN
   id: xinmin_cn
   lang: zh-CN
@@ -9820,11 +10271,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: CN
   id: xkb_cn
@@ -9862,9 +10313,9 @@ sources:
   channel:
     checked_at: '2026-08-23'
     fetch_notes: 'Body: div.blogBodyArea, cut at ▼関連記事はこちら. Full body over plain HTTP.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: JP
   id: yamatogokoro_jp
@@ -9908,11 +10359,14 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at: '2026-08-29'
-    fetch_notes: 'robots.txt has no group addressed to us. Two hosts in use: ent.ycwb.com and news.ycwb.com.'
+    checked_at: '2026-09-03'
+    fetch_notes: 'robots.txt has no group addressed to us. Two hosts in use: ent.ycwb.com and news.ycwb.com.
+
+      [2026-09-03] HTTP returns an empty shell (0 chars); the Playwright retry succeeds. Body: exact class="content"
+      — the outer div.layout_left also contains the substring but is not the container.'
     origin_field: 页尾 文｜记者 <name> for own copy; 羊城晚报·羊城派综合… names the outlets a compilation drew on
-    rate_limit:
-    search_channel:
+    rate_limit: null
+    search_channel: null
     status: ok
   country: CN
   id: ycwb_cn
@@ -9942,11 +10396,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: TR
   id: yenisafak_tr
@@ -9977,12 +10431,14 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at: '2026-08-23'
+    checked_at: '2026-09-03'
     fetch_notes: 'Body: briefs div.txt, full articles div.multiText. NOT div#multi-text — that drags in
       举报 / 事件解读 / {{aijd[0].boardName}} template placeholders / 广告合作 + 版权 footer (this corrects the previous
       note). www /news/ can 405 to plain HTTP; m.yicai.com serves the same body, stage the canonical www
       URL. A phrase with no match returns the default recent feed with no no-more marker — verify hits
-      are on topic.'
+      are on topic.
+
+      [2026-09-03] div.multiText for full pieces, div.txt for briefs. No throttling at ~2 requests.'
     origin_field: 'No JSON field. Two page-level tells, both reliable: the lead attribution (据央视新闻／据央视财经／新华社…电
       → domestic_wire) and the footer copyright line 「此内容为第一财经原创」 together with a 作者： byline → original.'
     rate_limit: 'No throttling observed. 2026-08-19: 55 requests to m.yicai.com in one session (42 search
@@ -10021,8 +10477,8 @@ sources:
     checked_at: '2026-08-23'
     fetch_notes: The only Japanese channel measured here with a real date filter (fy/fm/fd from, ty/tm/td
       to). ?kw= renders an empty shell. Partly paywalled — decide access_level per page.
-    origin_field:
-    rate_limit:
+    origin_field: null
+    rate_limit: null
     search_channel: https://www.yomiuri.co.jp/web-search/?st=1&wo={query}&ac=srch&ar=1&fy=&fm=&fd=&ty=&tm=&td=
     status: ok
   country: JP
@@ -10060,11 +10516,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: KR
   id: yonhap_kr
@@ -10102,9 +10558,9 @@ sources:
     checked_at: '2026-08-23'
     fetch_notes: 'Body: div#layer216 (div.xcont / div.xx drag in the 今日云南 and 读图 rails). National and
       international pages are republished Xinhua copy, printed above the text as 来源：新华社.'
-    origin_field:
-    rate_limit:
-    search_channel:
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: ok
   country: CN
   id: yunnan_cn
@@ -10144,8 +10600,8 @@ sources:
     fetch_notes: 'Body: the div holding the first body sentence; class names are build-hashed and change
       between deploys, so locate by content. Site search HTML is JS-rendered — results are not in the
       served markup.'
-    origin_field:
-    rate_limit:
+    origin_field: null
+    rate_limit: null
     search_channel: https://www.zdfheute.de/suche?q={query}
     status: ok
   country: DE
@@ -10178,8 +10634,8 @@ sources:
   category: serious
   channel:
     checked_at: '2026-08-29'
-    fetch_notes:
-    origin_field:
+    fetch_notes: null
+    origin_field: null
     rate_limit: none observed
     search_channel: https://www.zeit.de/suche/index?q={query}
     status: ok
@@ -10212,11 +10668,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: CN
   id: zhdsb_cn
@@ -10246,11 +10702,11 @@ sources:
 - beat_scope: general
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: MN
   id: zindaa_mn
@@ -10288,11 +10744,11 @@ sources:
 - beat_scope: vertical
   category: other
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: FR
   id: zonebourse_fr
@@ -10323,11 +10779,11 @@ sources:
 - beat_scope: vertical
   category: serious
   channel:
-    checked_at:
-    fetch_notes:
-    origin_field:
-    rate_limit:
-    search_channel:
+    checked_at: null
+    fetch_notes: null
+    origin_field: null
+    rate_limit: null
+    search_channel: null
     status: unknown
   country: DE
   id: zwd_de
@@ -10361,4 +10817,4 @@ sources:
         с собственными именными корреспондентами; выходит примерно раз в две недели.
       zh-CN: 总部在柏林的教育、科学、文化与妇女政策专业时政新闻服务，面向专业与机构读者，有署名记者，大致双周出刊。
   url: https://www.zwd.info/
-updated_at: '2026-09-03T05:32:48Z'
+updated_at: '2026-09-04T01:25:32.311193Z'

@@ -42,8 +42,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Iterator, Mapping, Optional, Sequence
 
+from newsab_schema.artifacts import load_manifest
 from newsab_schema.io import ArtifactError
 from newsab_schema.models.manifest import content_digest
+from newsab_schema.paths import STAGE_NAMES, TopicPaths
 
 #: Run ids as ``newsab_schema.ids.RUN_ID_RE`` writes them.  Only the *kind* prefix is kept
 #: (``s2s``, ``ans``, ``edt``, …): it says which stages a session had its hands in, which is
@@ -537,6 +539,55 @@ def topic_run_ids(topics_root: str | Path, topic_id: str) -> set[str]:
     return found
 
 
+def topic_active_run_ids(topics_root: str | Path, topic_id: str) -> dict[str, str]:
+    """Every stage's currently *active* run id, read from ``manifest/active.json``.
+
+    Narrower than :func:`topic_run_ids` (every run id the topic's artifacts ever mention,
+    including superseded ones) on purpose: this is what a cost query should use when there
+    is no publication yet to anchor it — "what the topic is made of right now", not its
+    whole rewrite history.  A topic with no stage run yet returns an empty mapping (not an
+    error); only a missing topic directory is one.
+    """
+    paths = TopicPaths.for_topic(topics_root, topic_id)
+    if not paths.root.is_dir():
+        raise ArtifactError(f"{paths.root}: no such topic directory")
+    found: dict[str, str] = {}
+    for stage in STAGE_NAMES:
+        run_id = paths.active_run_id(stage)
+        if run_id:
+            found[stage] = run_id
+    return found
+
+
+def topic_manifest_entries(topics_root: str | Path, topic_id: str) -> dict[str, dict[str, Any]]:
+    """``run_id -> {skill_id, stage, model_id, status, timestamp}`` from the topic's own
+    manifest — the one place a run's declared skill and model are recorded without
+    guessing at the run id's kind prefix (``ans``, ``edt``, …).
+
+    Empty rather than an error for a topic with no manifest yet.  A run id absent from the
+    result just means it predates the manifest or belongs to a stage that never appends
+    one (e.g. ``scope``, which produces no versioned stage output) — callers report that
+    as a coverage gap, not a zero.
+    """
+    paths = TopicPaths.for_topic(topics_root, topic_id)
+    if not paths.root.is_dir():
+        return {}
+    entries: dict[str, dict[str, Any]] = {}
+    for entry in load_manifest(paths):
+        entries[entry.run_id] = {
+            "skill_id": entry.skill_id,
+            "stage": entry.stage,
+            # ``None`` is a legitimate value here (a deterministic stage, D10) and is kept
+            # as ``None`` rather than folded into "n/a" — a caller can tell "no model was
+            # used" apart from "we don't know" only by also checking the run id is present
+            # in this mapping at all.
+            "model_id": entry.model_id,
+            "status": entry.status,
+            "timestamp": entry.timestamp.isoformat().replace("+00:00", "Z"),
+        }
+    return entries
+
+
 def _attribute_session(
     holder: SessionUsage,
     topic_id: str,
@@ -904,6 +955,11 @@ class SessionLine:
     usd: Optional[float]
     pricing_status: str
     run_kinds: str
+    #: The full run ids (not just kind prefixes) this session's tool calls named, for
+    #: grouping cost by run_id/skill.  Not filtered to the query's target run ids — that
+    #: intersection happens where the grouping is computed, so this stays a plain fact
+    #: about the session.
+    run_ids: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -926,7 +982,9 @@ class HarnessTotal:
 
 @dataclass
 class CostReport:
-    publication_id: str
+    #: ``None`` when the report was run by ``--topic-id``/``--run-id`` before any
+    #: publication exists — the report is keyed by topic either way (module docstring).
+    publication_id: Optional[str]
     topic_id: str
     generated_at: str
     rates_version: str
@@ -943,6 +1001,15 @@ class CostReport:
     attribution_coverage: str
     coverage: Coverage
     reader: str
+    #: Per-run_id breakdown (skill_id/model_id from the topic's manifest, tokens/usd/wall
+    #: clock from sessions *exclusively* attributed to that one run). See ``_group_by_run``.
+    by_run: list[dict] = field(default_factory=list)
+    #: ``by_run`` rolled up per skill_id.
+    by_skill: list[dict] = field(default_factory=list)
+    #: Sessions whose tool calls named more than one queried run id in one conversation —
+    #: cannot be split by run without further instrumentation, so kept out of
+    #: ``by_run``/``by_skill`` and reported once here instead of being double-counted.
+    cross_stage: dict = field(default_factory=dict)
 
     def csv_rows(self) -> list[list]:
         head = [
@@ -1085,15 +1152,161 @@ class CostReport:
                     "pricing_status": line.pricing_status,
                     "usd": round(line.usd, 4) if line.usd is not None else None,
                     "run_kinds": line.run_kinds.split(" ") if line.run_kinds else [],
+                    "run_ids": list(line.run_ids),
                 }
                 for line in self.lines
             ],
             "attribution": self.candidates,
+            "by_run": self.by_run,
+            "by_skill": self.by_skill,
+            "cross_stage": self.cross_stage,
         }
 
 
+def _group_by_run(
+    lines: Sequence[SessionLine],
+    target_run_ids: Sequence[str],
+    manifest_entries: Mapping[str, Mapping[str, Any]],
+) -> tuple[list[dict], list[dict], dict]:
+    """Roll session-level ``lines`` up by run_id, then by skill_id.
+
+    A session's tokens/usd/wall-clock are attributed to a run only when that session's
+    *own* run ids (as its tool calls named them) intersect the queried ``target_run_ids``
+    in exactly one place — that is the only case in which "this session's cost belongs to
+    this run" is a fact rather than a guess.  A session that names two or more of the
+    queried runs in one conversation cannot be split between them without instrumentation
+    this repo does not have (module docstring); it is reported once in ``cross_stage``
+    instead of being double-counted into every run
+    it touched.  A run with no exclusively-attributed session is not silently a zero: its
+    numeric fields come back ``None`` (serialised as JSON ``null``) with
+    ``coverage: "no_exclusive_sessions"``, so a reader cannot mistake "unmeasured" for
+    "measured at zero".
+    """
+    target = sorted(set(target_run_ids))
+    target_set = set(target)
+    runs: list[dict] = []
+    skill_acc: dict[str, dict[str, Any]] = {}
+
+    for run_id in target:
+        entry = manifest_entries.get(run_id)
+        exclusive = [ln for ln in lines if set(ln.run_ids) & target_set == {run_id}]
+        shared = [
+            ln
+            for ln in lines
+            if run_id in ln.run_ids and len(set(ln.run_ids) & target_set) > 1
+        ]
+        usage = Usage()
+        usd_total = 0.0
+        has_unpriced = False
+        wall_total = 0.0
+        for ln in exclusive:
+            usage.add(ln.usage)
+            wall_total += ln.wall_clock_minutes
+            if ln.usd is None:
+                has_unpriced = True
+            else:
+                usd_total += ln.usd
+        has_data = bool(exclusive)
+        skill_id = entry.get("skill_id") if entry else None
+        runs.append(
+            {
+                "run_id": run_id,
+                "manifest_entry_found": entry is not None,
+                "skill_id": skill_id,
+                "stage": entry.get("stage") if entry else None,
+                "model_id": entry.get("model_id") if entry else None,
+                "manifest_status": entry.get("status") if entry else None,
+                "finalized_at": entry.get("timestamp") if entry else None,
+                "coverage": "exclusive_sessions" if has_data else "no_exclusive_sessions",
+                "sessions": sorted({ln.session_id for ln in exclusive}),
+                "shared_sessions": sorted({ln.session_id for ln in shared}),
+                "requests": usage.requests if has_data else None,
+                "uncached_input_tokens": usage.input_tokens if has_data else None,
+                "cache_read_tokens": usage.cache_read if has_data else None,
+                "cache_write_5m_tokens": usage.cache_write_5m if has_data else None,
+                "cache_write_1h_tokens": usage.cache_write_1h if has_data else None,
+                "cache_write_unknown_tokens": usage.cache_write_unknown if has_data else None,
+                "output_tokens": usage.output_tokens if has_data else None,
+                "total_tokens": usage.total_tokens if has_data else None,
+                "wall_clock_minutes": round(wall_total, 1) if has_data else None,
+                "usd": (round(usd_total, 4) if not has_unpriced else None) if has_data else None,
+                "pricing_status": (
+                    "n/a" if not has_data else ("unpriced" if has_unpriced else "complete")
+                ),
+            }
+        )
+        if skill_id:
+            acc = skill_acc.setdefault(
+                skill_id,
+                {"usage": Usage(), "usd": 0.0, "unpriced": False, "wall": 0.0, "runs": 0, "runs_with_data": 0},
+            )
+            acc["runs"] += 1
+            if has_data:
+                acc["runs_with_data"] += 1
+                acc["usage"].add(usage)
+                acc["wall"] += wall_total
+                if has_unpriced:
+                    acc["unpriced"] = True
+                else:
+                    acc["usd"] += usd_total
+
+    by_skill = [
+        {
+            "skill_id": skill_id,
+            "runs": acc["runs"],
+            "runs_with_data": acc["runs_with_data"],
+            "requests": acc["usage"].requests,
+            "uncached_input_tokens": acc["usage"].input_tokens,
+            "cache_read_tokens": acc["usage"].cache_read,
+            "cache_write_5m_tokens": acc["usage"].cache_write_5m,
+            "cache_write_1h_tokens": acc["usage"].cache_write_1h,
+            "cache_write_unknown_tokens": acc["usage"].cache_write_unknown,
+            "output_tokens": acc["usage"].output_tokens,
+            "total_tokens": acc["usage"].total_tokens,
+            "wall_clock_minutes": round(acc["wall"], 1) if acc["runs_with_data"] else None,
+            "usd": round(acc["usd"], 4) if acc["runs_with_data"] and not acc["unpriced"] else None,
+            "pricing_status": (
+                "n/a"
+                if not acc["runs_with_data"]
+                else ("unpriced" if acc["unpriced"] else "complete")
+            ),
+        }
+        for skill_id, acc in sorted(skill_acc.items())
+    ]
+
+    cross_usage = Usage()
+    cross_usd = 0.0
+    cross_has_unpriced = False
+    cross_sessions: set[str] = set()
+    for ln in lines:
+        touched = set(ln.run_ids) & target_set
+        if len(touched) > 1:
+            cross_usage.add(ln.usage)
+            cross_sessions.add(ln.session_id)
+            if ln.usd is None:
+                cross_has_unpriced = True
+            else:
+                cross_usd += ln.usd
+    cross_stage = {
+        "sessions": sorted(cross_sessions),
+        "note": (
+            "sessions whose tool calls named more than one of the queried run ids in the "
+            "same conversation; their tokens/usd cannot be split by run without further "
+            "instrumentation, so they are excluded from by_run/by_skill and reported once "
+            "here instead of being double-counted into every run they touched"
+        ),
+        "requests": cross_usage.requests,
+        "total_tokens": cross_usage.total_tokens,
+        "usd": round(cross_usd, 4) if cross_sessions and not cross_has_unpriced else None,
+        "pricing_status": (
+            "n/a" if not cross_sessions else ("unpriced" if cross_has_unpriced else "complete")
+        ),
+    }
+    return runs, by_skill, cross_stage
+
+
 def build_report(
-    publication_id: str,
+    publication_id: Optional[str],
     topic_id: str,
     sessions: Sequence[SessionUsage],
     rates: RateTable,
@@ -1101,6 +1314,8 @@ def build_report(
     reader: str,
     coverage: Optional[Coverage] = None,
     now: Optional[datetime] = None,
+    target_run_ids: Sequence[str] = (),
+    manifest_entries: Optional[Mapping[str, Mapping[str, Any]]] = None,
 ) -> CostReport:
     lines: list[SessionLine] = []
     candidates: list[dict] = []
@@ -1186,6 +1401,7 @@ def build_report(
                     usd=usd,
                     pricing_status=pricing,
                     run_kinds=" ".join(sorted({rid.split("-")[0] for rid in session.run_ids})),
+                    run_ids=tuple(sorted(session.run_ids)),
                 )
             )
     if coverage is None:
@@ -1231,6 +1447,7 @@ def build_report(
             pricing_status=harness_status,
         )
     stamp = (now or datetime.now(timezone.utc)).isoformat(timespec="seconds").replace("+00:00", "Z")
+    by_run, by_skill, cross_stage = _group_by_run(lines, target_run_ids, manifest_entries or {})
     return CostReport(
         publication_id=publication_id,
         topic_id=topic_id,
@@ -1249,6 +1466,9 @@ def build_report(
         attribution_coverage=attribution_coverage,
         coverage=coverage,
         reader=reader,
+        by_run=by_run,
+        by_skill=by_skill,
+        cross_stage=cross_stage,
     )
 
 
@@ -1328,7 +1548,9 @@ def rebuild_index(site_root: str | Path) -> Path:
         rows.append(
             [
                 payload["topic_id"],
-                payload["publication_id"],
+                # "" for a pre-activation report (--topic-id/--run-id, no publication yet)
+                # rather than the literal string "None" a bare csv.writer would emit.
+                payload.get("publication_id") or "",
                 payload["generated_at"],
                 f"{_value(claude, 'wall_clock_minutes'):.1f}",
                 _value(claude, "requests"),

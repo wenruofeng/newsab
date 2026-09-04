@@ -777,22 +777,22 @@ def _footer(strings: Mapping[str, str], *, build_date: date) -> str:
 
     The method blurb came out; the stamp holds the corner until the real site facts —
     the detailed methodology page above all — are written.  The producer version that
-    used to follow the bar became the GitHub mark: it links to the toolkit repository's
-    placeholder URL — the same one the suggest modal offers — and the version moves into
+    used to follow the bar became the GitHub mark: it links to the public toolkit
+    repository — the same one the suggest modal offers — and the version moves into
     a data attribute, still on
     the page for anyone reading the source but no longer part of the reader's line.  The
     language chooser is still not repeated here: the globe in the corner is the site's one
     place to change language.
     """
     from .builder import PACKAGE_VERSION
-    from .suggest import TOOLKIT_PLACEHOLDER_URL
+    from .suggest import TOOLKIT_REPO_URL
 
     return (
         '<footer><div class="wrap foot">'
         f'<p class="fstamp" data-producer="{_attr(PACKAGE_VERSION)}">by rwen @ '
         f'<time datetime="{build_date.isoformat()}">{build_date.isoformat()}</time>'
         f' <span class="fbar" aria-hidden="true">|</span> <a class="fgit" '
-        f'href="{_attr(TOOLKIT_PLACEHOLDER_URL)}" target="_blank" rel="noopener noreferrer" '
+        f'href="{_attr(TOOLKIT_REPO_URL)}" target="_blank" rel="noopener noreferrer" '
         f'aria-label="GitHub" title="GitHub">{_ICON_GITHUB}</a></p>'
         "</div></footer>"
     )

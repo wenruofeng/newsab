@@ -4,7 +4,7 @@ description: Turn the user's one-sentence topic into a signed-off scope — topi
 compatibility: Requires this repository, Python 3, and permitted web/browser access for bounded reader-question reconnaissance.
 metadata:
   newsab-stage: "scope"
-  newsab-version: "0.10.0"
+  newsab-version: "0.10.1"
   newsab-inputs: "source_registry"
   newsab-outputs: "topic_manifest,collection_plan,question_candidate_review"
   newsab-language: "en-pivot"
@@ -33,6 +33,9 @@ topic needs (a lookup, never a gate — a topic may need outlets not in it yet):
     python skills/scope/scripts/scope_tool.py init <topics_root> <topic_id> \
         --title-en "…" --group <id>:<PREFIX> --group <id>:<PREFIX> [--model-id <model>] \
         --contributor <name> --review-locale <bcp47> [--review-stand-in-model-id <model>]
+
+This path has no end-to-end test coverage as a whole; `scope_tool.py init` alone is
+subprocess-tested, `registry find` is not.
 
 `topic_id` is `<sides>-<subject>-<year>`: the two groups' abbreviations concatenated in
 manifest order (`cnjp`, `jpkr`, `detr`; `intl` for a side that is not one country), a
@@ -116,6 +119,9 @@ a human sitting:
         --approved-by user --decided-by human
 
     python -m newsab_schema validate-topic <topics_root> <topic_id>
+
+This path has no end-to-end test coverage as a whole; `scope_tool.py approve` alone is
+subprocess-tested, the following `validate-topic` is not.
 
 For an explicitly requested stand-in, use `--decided-by llm_stand_in` and
 `--stand-in-model-id <model>`; the question review must use the same authority. The command

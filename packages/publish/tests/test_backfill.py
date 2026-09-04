@@ -244,6 +244,31 @@ def test_one_topics_refusal_leaves_the_rest_of_the_batch_running(machinery):
     assert by_topic["aabb-river-light-2026"].status == "superseded"
 
 
+def test_a_topic_with_no_live_publication_fails_with_the_prepare_command_to_run_first(
+    machinery,
+):
+    """``--topic`` naming a topic that has never shipped must not silently do nothing —
+    the loop only ever sees topics already in the selector, so without this check a
+    first-ship attempt through ``backfill-locales`` would report a quiet zero-outcome
+    success (first release is always two steps: ``prepare`` + ``activate`` first)."""
+    outcomes = machinery.run(only_topics=["aabb-never-shipped-2026"])
+    assert [o.status for o in outcomes] == ["failed"]
+    assert outcomes[0].topic_id == "aabb-never-shipped-2026"
+    assert "prepare" in outcomes[0].detail
+    assert "aabb-never-shipped-2026" in outcomes[0].detail
+    assert "no live publication" in outcomes[0].detail
+    # A named topic that *does* have a live publication is unaffected by the check.
+    machinery.records["PUB-aabb-river-light-2026-aaaaaaaaaaaa"] = _record(
+        "PUB-aabb-river-light-2026-aaaaaaaaaaaa", ("en", "zh-CN"), _review()
+    )
+    machinery.selector["aabb-river-light-2026"] = "PUB-aabb-river-light-2026-aaaaaaaaaaaa"
+    outcomes = machinery.run(
+        only_topics=["aabb-never-shipped-2026", "aabb-river-light-2026"]
+    )
+    by_topic = {o.topic_id: o.status for o in outcomes}
+    assert by_topic == {"aabb-never-shipped-2026": "failed", "aabb-river-light-2026": "skipped"}
+
+
 def test_a_backfill_without_a_reason_is_refused(machinery):
     with pytest.raises(ArtifactError, match="needs a reason"):
         machinery.run(reason="   ")

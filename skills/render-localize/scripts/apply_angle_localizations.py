@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Add reviewed localized angle explanations to an English master.
 
+**Superseded by ``localization_units.py`` + ``apply_localization.py``**, which cover angle
+prose along with every other reader-facing string, refuse to overwrite a language the page
+already carries, and stamp the run that produced the bytes. Kept because Phase 0 run
+records name it; a new run has no reason to call it.
+
 The mapping covers every visible side explanation and every existing joint explanation.
 All English text, anchors and computed fields remain untouched; validation then catches a
 mapping that missed an angle or tried to change the page structure.

@@ -3,7 +3,7 @@ name: publish
 description: Prepare or change a production publication from exact human-approved page bytes; run after review, never before it or in place of it.
 metadata:
   newsab-stage: "publish"
-  newsab-version: "0.8.0"
+  newsab-version: "0.9.1"
   newsab-inputs: "publication_review,page,qa_analysis,corpus,topic_manifest,site_metadata,theme_registry,source_registry"
   newsab-outputs: "publication,event,catalog,public_bundle"
   newsab-language: "reader-local"
@@ -61,7 +61,8 @@ command line; reviews carry across locale sets: [references/localization.md](ref
    per-language inline overlay, and the data islands pinned as `data_assets`; site chrome
    ships once per release at stable URLs, never inside a publication, and a chrome
    release may never change the islands (`docs/value_chain.md`, "Content document and
-   site chrome").
+   site chrome"). A first `prepare` also needs `adopt-taxonomy <site_root> <topic_id>
+   [--approval <file>]`, idempotent, folding in touchpoint two's `TopicCategoryApproval`.
 
        python -m newsab_publish prepare <topics_root> <site_root> <topic_id> \
          --page-run <run_id> --review <review.json> --site-metadata <metadata.json> \
@@ -90,11 +91,12 @@ command line; reviews carry across locale sets: [references/localization.md](ref
 
        python -m newsab_publish web-gate <private_review_dir> --full --screenshots <audit_dir>
 
-   **Never end a human-review handoff with a file path.** Production pages use
-   root-relative URLs and link the site chrome, so a candidate is only readable when
-   served as a root. Finish by starting the review shell and handing over the link:
+   **Never end a human-review handoff with a file path.** Production pages use root-relative URLs and link the site chrome, so a candidate is only readable when served as a root.
+   Finish by starting the review shell and handing over the link:
 
        python -m newsab_publish dev-serve --preview <private_review_dir>
+
+   Never wrap this in a `timeout` — its job is to keep serving past your turn (measured: `timeout 900` once killed the review server before the reviewer opened the link). This verify-candidate → web-gate → dev-serve handoff has no end-to-end test coverage.
 
    The user reads the page there and takes touchpoint two beside it: one confirmation
    writes every record a release needs — a `PublicationReview` per locale bound to the
@@ -138,14 +140,12 @@ backed by their pinned run ids; publish provenance records `model_id: null`.
     python -m newsab_publish verify-site <topics_root> <site_root> \
       --site-metadata <metadata.json> --production <public_dir>
     python -m newsab_publish cost-report <site_root> <publication_id>
+    python -m newsab_publish cost-report <site_root> --topic-id <topic_id>
 
-Exit 0 means every publication hash and topic run restores, the event chain derives the
-stored selector, catalogs reproduce from source records, the final bundle matches its
-fingerprint, and a public/private scan is clean. Prepare mode ends with
-`site/publications/<publication_id>/publication.json` and no new event; activate and
-lifecycle also end with the fsynced event and matching atomic derived caches.
-`cost-report` auto-discovers Claude Code/Codex and writes `site/audit/cost/`; dry-run
-before backfill. Coverage qualifies totals; null-USD usage is telemetry no verifier reads.
+This verify-site → cost-report path has no end-to-end test coverage. Exit 0 means every publication hash and topic run restores, the event chain derives the stored selector, catalogs reproduce from source records, the final bundle matches its fingerprint, and a public/private scan is clean.
+Prepare mode ends with `site/publications/<publication_id>/publication.json` and no new event; activate and lifecycle also end with the fsynced event and matching atomic derived caches.
+`cost-report` auto-discovers Claude Code/Codex and writes `site/audit/cost/`; dry-run before backfill, and pass `--topic-id` (works before activation — before touchpoint two ever runs — defaulting to each stage's active run; `--run-id` scopes either form to an explicit run set) instead of `<publication_id>` to cost a topic ahead of a live publication.
+Coverage qualifies totals; null-USD usage is telemetry no verifier reads, and the JSON report's `by_run`/`by_skill` group tokens/usd/wall-clock by run_id and skill from the topic's own manifest — a session naming more than one queried run lands in `cross_stage` instead of being double-counted (`packages/publish/README.md`, "Production cost reports").
 
 ## Stop and return upstream when
 

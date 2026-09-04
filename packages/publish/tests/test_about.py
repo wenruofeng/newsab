@@ -42,12 +42,12 @@ def test_topic_page_injector_carries_the_same_logo_url():
 
 def test_flow_note_ends_by_naming_where_the_code_lives_in_every_locale():
     """After the methodology sentence, one more names the repository — the same
-    placeholder link the footer and the suggest modal carry."""
-    from newsab_publish.suggest import TOOLKIT_PLACEHOLDER_URL
+    public toolkit link the footer and the suggest modal carry."""
+    from newsab_publish.suggest import TOOLKIT_REPO_URL
 
     for locale in ABOUT_LOCALES:
         markup = about_modal_html(locale)
         note = markup.split('<p class="about-note">', 1)[1].split("</p>", 1)[0]
-        assert note.count(f'<a href="{TOOLKIT_PLACEHOLDER_URL}"') == 1, locale
+        assert note.count(f'<a href="{TOOLKIT_REPO_URL}"') == 1, locale
         assert 'rel="noopener noreferrer"' in note and "{link}" not in note, locale
         assert "GitHub" in note.split("<a ", 1)[1].split("</a>", 1)[0], locale

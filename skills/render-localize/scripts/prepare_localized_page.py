@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 """Mint a render-localize page copy with a complete topics_raised reader lexicon.
 
+**Superseded by ``localization_units.py`` + ``apply_localization.py``**, which cover the
+whole page — the topics lexicon included — under one key convention, refuse to overwrite a
+language the page already carries, and stamp the same ``provenance``. This script is kept
+because Phase 0 run records name it, and because ``apply_localization.py`` imports
+``skill_version()`` from here; a new run has no reason to call it.
+
 ``--locale`` names which language the ``--translations`` file localizes into and is
 required: the reviewer's language is the topic manifest's ``review_locale``, and an
 extend-language run targets whichever halo language it was told to.  Neither is

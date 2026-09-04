@@ -23,10 +23,12 @@ from newsab_schema.ids import SentenceId
 from newsab_schema.models.corpus import Article
 from newsab_schema.models.findings import QAFinding
 from newsab_schema.models.page import AngleBlock, CountBadge, PageClaim, ReaderPage
+from newsab_schema.paths import TopicPaths
 from newsab_schema.readability import readable_clusters_of_articles
 
 from . import concept_cloud
 from .evidence import AnswerIndex, badge_selector, counted_clusters
+from .page_checks_anchors import _digit_fold, check_named_things
 
 #: The provenance a fresh ``page_init.py`` draft carries.  Values, not a convention:
 #: the draft script imports these so the two can never drift apart.
@@ -136,6 +138,11 @@ def check_page(
     pinned_qa_run: Optional[str] = None,
     manifest=None,
     topics_by_article: Optional[dict] = None,
+    page_path: Optional[Path] = None,
+    paths: Optional[TopicPaths] = None,
+    registry=None,
+    strict_names: bool = False,
+    require_quote_en_translation: bool = False,
 ) -> PageCheckReport:
     out = PageCheckReport()
     by_article = _sentence_map(articles)
@@ -179,6 +186,7 @@ def check_page(
             "provenance.model_id is still the draft placeholder 'TODO'; name the model "
             "that wrote this page"
         )
+    _check_run_provenance(out, page, page_path, paths)
 
     # -- claims: anchors, digit discipline, language completeness ----------------------
     for where, claim in _iter_claims(page):
@@ -205,14 +213,22 @@ def check_page(
                     "never how much"
                 )
         elif claim.claim_type == ClaimType.SOURCE_CLAIM and numbers:
-            anchored_text = " ".join(
-                by_article[SentenceId.parse(sid).article_id].sentence_text(sid)
-                for sid in claim.evidence
-                if SentenceId.parse(sid).article_id in by_article
-                and by_article[SentenceId.parse(sid).article_id].has_sentence(sid)
+            # Joined on a newline, and both sides folded: a French anchor writes "90 000"
+            # where the English pivot writes "90,000", and refusing that page taught
+            # nothing except that the check could not read a thousands separator (found
+            # while measuring this refusal; a French-language source corpus really does
+            # write "90 000 tonnes").  The newline keeps the fold from ever bridging two
+            # sentences into one number.
+            anchored_text = _digit_fold(
+                "\n".join(
+                    by_article[SentenceId.parse(sid).article_id].sentence_text(sid)
+                    for sid in claim.evidence
+                    if SentenceId.parse(sid).article_id in by_article
+                    and by_article[SentenceId.parse(sid).article_id].has_sentence(sid)
+                )
             )
             for number in numbers:
-                if number not in anchored_text:
+                if _digit_fold(number) not in anchored_text:
                     out.errors.append(
                         f"{where}: source_claim states {number!r} which appears in none of "
                         "its anchored sentences — a number nobody said is not a source claim"
@@ -542,8 +558,23 @@ def check_page(
     _check_scope_coverage(out, page, manifest)
     _check_topics_coverage(out, page, topics_by_article)
     _check_group_lexicon_coverage(out, page, manifest)
+    _check_group_lexicon_language_coverage(out, page, manifest, required_langs)
     _check_footnote_markers(out, page, required_langs)
     _check_machine_category_labels(out, page)
+    _check_quote_english_translation(out, page, by_article, require_quote_en_translation)
+    # Named-but-unanchored specifics.  Stage-level only, like the run-provenance
+    # check above and the quote-translation refusal below: ``registry`` is this one's switch,
+    # and ``builder.render_locales`` passes none of the three, so a check added after a
+    # publication shipped can never reach its re-render.
+    if registry is not None:
+        check_named_things(
+            out,
+            page,
+            by_article.values(),
+            registry=registry,
+            allowed_numbers={f.finding_id: _finding_numbers(f) for f in findings},
+            strict_names=strict_names,
+        )
     if page.hook is not None:
         out.warnings.append(
             "page carries a hook, which the renderer no longer draws (angle 1 is the "
@@ -552,14 +583,110 @@ def check_page(
     return out
 
 
+#: Which skill mints run ids under ``editorial/versions`` with which prefix, and the
+#: stamp (the ``name`` half of ``provenance.skill_version``, ``Provenance.skill_version``
+#: pattern ``name-x.y.z``) that skill's finishing script writes. There is no central
+#: registry of this mapping — each skill's own ``mint-run-id`` line documents its prefix
+#: (``skills/write/SKILL.md`` mints ``edt``, ``skills/render-localize/SKILL.md`` mints
+#: ``rl``) and its own script names the stamp (``page_init.py``'s ``_skill_version()``,
+#: ``prepare_localized_page.py``'s ``skill_version()`` — the latter strips the hyphen
+#: from ``render-localize`` because ``Provenance.skill_version`` allows only one). This
+#: table exists only to catch the run-copied-without-restamping bug the check below is
+#: written for; a run id prefix it does not recognise still gets the run-directory check
+#: below, just not the stamp half.
+_EDITORIAL_RUN_PREFIX_STAMP = {
+    "edt": "write",
+    "rl": "renderlocalize",
+}
+
+
+def _check_run_provenance(
+    out: PageCheckReport,
+    page: ReaderPage,
+    page_path: Optional[Path],
+    paths: Optional[TopicPaths],
+) -> None:
+    """A page's own provenance must name the run directory it actually sits in.
+
+    Measured: a write-run ``page.json``
+    copied into a render-localize run directory to seed localization kept its write-stage
+    stamp (``write-0.17.0`` plus the ``edt-…`` run id) through two judge panels, 163
+    localized fields and two rendered previews — ``review-preview`` was the first thing to
+    refuse it, when ``resolve_inputs`` found ``page.provenance.run_id`` disagreed with the
+    run id it was asked to resolve (``packages/publish/newsab_publish/builder.py``:
+    ``page bytes do not identify the explicit topic/page run``). That is the same
+    assertion; this only moves it to the first ``page-check``, before any work is spent on
+    the wrong bytes.
+
+    Only fires when both ``page_path`` and ``paths`` are given — the stage-level
+    ``page-check`` CLI supplies them, the publish package's re-render/verify path
+    (``builder.render_locales``) does not, on purpose: an already-shipped page's run
+    directory is immutable, so a stale stamp there is history, not something a reproduced
+    render can fix, and this must never be why ``verify-site`` or a candidate rebuild of a
+    *different*, already-approved run refuses. A page outside a run directory (a scratch
+    draft, a fixture, ``page_init.py``'s output before ``mint-run-id``) is not this bug
+    either; when the CLI does ask (``page_path``/``paths`` given) but the page turns out
+    not to live in one, that is recorded in ``stats`` so a run report can see the check
+    ran and applied to nothing — when the CLI never asks at all, nothing is recorded,
+    since the check never had an opinion to report.
+    """
+    skip = "skipped (page is not <topics_root>/<topic_id>/editorial/versions/<run_id>/page.json)"
+    if page_path is None or paths is None:
+        return
+    try:
+        versions_dir = paths.stage_versions_dir("editorial").resolve()
+    except ValueError:
+        out.stats["run provenance check"] = skip
+        return
+    try:
+        relative = page_path.resolve().relative_to(versions_dir)
+    except (OSError, ValueError):
+        out.stats["run provenance check"] = skip
+        return
+    if len(relative.parts) != 2 or relative.parts[1] != "page.json":
+        # Not `<topics_root>/<topic_id>/editorial/versions/<run_id>/page.json` — a
+        # `data/` asset or a preview passed by mistake, or the file lives one level off.
+        # Nothing this check knows how to place.
+        out.stats["run provenance check"] = skip
+        return
+    run_id = relative.parts[0]
+    out.stats["run provenance check"] = f"checked against run directory {run_id}"
+    if page.provenance.run_id != run_id:
+        out.errors.append(
+            f"page.provenance.run_id is {page.provenance.run_id!r} but this file sits in "
+            f"run directory {run_id!r} — a page copied from another run without "
+            "restamping its provenance"
+        )
+        return
+    prefix = run_id.split("-", 1)[0]
+    expected_stamp = _EDITORIAL_RUN_PREFIX_STAMP.get(prefix)
+    if expected_stamp is None:
+        return
+    actual_stamp = page.provenance.skill_version.split("-", 1)[0]
+    if actual_stamp != expected_stamp:
+        out.errors.append(
+            f"page.provenance.skill_version is {page.provenance.skill_version!r} but run "
+            f"{run_id!r} is a {prefix!r}-prefixed run (expected stamp "
+            f"{expected_stamp!r}) — the skill stamp does not match the run directory "
+            "either"
+        )
+
+
 def _check_machine_category_labels(out: "CheckResult", page) -> None:
-    """A reader-facing category label that equals the generator's default was never
-    rewritten.
+    """A reader-facing category label that equals the generator's default may just never
+    have been rewritten — or may already be the right reader word.
 
     ``page-init`` seeds ``lexicon.categories`` with ``key.replace('_', ' ').capitalize()``
     as machine vocabulary that the write stage must put into reader words.  Equality with
     that default is a warning, not an error: a short key's default can coincide with a
-    deliberate label, and a warning must be answered in the run report either way.
+    deliberate label — ``Mixed``, ``See it``, ``Guilt and atonement`` were all flagged in
+    one run and were already the most accurate reader words available (measured). The
+    message below says so explicitly, because
+    the warning's default gravity is to make someone add a word: that run's writer turned
+    ``Mixed`` into ``Genuinely mixed`` and ``See it`` into ``Go and see it`` purely to
+    silence it — longer, and not better. Answering the warning in the run report is the
+    intended way to clear it; rewriting is only for a label that is actually still the raw
+    key in a trench coat.
     """
     raw = sorted(
         key
@@ -571,9 +698,48 @@ def _check_machine_category_labels(out: "CheckResult", page) -> None:
         shown = ", ".join(raw[:5]) + ("…" if len(raw) > 5 else "")
         out.warnings.append(
             f"{len(raw)} lexicon category label(s) equal the machine-generated default "
-            f"({shown}) — rewrite them in reader words, or answer this warning in the "
-            "run report"
+            f"({shown}) — if this is already the right reader word, say so in the run "
+            "report; do not add words just to silence this warning"
         )
+
+
+def _check_quote_english_translation(
+    out: PageCheckReport,
+    page: ReaderPage,
+    by_article: dict[str, Article],
+    enforce: bool,
+) -> None:
+    """A quote whose source sentence is not English has no ``translation.en``.
+
+    English is the page's pivot master (V-5), not just one more `required_langs` entry —
+    a non-English quote left untranslated on the English page is not a localization gap,
+    it is the master itself shipping unfinished. Measured on a nine-locale ship: the
+    English page's Chinese-side quotes carried translations for seven other locales but
+    never `en`, so an English reader met a bare Chinese sentence — and every one of the
+    seven localization judges flagged the same eight quotes as having no pivot to
+    compare against (`en: (missing)` in their packet).
+
+    ``enforce`` off by default: the stage-level ``page-check`` CLI turns it on; the shared
+    re-render path (``builder.render_locales``, under ``prepare``/``review-preview``/
+    ``verify-site``/``verify-candidate``) never does, so an already-published page missing
+    these translations keeps rendering — this is a requirement on future write runs, not a
+    retroactive one (same switch shape as the run-provenance check above it).
+    """
+    if not enforce:
+        return
+    for angle in page.angles:
+        for side in angle.sides:
+            for quote in side.quotes:
+                article = by_article.get(SentenceId.parse(quote.sentence_id).article_id)
+                quoted_lang = (article.lang if article else "").split("-")[0]
+                if quoted_lang == "en":
+                    continue
+                if quote.translation is None or quote.translation.get("en") is None:
+                    out.errors.append(
+                        f"angle {angle.rank} ({side.group_id}): quote "
+                        f"{quote.sentence_id} translation missing language 'en' — the "
+                        "English page would show this quote untranslated"
+                    )
 
 
 def _check_footnote_markers(
@@ -732,6 +898,57 @@ def _check_group_lexicon_coverage(out: PageCheckReport, page: ReaderPage, manife
                 f"page.lexicon.{attr} carries group_id(s) the manifest does not "
                 f"declare: {stray}"
             )
+
+
+#: ``page.lexicon.<attr>`` alongside the manifest field it falls back to when the
+#: lexicon carries no override — ``group_text()``'s own fallback order
+#: (``newsab_editorial.render.common``), duplicated here so the check asks the same
+#: question the renderer answers.
+_GROUP_LEXICON_FALLBACK = {
+    "group_labels": lambda g: g.label,
+    "group_short_labels": lambda g: g.short_label or g.label,
+    "group_definitions": lambda g: g.definition,
+}
+
+
+def _check_group_lexicon_language_coverage(
+    out: PageCheckReport,
+    page: ReaderPage,
+    manifest,
+    required_langs: tuple[str, ...],
+) -> None:
+    """Every group needs each language this run ships, in the lexicon or the manifest.
+
+    Measured: a run that ships nine
+    languages checked ``lexicon.group_labels`` and found nothing to complain about,
+    because the manifest happened to carry ``en``/``zh-CN`` and the lexicon table itself
+    was empty — ``_check_group_lexicon_coverage`` above iterates the table's own keys, so
+    an empty table iterates zero times and asks nothing. The result was a Russian page
+    with the English short label "China side" on it, the same shape of defect an earlier
+    check already fixed once elsewhere. This asks the question the other way round: for every group the manifest
+    declares and every language this run requires, is there *any* wording for it — a
+    lexicon override or the manifest's own field — regardless of whether the lexicon
+    table exists at all. A gap is a warning, same severity as the coverage check above and
+    for the same reason: it degrades to whatever language the manifest happens to carry
+    rather than fabricating one, but it is exactly the gap that reached a reader.
+    """
+    if manifest is None:
+        return
+    for attr, fallback_of in _GROUP_LEXICON_FALLBACK.items():
+        table = getattr(page.lexicon, attr)
+        for group in manifest.groups:
+            override = table.get(group.group_id)
+            fallback = fallback_of(group)
+            for lang in required_langs:
+                has_override = override is not None and override.get(lang) is not None
+                has_fallback = fallback is not None and fallback.get(lang) is not None
+                if not has_override and not has_fallback:
+                    out.warnings.append(
+                        f"group {group.group_id!r} has no {attr} wording for language "
+                        f"{lang!r} in page.lexicon.{attr} or the manifest — a reader in "
+                        "that language sees whatever language the manifest happens to "
+                        "carry for this side"
+                    )
 
 
 def _check_concept_cloud(

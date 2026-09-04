@@ -400,9 +400,11 @@ _RELATION_GEOMETRY = """(() => {
   };
 })()"""
 
-#: A touch target must reach 44px; the *visible* box must not, or a row of badges becomes
-#: a fence of mismatched slabs.  Measure the reach the page actually offers — the control
-#: plus the hit area its ``::after`` carries — for every control in one round trip.
+#: A touch target must reach 24px (WCAG 2.2 AA Target Size (Minimum); 44px is the AAA
+#: figure — relaxed after the reviewer measured the 28.8px ``.angle-share`` control
+#: as easy to tap); the *visible* box must not, or a row of badges becomes a fence of
+#: mismatched slabs.  Measure the reach the page actually offers — the control plus the
+#: hit area its ``::after`` carries — for every control in one round trip.
 _TOUCH_REACH = """(selectors) => {
   const out = {};
   for (const selector of selectors) {
@@ -878,8 +880,8 @@ def _check_topic_mobile(
         reaches = page.evaluate(_TOUCH_REACH, list(_TOUCH_SELECTORS))
         for selector, reach in reaches.items():
             _assert(
-                reach["width"] >= 43.5 and reach["height"] >= 43.5,
-                f"{page_url}: mobile target below 44px: {selector} {reach}",
+                reach["width"] >= 23.5 and reach["height"] >= 23.5,
+                f"{page_url}: mobile target below 24px: {selector} {reach}",
             )
             # An invisible hit area that escapes its control swallows taps meant for
             # whatever is under it — the failure mode of a ``::after`` whose containing

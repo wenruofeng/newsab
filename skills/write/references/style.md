@@ -76,6 +76,17 @@ When quoting part of a sentence, sentence punctuation stays **outside** the clos
 mark (`…"stay indefinitely".`): pasting the quoted span into the publisher's page must
 Ctrl-F to a hit, and that beats typographic convention.
 
+**A quote whose sentence is not English needs `translation.en`, written now, by you.**
+English is the page's pivot master, not one more localized language render-localize will
+get to later — leave it out and the English page itself ships an unfinished sentence.
+Measured, 2026-09-03: a nine-locale ship found the English page's non-English quotes
+carried translations for every other language but never English, so an English reader met
+a bare foreign sentence, and every other-locale localization judge flagged the same
+quotes for having no pivot text to compare their own translation against. Faithful, not
+polished: keep the original's hedges and register: report what it says, not a smoother
+paraphrase. `page-check` refuses a missing one; `angle_authoring_packet.py` marks each
+non-English evidence sentence so you catch it while picking the quote, not after.
+
 ## 6. Internal vocabulary stays in the footer records
 
 Run IDs, `RC-…` / `QST-…` / `FND-…` identifiers, "cluster answer", "threshold version",
@@ -145,6 +156,13 @@ within a question so the chart reads as one axis: "The rules themselves" / "Over
 security" / "Falling international enrolment", not one noun phrase, one clause and one
 gerund.
 
+`page-check` warns when a label equals `page-init`'s machine default (the raw key,
+title-cased) — that is a hint to look, not proof the label is wrong. A short key's default
+can already be the best reader word: measured, `Mixed` / `See it` / `Guilt and atonement`
+all tripped this warning and were already correct — the fix that run made,
+`Genuinely mixed` / `Go and see it`, was longer and not better, added purely to make the
+checker stop talking. If the flagged label is already the right reader word, say so in the
+run report and leave it; do not add words just to silence the warning.
 
 ## 11. Q–A–explain: the two paragraphs justify the answers
 
@@ -217,6 +235,17 @@ each specific; anything left over gets an anchor or is deleted. Measured,
 `aabb-steppe-stone-2025`: two consecutive spot-check rounds fired on this (six, then five
 unanchored specifics), every one a fact genuinely in the corpus that was simply not
 anchored.
+
+`page-check` now warns on the mechanical half of this: an outlet named in a paragraph
+whose side anchors no sentence from that outlet, a decimal figure the side's anchors do
+not carry, and (with `--strict-names`) a proper name absent from them. It resolves a
+masthead through `sources/registry.yaml` and an anchor through the corpus, so that half
+holds across languages; a name or figure only compares within one script, and nothing
+mechanical compares meaning. It therefore catches **named but unanchored** and never
+**anchored but wrong** — "Variety pairs the CinemaScore grade with the second-weekend
+gross *to argue that audiences were not troubled*" has both names anchored and the causal
+claim is still the writer's. Silence from it is not clearance; the read-back above and the
+judge panel remain the check on everything it cannot see.
 
 ### Write to the rendered frame
 

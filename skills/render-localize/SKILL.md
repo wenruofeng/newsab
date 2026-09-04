@@ -4,10 +4,20 @@ description: Take the English-pivot reader page through every mechanical refusal
 compatibility: Requires this repository and Python 3. No network.
 metadata:
   newsab-stage: "render-localize"
-  newsab-version: "0.22.0"
+  newsab-version: "0.23.1"
   newsab-inputs: "page,qa_analysis,corpus,topic_manifest"
   newsab-outputs: "page,preview"
   newsab-language: "reader-local"
+  newsab-counters: |
+    angles: number of angle cards covered by this run's page
+    languages: number of languages present in this run's page.json
+    judge_panel_size: number of L1 judge-panel members in the final round
+    judge_rounds: number of L1 judge-panel rounds run (1 if no fix pass, 2+ if fixed)
+    judge_min_score: the final L1 panel's merged minimum score (worst score any member gave)
+    locales_added: number of site languages backfilled beyond pivot + reviewer locale, in a backfill-locales expansion run
+    localization_judges: number of L2 localization-judge runs dispatched (one per locale judged)
+    localization_judge_reruns: number of L2 judge reruns triggered by unparseable/invalid judge output (exit 2), not a scoring rejection
+    localization_judge_min_score: lowest score any L2 localization judge gave across all locales judged in this run
 ---
 
 # render-localize
@@ -35,7 +45,7 @@ Prepare that directory **now**; every artifact this stage produces goes in it �
 previews, their shared `data/` islands, the bilingual page, every judge member file and
 merged panel record. The write run you read is finalized and hashed — a file dropped beside
 its `page.json` fails `manifest-check`; a run directory is append-only until finalized,
-immutable after.
+immutable after. Restamp `provenance` for this run the moment `page.json` lands in it — `page-check` enforces the match.
 
 ## Segment 1 — mechanical checks, before reading the page
 
@@ -47,7 +57,7 @@ Reading the page first is how a reviewer talks themselves into a finding being a
         --page <page.json> --qa-run <qa-run-dir> --lang en \
         -o <run dir>/preview.en.html --data-assets data
 
-`--data-assets data` externalizes the language-neutral data islands as content-hash-named
+This path has no end-to-end test coverage. `--data-assets data` externalizes the language-neutral data islands as content-hash-named
 files in `<run dir>/data/`, reused by the candidate render. Both language renders must yield
 the **same** names — a "replaced stale data asset" line on the *second* language's render
 means localization leaked into shared data: a defect, not housekeeping. Exit 1 sends the
@@ -70,25 +80,40 @@ exit codes, the fix pass, the churn taxonomy and the round budget are
         --judge <run dir>/judge.1.3.json --judge-model <id> --writer-model <id> \
         --page <page.json> --out <run dir>/judge.panel.1.json
 
-On exit 1, run write's `fix-page` on the union and nothing else, then dispatch the
+This path has no end-to-end test coverage as a whole (`check_judge.py` alone is subprocess-tested; `judge_packet.py` is not). On exit 1, run write's `fix-page` on the union and nothing else, then dispatch the
 confirmation panel on a **fresh packet** — the same `check_judge.py` call with the round-2
 member files, the fixed page, a new `--out` and `--previous <run dir>/judge.panel.1.json`,
 which turns on the churn check. Exit 0 proceeds to localization; exit 3 is a human's.
 
 ## Segment 3 — localize into the reviewer's language (`<reviewer_locale>` below)
 
-`<reviewer_locale>` is the manifest's **`review_locale`**, read there and nowhere else — never the language you happen to be speaking, and a manifest that names none stops the stage (`references/localize.md`). `page-check --langs en,<reviewer_locale>` names each missing field precisely, so work to the checker, not a memorized field list. The invariants — lexicon maps, quantity and provenance, anchors, quotes, side names, Q–A–explain as reader logic — are in `references/localize.md`, none optional.
-Read the rendered frame in its order (question → labels/counts → relation → explanations). Translate labels first, then explanations; pair-read the complete `<reviewer_locale>` frame.
+`<reviewer_locale>` is the manifest's **`review_locale`**, read there and nowhere else — never the language you happen to be speaking, and a manifest that names none stops the stage. The invariants — lexicon maps, quantity and provenance, anchors, quotes, side names, Q–A–explain as reader logic — are in `references/localize.md`, none optional. Read the rendered frame in its order (question → labels/counts → relation → explanations). Translate labels first, then explanations; pair-read the complete `<reviewer_locale>` frame.
+
+Extract the work list, translate it, merge it back — one command each way, whole page, same for any further site language. Never hand-assemble the field list or hand-write a merge; what each command guarantees is in that same reference:
+
+    python skills/render-localize/scripts/localization_units.py --page <page.json> \
+        --lang <target> --topics-root <topics_root> --topic-id <topic_id> \
+        -o <scratch>/units.<target>.json
+    python skills/render-localize/scripts/apply_localization.py --page <page.json> \
+        --translations <scratch>/<target>.json --lang <target> \
+        --topics-root <topics_root> --topic-id <topic_id> \
+        --run-id <this run_id> --model-id <localizer model> -o <run dir>/page.json
+
+The translator returns `{unit key: text}`; the key is the page's own JSON path, and the merge refuses to overwrite a language the page already carries. Quote the printed per-kind gap table in the run report. `page-check --langs en,<reviewer_locale>` stays the refusal that decides whether the page is complete.
 
 **The localization judge (L2) — mandatory for every language no human reads**, one judge
 per locale before finalize (protocol, and why not a panel: `references/localize.md`); its
 entire input is `references/localization-judge.md` plus its packet. Exit 1 blocks that
 locale — fix, rebuild the packet, re-judge; exit 2 means re-run it, never hand-fix its JSON.
 
+When localizing several locales in parallel, **pipeline localization with judging instead of gating them into two serial waves**: dispatch a locale's judge the moment that locale's page bytes land, not after every localizer has returned. Measured: waiting for all 7 localizers before dispatching the first judge spent about 25 of 39 minutes idle; running the judge as each locale finished would have saved roughly 8–10 minutes.
+
     python skills/render-localize/scripts/localization_packet.py \
         --page <page.json> --locale <target> -o <scratch>/localization_packet.<target>.md
     python skills/render-localize/scripts/check_localization_judge.py \
         --judge <run dir>/locjudge.<target>.json --judge-model <id> --localizer-model <id>
+
+This path has no end-to-end test coverage.
 
 ## Segment 4 — render the reviewer's preview and stop
 
@@ -111,33 +136,18 @@ place **before** finalize — the output set hash covers the whole tree. Finaliz
 and every member's `judge.<round>.<member>.json` as an `--output` beside the merged records:
 
     python -m newsab_schema finalize-run <topics_root> <topic_id> --run-id <run_id> \
-        --activate editorial --skill-id render-localize --skill-version <frontmatter version> \
+        --activate editorial --skill-id render-localize \
         --model-id <model> --status completed --input-run <write run> --input-run <qa run> \
         --input-run <corpus run> --output <run dir>/page.json \
         --output <run dir>/preview.<reviewer_locale>.html --output <run dir>/judge.panel.<last>.json \
         --counters-json '{"angles": N, "languages": 2, "judge_panel_size": N, "judge_rounds": N, "judge_min_score": N}'
 
-Then **stop**. These previews are intermediate artifacts, not the review surface: touchpoint
-two is taken on the publish stage's candidate. Render one from this run
-(`review-preview … --page-run <this run> --categories <site categories> -o <dir>`) into a
-fresh `site/private/review-<task>-<topic>-<date>/`, never a temp dir (`/tmp` can vanish
-under an open review). Serve it (`dev-serve --preview <that dir>`), and hand the user
-that `http://127.0.0.1:8787/` link, this run's id and the judge's overall-impression
-paragraph. Never a file path.
+`--skill-version` defaults to frontmatter `newsab-version`; its `newsab-counters` also covers a `backfill-locales` expansion run (`locales_added`, `localization_judge*`).
 
-**Propose the site categories here, do not ask for them later.** `--categories` puts your
-proposal on the review card, so the one touchpoint-two confirmation settles the taxonomy
-with the bytes and the user objects in the review if it is wrong; published without
-them, `publish` demands a separate approval for something the user was never shown —
-a second decision, not a safeguard. The vocabulary is **closed**: pick 1–2 `category_id`s
-from `packages/publish/newsab_publish/data/site_metadata.v1.json` → `categories` (the
-same ids the home page filters by). Never invent a category or a free tag —
-`review-preview` refuses ids outside the file, and adding one to the file is the site
-operator's own metadata edit, not a pipeline step. This run's page carries only the
-pivot and the reviewer's own language; the user can authorize more of the site's
-languages at touchpoint two with no second review, and a later expansion run comes back
-through this same segment for each added locale
-(`skills/publish/references/localization.md`).
+Then **stop**. These previews are intermediate artifacts, not the review surface: touchpoint two is taken on the publish stage's candidate. Render one from this run (`review-preview … --page-run <this run> --categories <site categories> -o <dir>`) into a fresh `site/private/review-<task>-<topic>-<date>/`, never a temp dir (`/tmp` can vanish under an open review). Serve it (`dev-serve --preview <that dir>`), and hand the user
+that `http://127.0.0.1:8787/` link, this run's id and the judge's overall-impression paragraph. Never a file path. Never wrap `dev-serve` in a `timeout` — it exists to keep running past the end of your turn; measured: one run wrapped it in `timeout 900` and the review server was killed before the reviewer ever opened it.
+
+**Propose the site categories here, do not ask for them later.** `--categories` puts your proposal on the review card, so the one touchpoint-two confirmation settles the taxonomy with the bytes and the user objects in the review if it is wrong; published without them, `publish` demands a separate approval for something the user was never shown — a second decision, not a safeguard. The vocabulary is **closed**: pick 1–2 `category_id`s from `packages/publish/newsab_publish/data/site_metadata.v1.json` → `categories` (the same ids the home page filters by). Never invent a category or a free tag — `review-preview` refuses ids outside the file, and adding one to the file is the site operator's own metadata edit, not a pipeline step. This run's page carries only the pivot and the reviewer's own language; the user can authorize more of the site's languages at touchpoint two with no second review, and a later expansion run comes back through this same segment for each added locale (`skills/publish/references/localization.md`).
 
 ## Done
 

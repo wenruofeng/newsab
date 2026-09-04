@@ -527,13 +527,13 @@ STRINGS.update(
         "provenance_anonymous": {"en": "Anonymous", "zh-CN": "匿名"},
         "provenance_scope_actor": {"en": "Signed by {who}", "zh-CN": "由 {who} 签署"},
         "provenance_scope_actor_ai": {
-            "en": "Signed by {who}, standing in for the founder",
-            "zh-CN": "由 {who} 代签（AI 代理创始人）",
+            "en": "Signed by {who}, standing in for the human reviewer",
+            "zh-CN": "由 {who} 代签，代表人工审核员",
         },
         "provenance_page_actor": {"en": "Reviewed by {who}", "zh-CN": "由 {who} 审核"},
         "provenance_page_actor_ai": {
-            "en": "Reviewed by {who}, standing in for the founder",
-            "zh-CN": "由 {who} 代审（AI 代理创始人）",
+            "en": "Reviewed by {who}, standing in for the human reviewer",
+            "zh-CN": "由 {who} 代审，代表人工审核员",
         },
         #: Appended to either of the two above when the topic manifest names the language
         #: the reviewer read.  A review is of one rendering in one language; saying which

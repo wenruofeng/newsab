@@ -4,10 +4,15 @@ description: Build or extend a topic's question set, then answer every question 
 compatibility: Requires this repository and Python 3. No network.
 metadata:
   newsab-stage: "annotate"
-  newsab-version: "0.9.0"
+  newsab-version: "0.9.1"
   newsab-inputs: "topic_manifest,corpus,questions"
   newsab-outputs: "questions,answers"
   newsab-language: "en-pivot"
+  newsab-counters: |
+    questions: number of questions in the frozen/assembled question set
+    answers: number of answer records written across all clusters and questions
+    addressed: number of those answer records with addressed:true (evidence found)
+    clusters: number of reporting clusters answered in this run
 ---
 
 # annotate (Q×A)
@@ -81,9 +86,17 @@ activated — and read `manifest/active.json` rather than assuming: a build can 
        python skills/annotate/scripts/qa_batch.py assemble <topics_root> <topic_id> batch*.jsonl \
            --run-id <run_id> --model-id <model>
        python -m newsab_schema finalize-run <topics_root> <topic_id> --run-id <run_id> \
-           --activate answers --skill-id annotate --skill-version <frontmatter version> \
+           --activate answers --skill-id annotate \
            --model-id <model> --status completed --input-run <corpus run> --input-run <questions run> \
            --output <run file> --counters-json '{"answers": N, "addressed": N, "clusters": N}'
+
+`--skill-version` defaults to this file's frontmatter `newsab-version` — pass it explicitly
+only to override, in which case a mismatch is refused. `--counters-json` keys outside this
+file's frontmatter `newsab-counters` list get a warning, not a rejection; add a new key
+there rather than inventing an unlisted one.
+
+This mint-run-id → prepare-run → assemble → finalize-run sequence has no end-to-end test
+coverage.
 
 Evidence stays verbatim in each article's source language; summaries and normalized
 categories use English pivot throughout, so one comparison group may span languages.
@@ -104,8 +117,23 @@ analyze cannot tell apart from a real attention gap, and which will be defended 
 to the reader page. Split by cluster list interleaved across groups, so every shard carries
 both sides.
 
+**Send one shard first as a pilot before dispatching the rest.** A brand-new question set's
+category vocabulary is still being discovered as workers answer, and every worker who
+starts from the same empty table can independently miss the same obvious bucket. Measured:
+five shards dispatched together all missed "Odysseus himself" as a category for a
+who's-quoted question (Penelope, Telemachus, Athena and Helen all had one; the story's own
+protagonist did not) — four workers hit the same gap independently, and the fix was one
+worker re-answering 95 clusters × 2 questions: 27 minutes and 630k tokens. A pilot shard
+run first, read for the categories and addressed rate it invents, costs about 18 minutes of
+serial wall clock against parallel dispatch — cheap against a full re-answer.
+
 Before assembling, read `check`'s per-shard addressed-rate table: same question, one column
-per worker. A question whose columns disagree far more than the others is a convention
+per worker. This is not optional background reading — **the run report must answer, for
+this table, which question has the widest spread across shards and whether that spread was
+judged a convention difference or a real coverage difference.** Measured: overall addressed
+rates per shard looked even (51%/56%/51%/53%/51%), and only the per-question breakdown
+showed one question split 42%/32% between two shards — a convention divide invisible in the
+aggregate. A question whose columns disagree far more than the others is a convention
 question, not a coverage one — settle the reading, re-answer the affected shards, and only
 then assemble. 
 

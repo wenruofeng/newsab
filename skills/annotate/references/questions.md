@@ -48,8 +48,13 @@ Then follow hypotheses with the audited probe
 (at most 10 searches, 5 full-cluster reads per corpus run) and refuses a search without
 one native term per side (`--term <group>=<native wording>`) — a Chinese term plus a
 literal translation can create a clean-looking 0-versus-N artifact that says only that
-the query was wrong. Stop probing after two consecutive searches yield no new candidate
-question, and record that judgement beside the mechanical log in the run report.
+the query was wrong. The two terms must also be the **same granularity**, not merely
+native on both sides — a bare proper noun measured against a verb phrase manufactures a
+gap out of nothing. Measured: `--term cn=诺兰 --term us="Nolan said"` returned 97% vs
+2%, a striking-looking asymmetry that was really just "name" vs "name + reporting verb";
+the probe was discarded, one budget slot burned for nothing. Stop probing after two
+consecutive searches yield no new candidate question, and record that judgement beside
+the mechanical log in the run report.
 
 **One question asks one thing.** A question with two halves — "…, and how much?", "…,
 and what happened to them?" — is the most common way a question set goes wrong, and it
@@ -130,6 +135,16 @@ own vocabulary and the counts stop joining. Rules:
   范塔·阿夫 and "Fanta Aw" are ONE entity (see `answer-rubric.md`);
 - `unclear` is reserved: addressed but genuinely unbucketable. Use sparingly; two
   `unclear`s never count as agreement;
+- a negative bucket (`not_discussed`, `no_agent_named`, `controversy_not_mentioned` and
+  the like) is usable **only when a cluster can anchor a sentence that itself states the
+  absence** — the article says the date has not been set, says no one has claimed
+  responsibility. Do not add one as a stand-in for "the article never takes this up";
+  that case is `addressed: false`, no category, no evidence (`answer-rubric.md`, "A
+  `none_*` category is an answer, not a synonym for silence"). Get this wrong at question
+  time and it will not surface until answering: one run's 14-question set left this kind
+  of bucket in every table, froze and activated the set, and only discovered at
+  `answer-rubric.md` that almost none of them could be legally used — the set had to be
+  rebuilt from scratch;
 - for `quoted_voices`, the categories are the `speaker_category` vocabulary
   (`government_official`, `expert_academic`, …) — reuse it, do not invent a parallel
   one. Name the specific speakers in the summary and notes.
@@ -150,7 +165,13 @@ python -m newsab_schema prepare-run <topics_root> <topic_id> questions <run_id>
 python skills/annotate/scripts/qa_batch.py assemble-questions <topics_root> <topic_id> qbatch.jsonl \
     --run-id <run_id> --model-id <model>
 python -m newsab_schema finalize-run <topics_root> <topic_id> --run-id <run_id> \
-    --activate questions --skill-id annotate --skill-version <SKILL.md frontmatter version> \
+    --activate questions --skill-id annotate \
     --model-id <model> --status completed --input-run <corpus run id> \
     --output <run file> --counters-json '{"questions": N}'
 ```
+
+`--skill-version` defaults to `SKILL.md`'s frontmatter `newsab-version`; `questions` is
+listed in that same frontmatter's `newsab-counters`, alongside the answer-mode keys.
+
+This check-questions → mint-run-id → prepare-run → assemble-questions → finalize-run
+sequence has no end-to-end test coverage.

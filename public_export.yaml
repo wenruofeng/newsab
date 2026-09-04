@@ -492,8 +492,8 @@ copies:
     select: file
     rationale: Export reusable, cross-topic outlet knowledge without any topic corpus.
     content_review:
-      reviewed_at: "2026-09-03"
-      sha256: d3cd1fdfedfbd3c0f1e8a4886679b1e0505c8546ed7511f1b8d5069f66315146
+      reviewed_at: "2026-09-04"
+      sha256: 5769a16bb331d4f8d7d6b4f82706016065a62103add351306d48c2bb9bf88419
       secret_scan: clear
       pii_scan: one_public_newsroom_email_retained
 

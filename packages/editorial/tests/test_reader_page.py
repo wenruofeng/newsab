@@ -29,6 +29,7 @@ from newsab_schema.models.corpus import (
 from newsab_schema.models.manifest import ManifestEntry
 from newsab_schema.models.findings import FindingDelta, GroupAnswerStats, QAFinding
 from newsab_schema.models.page import ReaderPage
+from newsab_schema.paths import TopicPaths
 
 from newsab_editorial.page_checks import check_page
 from newsab_editorial.page_render import render_page
@@ -332,7 +333,10 @@ def test_rtl_direction_wired_per_locale_and_ab_sides_stay_unmirrored():
 
 
 def test_machine_default_category_labels_draw_a_warning():
-    """A label equal to page-init's `key -> Capitalized words` seed was never rewritten."""
+    """A label equal to page-init's `key -> Capitalized words` seed may never have been
+    rewritten — or may already be the right reader word (measured: a run turned `Mixed`
+    into `Genuinely mixed` purely to silence this warning, which made the label worse).
+    The message must say to answer it in the run report, not to add words on sight."""
     data = page().model_dump(mode="json")
     data["lexicon"]["categories"]["narendra_modi_government"] = {
         "values": {"en": "Narendra modi government", "zh-CN": "纳伦德拉·莫迪政府"}
@@ -342,6 +346,9 @@ def test_machine_default_category_labels_draw_a_warning():
     )
     assert report.ok, report.render()
     assert any("machine-generated default" in w for w in report.warnings), report.render()
+    assert any(
+        "do not add words just to silence this warning" in w for w in report.warnings
+    ), report.render()
 
     rewritten = page().model_dump(mode="json")
     rewritten["lexicon"]["categories"]["narendra_modi_government"] = {
@@ -396,6 +403,47 @@ def test_a_localized_scope_bullet_that_drops_the_signed_numbers_is_flagged():
         required_langs=("en",), manifest=m,
     )
     assert not [w for w in clean.warnings if "drops number(s)" in w], clean.render()
+
+
+def test_a_required_language_missing_from_every_group_table_is_a_warning():
+    """Regression: the per-entry group-lexicon check iterates the table's
+    own keys, so an empty ``lexicon.group_labels`` (the common case — a run that never
+    touches these tables) is asked nothing, even when the manifest itself never carried
+    the language either. A nine-locale run shipped a Russian page with the English short
+    label "China side" on it this way. This check asks group x language directly,
+    independent of whether the lexicon table has any entries at all."""
+    m = manifest()  # groups carry en/zh-CN label+short_label, en-only definition
+    report = check_page(
+        page(), ARTICLES, [finding()], required_langs=("en", "ru"), manifest=m
+    )
+    for attr in ("group_labels", "group_short_labels", "group_definitions"):
+        for group_id in ("cn", "us"):
+            assert any(
+                f"group {group_id!r} has no {attr} wording for language 'ru'" in w
+                for w in report.warnings
+            ), report.render()
+    # 'en' is fully covered by the manifest itself, on both sides, for all three fields.
+    assert not any(
+        "wording for language 'en'" in w for w in report.warnings
+    ), report.render()
+
+    # Filling in the lexicon override for one side clears exactly that side's warnings.
+    data = page().model_dump(mode="json")
+    data["lexicon"]["group_labels"] = {"cn": {"values": {"ru": "Освещение на китайском"}}}
+    data["lexicon"]["group_short_labels"] = {"cn": {"values": {"ru": "китайская сторона"}}}
+    data["lexicon"]["group_definitions"] = {"cn": {"values": {"ru": "Репортажи по-китайски"}}}
+    filled = check_page(
+        ReaderPage.model_validate(data), ARTICLES, [finding()],
+        required_langs=("en", "ru"), manifest=m,
+    )
+    assert not any(
+        "group 'cn' has no" in w and "'ru'" in w for w in filled.warnings
+    ), filled.render()
+    for attr in ("group_labels", "group_short_labels", "group_definitions"):
+        assert any(
+            f"group 'us' has no {attr} wording for language 'ru'" in w
+            for w in filled.warnings
+        ), filled.render()
 
 
 def test_render_is_byte_deterministic_for_the_same_artifacts():
@@ -666,6 +714,125 @@ def test_placeholder_provenance_from_page_init_is_refused():
     assert not any("placeholder" in e for e in clean.errors)
 
 
+def _in_run_dir(tmp_path, run_id: str) -> tuple[Path, TopicPaths]:
+    """A page path shaped like ``<topics_root>/<topic>/editorial/versions/<run_id>/page.json``."""
+    paths = TopicPaths.for_topic(tmp_path / "topics", TOPIC)
+    run_dir = paths.stage_run_dir("editorial", run_id)
+    run_dir.mkdir(parents=True)
+    return run_dir / "page.json", paths
+
+
+def test_a_page_copied_from_another_run_keeps_the_donor_stamp_and_is_refused(tmp_path):
+    """Regression: a write-run page copied into a render-localize run directory
+    to seed localization kept its write-stage stamp through two judge panels, 163
+    localized fields and two rendered previews — only ``review-preview`` (the very last
+    step, after the run was already finalized and immutable) refused it. The same
+    assertion now runs at the first ``page-check``."""
+    page_path, paths = _in_run_dir(tmp_path, "rl-202608200000-00000001")
+    donor = page().model_dump(mode="json")
+    donor["provenance"] = {
+        "skill_version": "write-0.17.0",
+        "model_id": "test-model",
+        "run_id": "edt-202608200000-00000001",
+        "timestamp": NOW.isoformat(),
+    }
+    report = check_page(
+        ReaderPage.model_validate(donor),
+        ARTICLES,
+        [finding()],
+        page_path=page_path,
+        paths=paths,
+    )
+    assert any(
+        "page.provenance.run_id is 'edt-202608200000-00000001' but this file sits in "
+        "run directory 'rl-202608200000-00000001'" in e
+        for e in report.errors
+    ), report.render()
+    assert report.stats["run provenance check"] == (
+        "checked against run directory rl-202608200000-00000001"
+    )
+
+
+def test_a_page_with_the_wrong_skill_stamp_for_its_run_directory_is_refused(tmp_path):
+    """The run id half can be patched without the skill half following — still a stale
+    stamp, still refused."""
+    page_path, paths = _in_run_dir(tmp_path, "rl-202608200000-00000001")
+    data = page().model_dump(mode="json")
+    data["provenance"] = {
+        "skill_version": "write-0.17.0",
+        "model_id": "test-model",
+        "run_id": "rl-202608200000-00000001",
+        "timestamp": NOW.isoformat(),
+    }
+    report = check_page(
+        ReaderPage.model_validate(data), ARTICLES, [finding()], page_path=page_path, paths=paths
+    )
+    assert any(
+        "page.provenance.skill_version is 'write-0.17.0' but run "
+        "'rl-202608200000-00000001' is a 'rl'-prefixed run" in e
+        for e in report.errors
+    ), report.render()
+
+
+def test_a_page_correctly_stamped_for_its_own_run_directory_passes(tmp_path):
+    for prefix, stamp in (("edt", "write"), ("rl", "renderlocalize")):
+        run_id = f"{prefix}-202608200000-00000001"
+        page_path, paths = _in_run_dir(tmp_path, run_id)
+        data = page().model_dump(mode="json")
+        data["provenance"] = {
+            "skill_version": f"{stamp}-0.1.0",
+            "model_id": "test-model",
+            "run_id": run_id,
+            "timestamp": NOW.isoformat(),
+        }
+        report = check_page(
+            ReaderPage.model_validate(data),
+            ARTICLES,
+            [finding()],
+            page_path=page_path,
+            paths=paths,
+        )
+        assert not any("page.provenance." in e for e in report.errors), report.render()
+        assert report.stats["run provenance check"] == f"checked against run directory {run_id}"
+
+
+def test_a_page_outside_any_run_directory_is_not_checked_and_says_so(tmp_path):
+    """A scratch draft (write's ``draft_page.json`` before ``mint-run-id``, a fixture)
+    is not the run-directory provenance bug and is silently skipped — but the skip is recorded, so a run
+    report can see whether the check applied."""
+    scratch = tmp_path / "draft_page.json"
+    paths = TopicPaths.for_topic(tmp_path / "topics", TOPIC)
+    report = check_page(
+        page(), ARTICLES, [finding()], page_path=scratch, paths=paths
+    )
+    assert not any("page.provenance." in e for e in report.errors), report.render()
+    assert report.stats["run provenance check"].startswith("skipped")
+
+
+def test_the_shared_publish_rerender_path_omits_the_run_directory_check():
+    """``builder.render_locales`` — the code path ``prepare``/``review-preview``/
+    ``verify-site`` all share to reproduce an already-approved page's bytes — calls
+    ``check_page`` without ``page_path``/``paths``. That is the whole safety property:
+    an already-shipped run's directory is immutable, so a stale stamp there is history,
+    not something a reproduced render can fix, and it must never be why a verify of a
+    *different*, already-approved run refuses. This pins the contract in the one place a
+    signature change could silently break it."""
+    import inspect
+
+    from newsab_publish import builder
+
+    source = inspect.getsource(builder.render_locales)
+    call = source[source.index("check_page(") :]
+    assert "page_path" not in call.split(")", 1)[0]
+    assert "paths=" not in call.split(")", 1)[0]
+    # And the property it exists for: a page whose provenance would fail the run-directory check
+    # if it were told where the file lives still passes when it is not told.
+    stale = page().model_dump(mode="json")
+    stale["provenance"]["run_id"] = "edt-202608200000-00000001"
+    report = check_page(ReaderPage.model_validate(stale), ARTICLES, [finding()])
+    assert not any("page.provenance." in e for e in report.errors), report.render()
+
+
 def test_top_category_badge_refuses_a_tied_mode():
     tied = finding().model_dump(mode="json")
     tied_group = tied["groups"][0]
@@ -783,6 +950,67 @@ def test_translation_into_a_foreign_readers_language_is_still_required():
         required_langs=("en", "zh-CN"),
     )
     assert any("translation missing" in e for e in report.errors)
+
+
+def test_quote_english_translation_is_not_required_by_default():
+    """The quote-english-translation hard reject is opt-in — off unless a caller explicitly asks for it."""
+    data = page().model_dump(mode="json")
+    quote = data["angles"][0]["sides"][0]["quotes"][0]
+    assert quote["sentence_id"].startswith("CN_")
+    del quote["translation"]["values"]["en"]
+    report = check_page(ReaderPage.model_validate(data), ARTICLES, [finding()])
+    assert report.ok, report.render()
+
+
+def test_stage_page_check_requires_a_chinese_quote_to_carry_an_english_translation():
+    """Regression: an English reader met a bare Chinese quote; seven L2 judges had no pivot to
+    compare it against. `require_quote_en_translation=True` is what the stage-level
+    `page-check` CLI passes."""
+    data = page().model_dump(mode="json")
+    quote = data["angles"][0]["sides"][0]["quotes"][0]
+    assert quote["sentence_id"].startswith("CN_")
+    del quote["translation"]["values"]["en"]
+    report = check_page(
+        ReaderPage.model_validate(data),
+        ARTICLES,
+        [finding()],
+        require_quote_en_translation=True,
+    )
+    assert any(
+        "translation missing language 'en'" in e for e in report.errors
+    ), report.render()
+
+
+def test_an_english_quote_never_needs_translation_into_itself_even_when_enforced():
+    """The US side's quote is already English; the check must not ask for a self-translation."""
+    data = page().model_dump(mode="json")
+    quote = data["angles"][0]["sides"][1]["quotes"][0]
+    assert quote["sentence_id"].startswith("US_")
+    quote["translation"] = None
+    report = check_page(
+        ReaderPage.model_validate(data),
+        ARTICLES,
+        [finding()],
+        require_quote_en_translation=True,
+    )
+    assert not any(
+        "translation missing language 'en'" in e for e in report.errors
+    ), report.render()
+
+
+def test_the_shared_publish_rerender_path_never_enforces_quote_en_translation():
+    """An already-published cn-side page with no `en` quote translation must keep
+    rendering on the outbound path (`prepare`/`review-preview`/`verify-site`/
+    `verify-candidate`) — this is a requirement on future write runs, not a retroactive
+    one. Same safety shape as the run-provenance switch: the check reads
+    `builder.render_locales`'s own source rather than exercising the whole publish stack,
+    so the contract breaks loudly the moment someone passes the kwarg there."""
+    import inspect
+
+    from newsab_publish import builder
+
+    source = inspect.getsource(builder.render_locales)
+    assert "require_quote_en_translation" not in source
 
 
 def test_a_number_followed_by_a_comma_is_still_the_same_number():
@@ -3139,3 +3367,412 @@ def test_explanations_follow_the_cards_when_sides_are_stored_out_of_manifest_ord
         "explanation columns are crossed: the cn paragraph must precede the us paragraph, "
         "because the cn card precedes the us card"
     )
+
+
+# --------------------------------------------------------------------------------------
+# Named things in an explanation paragraph must be anchored on the naming side
+# --------------------------------------------------------------------------------------
+
+
+def named_articles() -> list[Article]:
+    """Two outlets per side, so "the side that names it" is a question with an answer."""
+    out = []
+    for article_id, source_id, lang, sentences, title in (
+        ("CN_00000001", "thecover_cn", "zh-CN",
+         ["新规将居留期限改为四年。", "IMAX 超前点映上座率达到 94%。"], "签证新规"),
+        ("CN_00000002", "thepaper_cn", "zh-CN",
+         ["澎湃的报道谈到考古发现。", "全球票房已超过 12 亿美元。"], "考古观察"),
+        ("US_00000001", "variety_us", "en",
+         ["The rule caps visas at four years.", "DEHOGA lodged an objection."], "Visa rule"),
+        ("US_00000002", "deadline_us", "en",
+         ["Colleges object to the 1,200 new places.", "The share was 12.1% of the haul."],
+         "Colleges object"),
+    ):
+        out.append(
+            article(article_id, lang, sentences, title).model_copy(
+                update={"source_id": source_id}
+            )
+        )
+    return out
+
+
+def named_registry() -> SourceRegistry:
+    def entry(source_id, en, url):
+        return {
+            "id": source_id,
+            "name": {"values": {"en": en}},
+            "url": url,
+            "lang": "en",
+            "country": "US",
+            "category": "serious",
+            "beat_scope": "general",
+            "notes": {"values": {"en": "An outlet invented for these tests."}},
+        }
+
+    return SourceRegistry(
+        sources=[
+            # "Cover News" is registered; the page writes "The Cover".
+            entry("thecover_cn", "Cover News", "https://www.thecover.cn/"),
+            entry("thepaper_cn", "The Paper", "https://www.thepaper.cn/"),
+            entry("variety_us", "Variety", "https://variety.com/"),
+            # Registered under the long form only; the page writes "Sfen".
+            entry("deadline_us", "Sfen — Revue Generale Nucleaire", "https://www.sfen.org/"),
+        ],
+        registry_version="reg-0.1.0",
+        updated_at=NOW,
+    )
+
+
+def named_page(cn_text: str, us_text: str = "The sampled US coverage points at the "
+               "Trump administration.", **side_overrides) -> ReaderPage:
+    """The clean page with both explanation paragraphs rewritten."""
+    data = page().model_dump(mode="json")
+    sides = data["angles"][0]["sides"]
+    sides[0]["answer"]["text"]["values"]["en"] = cn_text
+    sides[0]["answer"]["evidence"] = side_overrides.get(
+        "cn_evidence", ["CN_00000001:P01:S01"]
+    )
+    sides[0]["quotes"] = [{"sentence_id": s} for s in side_overrides.get(
+        "cn_quotes", ["CN_00000001:P01:S02"]
+    )]
+    sides[1]["answer"]["text"]["values"]["en"] = us_text
+    sides[1]["answer"]["evidence"] = side_overrides.get(
+        "us_evidence", ["US_00000001:P01:S01"]
+    )
+    sides[1]["quotes"] = [{"sentence_id": s} for s in side_overrides.get(
+        "us_quotes", ["US_00000001:P01:S02"]
+    )]
+    data["intro"][0]["evidence"] = ["CN_00000001:P01:S01", "US_00000001:P01:S01"]
+    data["hook"] = None
+    return ReaderPage.model_validate(data)
+
+
+def named_report(page_obj, *, strict_names=False):
+    return check_page(
+        page_obj,
+        named_articles(),
+        [finding()],
+        registry=named_registry(),
+        strict_names=strict_names,
+    )
+
+
+def named_warnings(report) -> list[str]:
+    return [w for w in report.warnings if "page_checks_anchors" in w]
+
+
+def test_an_outlet_named_without_an_anchor_from_it_is_a_warning():
+    """The one shape of this defect that resolves across languages.
+
+    The masthead becomes a ``source_id`` through the registry and the anchor becomes a
+    ``source_id`` through the corpus, so a Chinese-language anchor and an English pivot
+    paragraph are still comparable.  Measured: the only two
+    real instances in the repo were caught exactly this way.
+    """
+    report = named_report(
+        named_page("The Paper opens on the archaeology of the site.")
+    )
+    assert report.ok, "this is a warning, never a refusal"
+    assert named_warnings(report) == [
+        "angle 1 (cn): names 'The Paper' but this side's anchors carry no sentence from "
+        "thepaper_cn — anchor the outlet you name, or drop the name (page_checks_anchors)"
+    ]
+
+
+def test_an_outlet_named_with_an_anchor_from_it_passes():
+    report = named_report(
+        named_page(
+            "The Paper opens on the archaeology of the site.",
+            cn_evidence=["CN_00000001:P01:S01", "CN_00000002:P01:S01"],
+        )
+    )
+    assert named_warnings(report) == []
+
+
+def test_a_quote_from_the_named_outlet_counts_as_its_anchor():
+    """``style.md`` says "that side's evidence"; the reader also clicks the quotes."""
+    report = named_report(
+        named_page(
+            "The Paper opens on the archaeology of the site.",
+            cn_quotes=["CN_00000002:P01:S02"],
+        )
+    )
+    assert named_warnings(report) == []
+
+
+def test_an_anchor_on_the_other_side_does_not_anchor_this_side():
+    """The whole point is *which* side anchors it, so the other side's evidence is not it."""
+    report = named_report(
+        named_page(
+            "The Paper opens on the archaeology of the site.",
+            us_evidence=["CN_00000002:P01:S01", "US_00000001:P01:S01"],
+        )
+    )
+    # The us side's anchors are in the same angle, so the cross-side widening applies only
+    # to an outlet belonging to the *other* group; thepaper_cn is a cn outlet named on the
+    # cn side, and that side must carry it itself.
+    assert len(named_warnings(report)) == 1
+    assert "thepaper_cn" in named_warnings(report)[0]
+
+
+def test_a_masthead_the_registry_spells_differently_still_resolves():
+    """"Cover News" in the registry, "The Cover" on the page, ``thecover.cn`` as the host."""
+    report = named_report(named_page("The Cover opens on the global record."))
+    assert named_warnings(report) == [], (
+        "the outlet is anchored (CN_00000001 is thecover_cn); the check must recognise the "
+        "spelling the writer used"
+    )
+
+
+def test_a_short_masthead_only_the_domain_knows_still_resolves():
+    """``deadline_us`` is registered as "Sfen — Revue Generale Nucleaire"; pages write "Sfen".
+
+    Without the host-label alias the short form falls through to the proper-name check,
+    which cannot know the outlet is anchored — measured as a false warning on a correct
+    page.
+    """
+    report = named_report(
+        named_page(
+            "The sampled Chinese coverage points at the US government.",
+            us_text="Sfen adds the half-year loss the withdrawal has already cost.",
+            us_evidence=["US_00000002:P01:S01"],
+            us_quotes=["US_00000002:P01:S02"],
+        )
+    )
+    assert named_warnings(report) == []
+
+
+def test_an_all_lower_case_run_of_prose_is_not_a_masthead():
+    """Case is the guard that keeps "the cover story" out of the outlet warnings."""
+    report = named_report(
+        named_page("The sampled coverage returns to the cover story of the week.")
+    )
+    assert named_warnings(report) == []
+
+
+def test_a_decimal_figure_with_no_anchor_is_a_warning():
+    """The gap ``check_page``'s own digit rules leave open.
+
+    An integer in a ``corpus_aggregate`` sentence is already refused when it does not
+    recompute from the finding; a token carrying a decimal point is skipped by that rule
+    outright, so "12.1%" can sit in an explanation paragraph with nothing behind it.
+    """
+    report = named_report(
+        named_page("The sampled Chinese coverage puts the share at 12.1% of the haul.")
+    )
+    assert report.ok
+    assert named_warnings(report) == [
+        "angle 1 (cn): states the figure '12.1', which appears in none of this side's "
+        "anchored sentences and recomputes from no finding (page_checks_anchors)"
+    ]
+
+
+def test_the_same_decimal_anchored_on_this_side_passes():
+    report = named_report(
+        named_page(
+            "The sampled Chinese coverage points at the US government.",
+            us_text="The sampled US coverage puts the share at 12.1% of the haul.",
+            us_evidence=["US_00000002:P01:S02"],
+            us_quotes=["US_00000002:P01:S01"],
+        )
+    )
+    assert named_warnings(report) == []
+
+
+def test_thousands_separators_are_notation_not_quantity():
+    """"1,200" on the page and "1,200" in the anchor are one figure however either is
+    punctuated; the fold runs on both sides of the comparison."""
+    report = named_report(
+        named_page(
+            "The sampled Chinese coverage points at the US government.",
+            us_text="US reports count 1200.5 new places against the cap.",
+            us_evidence=["US_00000002:P01:S01"],
+        )
+    )
+    # 1,200 in the anchored sentence, 1200.5 in the paragraph: the integer part folds to
+    # the same digits, the decimal does not exist in the anchor, and the figure is flagged.
+    assert len(named_warnings(report)) == 1
+    assert "1200.5" in named_warnings(report)[0]
+
+
+def test_an_acronym_missing_from_a_same_script_anchor_is_a_warning():
+    """``DEHOGA`` on the German side of a real topic's page, the one real name catch."""
+    report = named_report(
+        named_page(
+            "The sampled Chinese coverage points at the US government.",
+            us_text="The objection was lodged by DEHOGA and the ministry.",
+            us_evidence=["US_00000002:P01:S01"],
+            us_quotes=["US_00000002:P01:S02"],
+        )
+    )
+    assert named_warnings(report) == [
+        "angle 1 (us): names 'DEHOGA', which appears in none of this side's anchored "
+        "sentences (page_checks_anchors)"
+    ]
+
+
+def test_an_acronym_the_anchor_spells_in_another_case_is_not_a_defect():
+    """A German report writes the association "Dehoga"; the page writes "DEHOGA"."""
+    report = named_report(
+        named_page(
+            "The sampled Chinese coverage points at the US government.",
+            us_text="The objection was lodged by DEHOGA and the ministry.",
+            us_evidence=["US_00000001:P01:S02"],
+        )
+    )
+    assert named_warnings(report) == []
+
+
+def test_a_name_is_not_checked_against_an_anchor_in_another_script():
+    """An English name reaches a Chinese anchor transliterated, never verbatim.
+
+    Measured: before this gate every proper-name warning on a CJK or Cyrillic side
+    of a real page was false — ``IMF`` against a Mongolian anchor that says Олон Улсын
+    Валютын Сан, ``Mycenaeans`` against 迈锡尼 — and every true one was on a Latin-script
+    side.  The outlet half above is what covers those sides instead.
+    """
+    report = named_report(
+        named_page("The sampled Chinese coverage credits DEHOGA and the IMF."),
+        strict_names=True,
+    )
+    assert named_warnings(report) == []
+
+
+def test_ordinary_proper_names_need_strict_names():
+    text = ("The sampled US coverage points at the Trump administration and the "
+            "Prussian Cultural Heritage Foundation.")
+    quiet = named_report(named_page("The sampled Chinese coverage points at the US "
+                                    "government.", us_text=text))
+    assert named_warnings(quiet) == [], "off by default: too noisy across languages"
+    loud = named_report(
+        named_page("The sampled Chinese coverage points at the US government.",
+                   us_text=text),
+        strict_names=True,
+    )
+    assert any("Prussian Cultural Heritage Foundation" in w for w in named_warnings(loud))
+
+
+def test_a_paragraph_with_no_anchors_at_all_is_counted_not_enumerated():
+    """Every named thing would fire, saying one thing many times and burying the rest."""
+    data = named_page("The sampled Chinese coverage points at the US "
+                      "government.").model_dump(mode="json")
+    data["intro"] = [
+        {
+            "text": {"values": {"en": "The Paper reports 12.1% and credits DEHOGA."}},
+            "claim_type": "corpus_aggregate",
+            "computed_from": "FND-aabb-river-light-001",
+            "evidence": [],
+        }
+    ]
+    report = named_report(ReaderPage.model_validate(data), strict_names=True)
+    assert named_warnings(report) == []
+    assert "1 paragraph(s) skipped" in report.stats["named-thing warnings"]
+
+
+def test_the_check_is_off_without_a_registry():
+    """The safety switch: ``check_page`` runs this only when a registry is handed to it."""
+    report = check_page(
+        named_page("The Paper opens on the archaeology of the site."),
+        named_articles(),
+        [finding()],
+    )
+    assert named_warnings(report) == []
+    assert "named-thing warnings" not in report.stats
+
+
+def test_the_shared_publish_rerender_path_never_runs_the_named_thing_check():
+    """Same contract as the run-directory check, for the same reason.
+
+    ``builder.render_locales`` is the re-render every ``prepare`` / ``review-preview`` /
+    ``verify-site`` shares.  A publication shipped before this check existed must not start
+    producing new output there, so the call must not pass ``registry``.  Read the source
+    rather than trusting a comment: if someone wires it in while editing builder.py, this
+    fails immediately.
+    """
+    import inspect
+
+    from newsab_publish import builder
+
+    source = inspect.getsource(builder.render_locales)
+    call = source[source.index("check_page("):]
+    call = call[: call.index("\n    )")]
+    assert "registry" not in call, (
+        "render_locales must not pass registry to check_page: the named-thing warnings "
+        "are a write-stage aid and must never reach an already-approved page's re-render"
+    )
+    assert "strict_names" not in call
+
+
+def _source_claim_intro(text: str, article_id: str) -> ReaderPage:
+    """The clean page with the intro replaced by one anchored source_claim."""
+    data = page().model_dump(mode="json")
+    data["intro"] = [
+        {
+            "text": {"values": {"en": text, "zh-CN": text}},
+            "claim_type": "source_claim",
+            "evidence": [f"{article_id}:P01:S01"],
+        }
+    ]
+    data["hook"] = None
+    return ReaderPage.model_validate(data)
+
+
+def _thousands_articles() -> list[Article]:
+    """A French anchor that writes its thousands separator the way French does."""
+    return [
+        *ARTICLES,
+        article(
+            "FR_00000001",
+            "fr",
+            [
+                "Les 90 000 tonnes d’uranium que contient le désert de Gobi pourraient "
+                "remplacer ces gisements.",
+                "Le groupe cherche à diversifier ses sources.",
+            ],
+            "Uranium mongol",
+        ),
+    ]
+
+
+def test_a_thousands_separator_is_notation_not_a_missing_number():
+    """A correct page must not be refused over a typographic convention.
+
+    A real topic's page really does anchor "Les 90 000 tonnes…", and an English pivot
+    writes that figure "90,000".  Before the fold, the ``source_claim`` digit check
+    compared the two as raw strings and raised a hard error on a page whose number is
+    exactly where it should be.  Found while measuring the named-but-unanchored check.
+    """
+    report = check_page(
+        _source_claim_intro(
+            "The Gobi holds 90,000 tonnes of uranium.", "FR_00000001"
+        ),
+        _thousands_articles(),
+        [finding()],
+    )
+    assert [e for e in report.errors if "90,000" in e] == [], report.render()
+
+
+def test_a_number_genuinely_absent_from_the_anchor_is_still_refused():
+    """The fold must not turn the check off: only notation is forgiven, never a figure."""
+    report = check_page(
+        _source_claim_intro(
+            "The Gobi holds 91,000 tonnes of uranium.", "FR_00000001"
+        ),
+        _thousands_articles(),
+        [finding()],
+    )
+    assert any("91,000" in e for e in report.errors), report.render()
+
+
+def test_the_fold_never_bridges_two_anchored_sentences_into_one_number():
+    """Anchors join on a newline, which no separator class contains.
+
+    Otherwise "…12" ending one anchored sentence and "345…" opening the next would fold
+    into "12345" and silently pass a number nobody wrote.
+    """
+    from newsab_editorial.page_checks_anchors import _digit_fold
+
+    assert _digit_fold("ends with 12\n345 opens the next") == "ends with 12\n345 opens the next"
+    assert _digit_fold("90 000") == "90000"
+    assert _digit_fold("1 234 567") == "1234567"
+    assert _digit_fold("3, 4 items") == "3, 4 items"

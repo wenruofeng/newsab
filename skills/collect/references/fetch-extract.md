@@ -264,8 +264,12 @@ readability, the opposite of this guarantee. Borrow their idea (scope to the con
 never their output.
 
 Chinese pages declaring `charset=gb2312` routinely contain GBK-only characters; decoding
-as declared silently replaces them and the quote is no longer verbatim. Decode `gb2312`
-and `gbk` as **`gb18030`**, always.
+as declared silently replaces them and the quote is no longer verbatim. `newsab_corpus.fetch`
+handles this for you: `http_get` reads the HTTP header charset, then a `<meta charset=…>` /
+`http-equiv="Content-Type"` declaration in the first 2048 bytes, then falls back to utf-8 —
+and decodes `gb2312`/`gbk` (any spelling) as **`gb18030`**, always, since it is a strict
+superset of both. A hand-rolled fetch that bypasses this (see §1.1's warning against one)
+re-decides it and is how this broke the first time; nothing else needs to re-decode.
 
 ## 5. Site chrome, and what the build already catches
 

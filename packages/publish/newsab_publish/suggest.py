@@ -19,7 +19,9 @@ from .legal import privacy_notice_url
 
 
 INTAKE_ORIGIN = "https://intake.news-ab.com"
-TOOLKIT_PLACEHOLDER_URL = "https://github.com/wenruofeng/newsab"
+#: The public toolkit repository: the footer mark, the about note and the suggest
+#: modal all point here.
+TOOLKIT_REPO_URL = "https://github.com/wenruofeng/newsab"
 
 
 def suggestion_entrance_enabled() -> bool:
@@ -48,7 +50,7 @@ _COPY = {
         "agent_title": "Let your AI agent make it",
         "agent_desc": "Give the open-source toolkit link to your coding agent. It can build the same kind of auditable comparison report in your own local workspace.",
         "github_cta": "Open the GitHub toolkit",
-        "github_note": "The public repository is being prepared; this is its placeholder link.",
+        "github_note": "Public, open-source repository; its README tells your agent where to start.",
         "submit_desc": "If you finished a report with the toolkit and received an invitation, upload its verified archive here for review.",
         "submit_cta": "I want to submit my report",
         "submit_form_title": "Submit an invited report",
@@ -107,7 +109,7 @@ _COPY = {
         "agent_title": "自己动手",
         "agent_desc": "如果你使用如 Claude Code 或 Codex 这样可运行代码的 AI 助手，且愿意用自己的 token 额度来进行议题研究，请把如下开源代码库的网页链接粘贴给你的 AI。它会引导你提出需求，并自动完成从采集到报告的流程，最终生成网页报告。",
         "github_cta": "打开 GitHub",
-        "github_note": "公开仓库尚在准备中；这里先放它的 placeholder 链接。",
+        "github_note": "公开的开源仓库；README 会告诉你的 AI 从哪里开始。",
         "submit_desc": "如果你希望把你自制的报告分享给更多人，不妨让 AI 把报告产物打成标准稿件包，然后上传投稿。如果通过质量审核，你的报告会在本站上发布。",
         "submit_cta": "我要投稿",
         "submit_form_title": "上传投稿",
@@ -234,7 +236,7 @@ def suggest_modal_html(locale: str) -> str:
  </section>
  <section class="suggest-path suggest-path--agent"><span class="suggest-num">02</span>
   <h4>{_esc(s["agent_title"])}</h4><p>{_esc(s["agent_desc"])}</p>
-  <a class="suggest-cta suggest-cta--line" href="{_attr(TOOLKIT_PLACEHOLDER_URL)}" target="_blank" rel="noopener noreferrer">{_esc(s["github_cta"])} <span aria-hidden="true">↗</span></a>
+  <a class="suggest-cta suggest-cta--line" href="{_attr(TOOLKIT_REPO_URL)}" target="_blank" rel="noopener noreferrer">{_esc(s["github_cta"])} <span aria-hidden="true">↗</span></a>
   <p class="suggest-meta">{_esc(s["github_note"])}</p>
   <p>{_esc(s["submit_desc"])}</p>
   <button class="suggest-cta" type="button" data-show-submission aria-expanded="false" aria-controls="suggest-formbox-upload">{_esc(s["submit_cta"])}</button>

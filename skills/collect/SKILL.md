@@ -4,7 +4,7 @@ description: Find, fetch and stage one topic's news coverage verbatim from publi
 compatibility: Requires this repository, Python 3, and permitted web/browser access for discovery and fetching.
 metadata:
   newsab-stage: "collect"
-  newsab-version: "0.20.0"
+  newsab-version: "0.20.1"
   newsab-inputs: "topic_manifest,source_registry"
   newsab-outputs: "collection_log,staging,topics_raised,corpus"
   newsab-language: "source-local"
@@ -60,6 +60,11 @@ are in hand; `references/source-registration.md` when the registry does not know
    Never reconstruct the log afterwards; it alone answers "what would you have found if you had searched
    differently?", and `--results-staged` — required on every query line, `0` included — is reconciled
    against the corpus (`references/search-strategy.md` §6): an article no query claims fails the round.
+   **When delegating this step, write the task brief as a cadence, not a principle**: "run
+   `check_collection_log.py` every 5 articles staged", not "log as you go". Measured: a
+   worker's brief said only the latter, and it staged 28 articles before writing its first
+   query log line — the run had to be stopped for a backfill, and a backfilled log is by
+   definition the falsified thing this rule exists to prevent.
 3. *(commands)* **Fetch with the fetcher, then extract the body verbatim**, scoped to the
    body container: `python -m newsab_corpus fetch <url> … --out <topic>/corpus/raw`. It
    sends the one honest identity in both layers, retries every refusal — a non-2xx *or* an
@@ -121,6 +126,9 @@ All of these, from repo root, exit 0 — and their printed warnings are read, no
     python skills/collect/scripts/check_topics_raised.py <topics_root> <topic_id> \
         <topics_root>/<topic_id>/corpus/topics_raised.jsonl
     python -m newsab_corpus registry check
+
+This path has no end-to-end test coverage as a whole; the first two scripts are
+subprocess-tested, `registry check` is not.
 
 plus the build itself. **Backfill debt is a refusal budget**: while any `backfill_debt`
 entry has retry budget left, collect is not Done — retry **only the debt cells** (`site:`

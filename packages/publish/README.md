@@ -71,6 +71,31 @@ What it must never do, and does not: inject anything into a page under review, o
 `activate`, `supersede` or `lifecycle`. Those stay explicit commands; the dashboard only
 shows them.
 
+### Adopting a touchpoint-two category decision
+
+The dashboard's release confirmation writes the reviewer's proposed categories to
+`site/private/approvals/topic-categories-<topic_id>-<hash8>.json` (a
+`TopicCategoryApproval`) alongside the `PublicationReview`s and the `HumanApproval` —
+but `prepare` reads `SiteMetadata.topic_categories`, a different file, and refuses a
+topic's first `prepare` with `site metadata has no approved taxonomy mapping for
+<topic_id>` until that mapping exists there too, with a matching entry in
+`topic_category_approvals` (`SiteMetadata._controlled_taxonomy` checks `category_ids`
+equal in order). Getting the approval file into that shape used to be a hand transcription
+with zero judgement content — the file already says everything — so it is a command:
+
+    python -m newsab_publish adopt-taxonomy <site_root> <topic_id> \
+      [--approval <topic-categories-....json>] [--site-metadata <metadata.json>]
+
+`--approval` defaults to the sole matching file under `site/private/approvals/`; more than
+one match requires it explicit. `--site-metadata` defaults to the checked-in
+`site_metadata.v1.json`. Adopting the same approval file twice is a no-op (reported as
+`already-adopted`, nothing rewritten); a *different* approval for a topic that already
+carries one — a re-review under a different page hash, say — is refused rather than
+silently replacing a recorded human decision, and so is a topic already named in the
+one-time `taxonomy_backfill_approval` (the schema forbids it from also carrying a
+per-topic record). Either refusal names both records so an operator can reconcile them by
+hand.
+
 ## Content documents and site chrome
 
 A production page carries no stylesheet, font link or behaviour script of its own. It
@@ -308,11 +333,17 @@ metadata revision, origin and day must produce the exact fingerprint recorded at
 **Specified reader:** the stage 8 operator, and anyone comparing what topics cost.
 
     python -m newsab_publish cost-report <site_root> <publication_id>
+    python -m newsab_publish cost-report <site_root> --topic-id <topic_id>
+    python -m newsab_publish cost-report <site_root> --topic-id <topic_id> --run-id <run_id> [--run-id <run_id> ...]
 
 Writes `site/audit/cost/<topic_id>.{csv,json}` and refreshes `site/audit/cost/index.csv`:
 agent wall clock and token spend for the topic that publication belongs to. Run it after
 `activate`, or over any topic at any later time — it reads harness transcripts, never the
-publication, so it can be recomputed and backfilled freely.
+publication, so it can be recomputed and backfilled freely. Pass exactly one of
+`PUBLICATION_ID` (sums every run id the topic's artifacts mention) or `--topic-id` (works
+before activation — before touchpoint two ever runs — and defaults to the topic's
+currently active run per stage, `manifest/active.json`); `--run-id` (repeatable) scopes
+either form to an explicit set of run ids instead, e.g. to look at one run in isolation.
 
 **It is telemetry, not provenance.** Nothing reads it back: not `verify-candidate`, not
 `verify-site`, not a bundle, catalog row or event. It is written outside the production
@@ -360,6 +391,17 @@ generated for. A republished topic is one production history, not two.
   of output. The adapter sums `last_token_usage`, deduplicates repeated cumulative snapshots
   and cross-checks the final cumulative value; it never adds cached/reasoning twice.
 - A session still in progress reports itself partially; re-run after it ends.
+- **`by_run`/`by_skill` group cost by run_id/skill, honestly.** Each queried run_id looks
+  up its `skill_id`/`model_id`/stage from the topic's own manifest (never guessed from the
+  run id's kind prefix), and gets tokens/wall-clock/usd only from sessions whose tool calls
+  named *exactly that one* queried run — the only case where "this session's cost belongs
+  to this run" is a fact, not a split. A session naming two or more queried runs in one
+  conversation cannot be divided between them, so it is reported once in `cross_stage`
+  instead of being double-counted into every run it touched — this is a real limit of
+  session-granularity transcripts, not a bug. A run
+  with no exclusively-attributed session comes back with `coverage:
+  "no_exclusive_sessions"` and `null` numeric fields — never a fabricated zero. The
+  non-`--dry-run` console output prints one summary line per skill.
 
 By default the command discovers both this repo's Claude Code directory and repo-local
 `~/.codex/sessions/**/rollout-*.jsonl`; use `--dry-run` to review coverage before writing.

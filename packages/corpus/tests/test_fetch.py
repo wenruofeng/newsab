@@ -20,6 +20,7 @@ from newsab_corpus.fetch import (
     BrowserUnavailable,
     Fetcher,
     RobotsPolicy,
+    decode_html_bytes,
     parse_robots,
     visible_text,
     _operator_identity,
@@ -253,6 +254,102 @@ def test_visible_text_ignores_script_style_and_markup():
     text = visible_text(markup)
     assert "x=1" not in text and "color:red" not in text
     assert "Real" in text and "prose here." in text
+
+
+# --------------------------------------------------------------------------- charset
+
+
+# A GBK-only character (not representable in gb2312) so a wrong decode is unmistakable:
+# gb2312 turns it into U+FFFD, gb18030 recovers it exactly. Found by scanning the CJK
+# unified ideographs block for a code point 'gbk' can encode but 'gb2312' cannot.
+_GBK_ONLY_CHAR = "丂"  # 丂
+
+
+def test_meta_charset_gb2312_with_no_header_decodes_as_gb18030_verbatim():
+    # Regression coverage: a gb2312-declared page routinely holds GBK-only
+    # characters. httpx never looks past the HTTP header, so with no header charset the
+    # old code decoded as utf-8 and every non-ASCII byte became U+FFFD, irreversibly.
+    body_text = f"中文正文示例{_GBK_ONLY_CHAR}内容验证逐字正确"
+    html_doc = (
+        '<html><head><meta charset="gb2312"></head><body><p>'
+        f"{body_text}</p></body></html>"
+    )
+    content = html_doc.encode("gbk")  # what the publisher's server actually sent
+
+    decoded = decode_html_bytes(content, header_charset=None)
+
+    assert "�" not in decoded
+    assert body_text in decoded
+
+
+def test_meta_http_equiv_content_type_charset_is_also_read():
+    body_text = f"逐字比对{_GBK_ONLY_CHAR}测试"
+    html_doc = (
+        '<html><head><meta http-equiv="Content-Type" '
+        'content="text/html; charset=GBK"></head><body><p>'
+        f"{body_text}</p></body></html>"
+    )
+    content = html_doc.encode("gbk")
+
+    decoded = decode_html_bytes(content, header_charset=None)
+
+    assert "�" not in decoded
+    assert body_text in decoded
+
+
+def test_http_header_charset_wins_over_a_conflicting_meta_tag():
+    # WHATWG HTML §13.2.3.2: a user agent consults <meta charset> only once the
+    # transport-declared encoding, if any, is absent — the header is authoritative when
+    # both are present, even if they disagree.
+    body_text = f"头优先于meta{_GBK_ONLY_CHAR}"
+    html_doc = (
+        '<html><head><meta charset="utf-8"></head><body><p>'
+        f"{body_text}</p></body></html>"
+    )
+    content = html_doc.encode("gbk")  # bytes match the (correct) header, not the (wrong) meta
+
+    decoded = decode_html_bytes(content, header_charset="gb2312")
+
+    assert "�" not in decoded
+    assert body_text in decoded
+
+
+def test_no_header_and_no_meta_falls_back_to_utf8():
+    content = "<html><body><p>plain ascii, no declaration</p></body></html>".encode("utf-8")
+    decoded = decode_html_bytes(content, header_charset=None)
+    assert "plain ascii, no declaration" in decoded
+
+
+def test_an_unknown_header_charset_falls_back_to_utf8_instead_of_crashing():
+    content = "<html><body><p>hello</p></body></html>".encode("utf-8")
+    decoded = decode_html_bytes(content, header_charset="not-a-real-codec")
+    assert "hello" in decoded
+
+
+def test_http_get_wires_the_meta_charset_fallback_through_httpx():
+    # Not just the helper function: the real `_Layers.http_get` must reach it too, via
+    # httpx's raw `.content` bytes and `.charset_encoding` (the HTTP-header-only reading,
+    # never a guess) rather than the auto-decoded `.text`.
+    import httpx
+
+    body_text = f"接入httpx的解码路径{_GBK_ONLY_CHAR}验证"
+    html_doc = f'<html><head><meta charset="gb2312"></head><body><p>{body_text}</p></body></html>'
+    content = html_doc.encode("gbk")
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        # No charset on the Content-Type header — only the <meta> tag carries it.
+        return httpx.Response(200, content=content, headers={"Content-Type": "text/html"})
+
+    layers = fetch_module._Layers(timeout=5.0)
+    layers._client = httpx.Client(transport=httpx.MockTransport(handler))
+    try:
+        status, url, text = layers.http_get("https://example.com/a")
+    finally:
+        layers.close()
+
+    assert status == 200
+    assert "�" not in text
+    assert body_text in text
 
 
 # ------------------------------------------------------------------------- the two layers

@@ -100,6 +100,10 @@ It prints a map of loopback ports (dashboard at `http://127.0.0.1:8787/`) and ho
 `Ctrl+C`. Add `--preview <dir>` to index a `review-preview` output. Details:
 [`packages/publish/README.md`](packages/publish/README.md).
 
+- **Never wrap `dev-serve` (or any process whose job is to stay alive) in a `timeout`.**
+  Measured: one run wrapped it in `timeout 900`, and the review server was killed before
+  the reviewer ever opened the link — the process's whole purpose was to outlive that turn.
+
 - **Never hand a human a file path.** Production pages use root-relative URLs
   (`/zh-CN/topics/...`) and link the site chrome at `/assets/…`, so `file://` breaks them
   and a candidate bundle has no chrome beside it at all. Any step that ends in human

@@ -57,6 +57,15 @@ def main(argv: Optional[list[str]] = None) -> int:
                 default="en",
                 help="comma-separated languages every reader-facing field must carry",
             )
+            p.add_argument(
+                "--strict-names",
+                action="store_true",
+                help="also warn when a multi-word proper name in an explanation "
+                "paragraph appears in none of that side's anchored sentences. Off by "
+                "default: outlet names and acronyms resolve reliably, ordinary proper "
+                "names do not survive into a non-Latin anchor's script and this widens "
+                "the check to every Latin-script side.",
+            )
         if name == "page-render":
             p.add_argument("-o", "--out", required=True)
             p.add_argument("--lang", default="en")
@@ -112,6 +121,19 @@ def main(argv: Optional[list[str]] = None) -> int:
             pinned_qa_run=Path(args.qa_run).name,
             manifest=manifest,
             topics_by_article=topics_by_article,
+            # Stage-level only (the run-directory provenance check, the named-outlet/
+            # number anchor check, and the non-English-quote translation check): the
+            # publish package's own call (``builder.render_locales``, the shared
+            # re-render/verify path) omits every one of these, so an already-shipped
+            # run predating the provenance stamp, a page with an untranslated quote, or
+            # an outlet this check would now ask about never fails ``verify-site`` or a
+            # candidate rebuild — only a future write/render-localize run must answer
+            # them.
+            page_path=Path(args.page),
+            paths=paths,
+            registry=load_registry(source_registry_path(args.topics_root)),
+            strict_names=args.strict_names,
+            require_quote_en_translation=True,
         )
         print(report.render())
         return 0 if report.ok else 1

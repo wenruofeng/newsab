@@ -42,7 +42,8 @@ from pathlib import Path
 from typing import Mapping, Optional, Sequence
 
 from newsab_schema.common import LangText
-from newsab_schema.io import ArtifactError
+from newsab_schema.io import ArtifactError, read_yaml
+from newsab_schema.models.corpus import TopicManifest
 from newsab_schema.models.manifest import file_digest
 from newsab_schema.models.publication import HumanApproval, PublicationReview
 from newsab_schema.paths import SitePaths, TopicPaths
@@ -117,6 +118,44 @@ def _approval_for(
     return approval
 
 
+def _prepare_hint(topics_root: str | Path, site_root: str | Path, metadata_path: str | Path, topic_id: str) -> str:
+    """The exact ``prepare`` command to run first, for a topic named on ``--topic`` that
+    has no live publication yet.
+
+    Shipping a topic for the first time is always ``prepare`` + ``activate`` against the
+    locales touchpoint two actually reviewed; only *then* does a wider locale set have
+    something to backfill onto (``skills/publish/references/localization.md``, "the
+    site-wide backfill... does not substitute for" the first release: first release is
+    always two steps).  Best-effort: whatever this topic's
+    own artifacts can name (its active editorial run, its reviewer's language) is filled
+    in; a topic this repo cannot read yet still gets a usable template rather than no
+    hint at all.
+    """
+    run_id = None
+    reviewer_locale = None
+    try:
+        run_id = TopicPaths.for_topic(topics_root, topic_id).active_run_id("editorial")
+    except Exception:  # best-effort hint text; never let it hide the real refusal
+        run_id = None
+    try:
+        manifest = read_yaml(TopicPaths.for_topic(topics_root, topic_id).topic_manifest, TopicManifest)
+        reviewer_locale = manifest.review_locale
+    except Exception:
+        reviewer_locale = None
+    review_hint = (
+        f"<PublicationReview for {reviewer_locale}>"
+        if reviewer_locale
+        else "<PublicationReview>"
+    )
+    return (
+        f"{topic_id} has no live publication yet — backfill-locales only widens an "
+        "existing release, it does not mint the first one. Ship it first, then "
+        "backfill: python -m newsab_publish prepare "
+        f"{topics_root} {site_root} {topic_id} --page-run {run_id or '<page_run_id>'} "
+        f"--review {review_hint} --site-metadata {metadata_path}"
+    )
+
+
 def _reviewed_locales(review: PublicationReview, shipped: Sequence[str]) -> PublicationReview:
     """The locale set the signed bytes were rendered under, from the live record.
 
@@ -172,6 +211,20 @@ def backfill_locales(
     when = datetime.now(timezone.utc).replace(microsecond=0)
     outcomes: list[BackfillOutcome] = []
     wanted = set(only_topics) if only_topics else None
+
+    if wanted is not None:
+        # An explicitly named topic with no live publication is not "nothing to do" —
+        # silently skipping it (the loop below only ever sees live topics) would make a
+        # first-ship attempt look like a successful no-op backfill.  Report it as a
+        # failure with the exact next command, instead of a quiet zero-outcome run.
+        for topic_id in sorted(wanted - set(selector.publications)):
+            outcomes.append(
+                BackfillOutcome(
+                    topic_id,
+                    "failed",
+                    _prepare_hint(topics_root, site_root, metadata_path, topic_id),
+                )
+            )
 
     for topic_id, live_id in sorted(selector.publications.items()):
         if wanted is not None and topic_id not in wanted:

@@ -31,42 +31,14 @@ from pathlib import Path
 
 import _bootstrap  # noqa: F401
 
-
-def _is_lang_map(node: object) -> bool:
-    return (
-        isinstance(node, dict)
-        and set(node.keys()) == {"values"}
-        and isinstance(node["values"], dict)
-        and bool(node["values"])
-        and all(isinstance(v, str) for v in node["values"].values())
-    )
-
-
-def _walk(node: object, path: str, out: list[tuple[str, dict]]) -> None:
-    if _is_lang_map(node):
-        out.append((path, node["values"]))
-        return
-    if isinstance(node, dict):
-        for key, value in node.items():
-            _walk(value, f"{path}.{key}" if path else str(key), out)
-    elif isinstance(node, list):
-        for index, value in enumerate(node):
-            _walk(value, f"{path}[{index}]", out)
-
-
-def _angle_label(page: dict, path: str) -> str:
-    """`angles[2]...` → `angle rank 3 (QST-...)`: the judge cites what a human can find."""
-    if not path.startswith("angles["):
-        return path
-    index = int(path[len("angles[") : path.index("]")])
-    angle = page.get("angles", [])[index]
-    rest = path[path.index("]") + 1 :].lstrip(".")
-    return f"angle {angle.get('rank', index + 1)} ({angle.get('question_id', '?')}) {rest}"
+# One key convention for this stage: the location label the judge cites, the unit key a
+# translator fills and the path ``apply_localization.py`` writes to are the same string.
+from localization_units import angle_label as _angle_label
+from localization_units import walk_lang_maps as _walk
 
 
 def build_packet(page: dict, locale: str) -> str:
-    pairs: list[tuple[str, dict]] = []
-    _walk(page, "", pairs)
+    pairs = _walk(page)
     lines = [
         f"# Localization packet — English pivot vs {locale}",
         "",

@@ -305,6 +305,60 @@ def visible_text(markup: str) -> str:
 
 
 # --------------------------------------------------------------------------------------
+# charset — HTTP header, then <meta>, then utf-8 (never trust httpx's guess alone)
+# --------------------------------------------------------------------------------------
+
+#: httpx only reads the HTTP header charset; it never looks inside the document, so a
+#: GBK-declared-as-gb2312 page with no header charset was silently decoded as utf-8 and
+#: every non-ASCII character became U+FFFD — irreversibly, the verbatim quote is gone.
+#: ``skills/collect/references/fetch-extract.md`` §4 states the fix this implements:
+#: HTTP header wins when present (WHATWG HTML §13.2.3.2 — the <meta> tag is a fallback a
+#: user agent consults only once the transport-declared encoding, if any, is absent);
+#: otherwise look inside the first 2048 bytes for a <meta charset=…> or the
+#: http-equiv="Content-Type" content="…charset=…" spelling; otherwise utf-8.
+_META_CHARSET_RE = re.compile(rb'<meta\b[^>]*\bcharset\s*=\s*["\']?\s*([a-zA-Z0-9_-]+)', re.IGNORECASE)
+
+#: gb2312 and gbk pages routinely contain GBK-only characters; decoding as declared
+#: silently replaces them.  gb18030 is a strict superset of both, so decoding under it is
+#: always at least as correct and never lossy for what the declared codec could hold.
+_CHARSET_ALIASES = {
+    "gb2312": "gb18030",
+    "gb_2312": "gb18030",
+    "gb-2312": "gb18030",
+    "gbk": "gb18030",
+}
+
+
+def _canonical_charset(name: str) -> str:
+    normalized = name.strip().strip("\"'").lower()
+    return _CHARSET_ALIASES.get(normalized, normalized)
+
+
+def _charset_from_meta(content: bytes) -> Optional[str]:
+    match = _META_CHARSET_RE.search(content[:2048])
+    if not match:
+        return None
+    return match.group(1).decode("ascii", errors="ignore")
+
+
+def decode_html_bytes(content: bytes, header_charset: Optional[str] = None) -> str:
+    """Decode a fetched HTML document's bytes: HTTP header → <meta> → utf-8 fallback.
+
+    ``header_charset`` is the encoding httpx parsed from the ``Content-Type`` response
+    header (``response.charset_encoding``), never a guess: httpx does not sniff.  A
+    codec name neither the header nor the page can back up (or a genuinely undecodable
+    byte sequence) falls back to utf-8 with lossy replacement rather than raising —
+    fetching must never crash on a hostile or malformed page.
+    """
+    charset = header_charset or _charset_from_meta(content) or "utf-8"
+    charset = _canonical_charset(charset)
+    try:
+        return content.decode(charset, errors="replace")
+    except LookupError:
+        return content.decode("utf-8", errors="replace")
+
+
+# --------------------------------------------------------------------------------------
 # the fetch itself
 # --------------------------------------------------------------------------------------
 
@@ -399,7 +453,13 @@ class _Layers:
 
     def http_get(self, url: str) -> tuple[Optional[int], str, str]:
         response = self.client.get(url)
-        return response.status_code, str(response.url), response.text
+        # httpx.Response.text decodes by the HTTP header charset when present and
+        # otherwise guesses without looking inside the document at all — never what
+        # decode_html_bytes needs.  Decode the raw bytes ourselves so a page whose
+        # charset lives only in a <meta> tag (or is a gb2312/gbk alias) is read
+        # correctly instead of turned into U+FFFD.
+        text = decode_html_bytes(response.content, response.charset_encoding)
+        return response.status_code, str(response.url), text
 
     # -- browser ------------------------------------------------------------------
     @property

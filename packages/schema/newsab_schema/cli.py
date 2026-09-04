@@ -384,9 +384,47 @@ def _json_object(raw: str | None, label: str) -> dict:
 def cmd_finalize_run(args: argparse.Namespace) -> int:
     """Hash a completed run, append its manifest entry, then activate it."""
     from .artifacts import append_manifest, artifact_hashes, run_set_hash
+    from .skill_metadata import declared_counters, declared_version, load_skill_frontmatter, skill_md_path
 
     paths = TopicPaths.for_topic(args.topics_root, args.topic_id)
+    # The repo root is derived from the run's own path, never cwd: every caller
+    # already passes topics_root, and it is always the repo root's immediate child.
+    repo_root = Path(args.topics_root).resolve().parent
+    frontmatter = load_skill_frontmatter(repo_root, args.skill_id)
+    md_path = skill_md_path(repo_root, args.skill_id)
     try:
+        frontmatter_version = declared_version(frontmatter) if frontmatter else None
+        if args.skill_version is not None:
+            if frontmatter_version is not None and args.skill_version != frontmatter_version:
+                raise ValueError(
+                    f"--skill-version {args.skill_version!r} does not match "
+                    f"{md_path}'s newsab-version {frontmatter_version!r} "
+                    f"(skill-id {args.skill_id!r}); pass the frontmatter's value, or "
+                    "omit --skill-version to read it automatically, or fix the frontmatter"
+                )
+            skill_version = args.skill_version
+        elif frontmatter_version is not None:
+            skill_version = frontmatter_version
+        else:
+            raise ValueError(
+                f"--skill-version is required: no SKILL.md frontmatter found for "
+                f"skill-id {args.skill_id!r} (looked for {md_path}); pass --skill-version explicitly"
+            )
+
+        counters = _json_object(args.counters_json, "--counters-json")
+        if frontmatter is not None:
+            known_counters = declared_counters(frontmatter)
+            if known_counters is not None:
+                unknown = sorted(set(counters) - set(known_counters))
+                if unknown:
+                    print(
+                        f"warning: --counters-json key(s) {unknown} are not listed in "
+                        f"{md_path}'s newsab-counters for skill-id {args.skill_id!r}; "
+                        "add them there if they are meant to be recomputable/comparable "
+                        "across runs, or drop them if they were a one-off",
+                        file=sys.stderr,
+                    )
+
         inputs = artifact_hashes(paths, args.input)
         outputs = artifact_hashes(paths, args.output)
         escalations = [Escalation.model_validate(row) for row in _json_object(
@@ -398,7 +436,7 @@ def cmd_finalize_run(args: argparse.Namespace) -> int:
         stage = args.stage or args.activate
         entry = ManifestEntry(
             skill_id=args.skill_id,
-            skill_version=args.skill_version,
+            skill_version=skill_version,
             model_id=args.model_id,
             run_id=args.run_id,
             topic_id=args.topic_id,
@@ -412,7 +450,7 @@ def cmd_finalize_run(args: argparse.Namespace) -> int:
             ),
             input_hashes=inputs,
             output_hashes=outputs,
-            counters=_json_object(args.counters_json, "--counters-json"),
+            counters=counters,
             metadata=_json_object(args.metadata_json, "--metadata-json"),
             escalations=escalations,
             gates=gates,
@@ -544,7 +582,14 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("topics_root")
     p.add_argument("topic_id")
     p.add_argument("--skill-id", required=True)
-    p.add_argument("--skill-version", required=True)
+    p.add_argument(
+        "--skill-version",
+        help=(
+            "defaults to skills/<skill-id>/SKILL.md's frontmatter newsab-version; an "
+            "explicit value must match it, or the run is refused (T-242). Required only "
+            "when that SKILL.md cannot be found (e.g. a retired skills/archive/ id)."
+        ),
+    )
     p.add_argument("--run-id", required=True)
     p.add_argument("--status", choices=("completed", "no_op", "stopped"), default="completed")
     p.add_argument("--model-id")
@@ -560,7 +605,13 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--stage", choices=STAGE_NAMES,
                    help="the versioned stage this run wrote; defaults to --activate")
     p.add_argument("--activate", choices=STAGE_NAMES)
-    p.add_argument("--counters-json")
+    p.add_argument(
+        "--counters-json",
+        help=(
+            "keys outside skills/<skill-id>/SKILL.md's frontmatter newsab-counters list "
+            "get a warning on stderr, not a rejection (T-242)"
+        ),
+    )
     p.add_argument("--metadata-json")
     p.add_argument("--escalations-json", help='JSON object: {"items": [...]}')
     p.add_argument("--gates-json", help='JSON object: {"items": [...]}')

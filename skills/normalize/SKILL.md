@@ -4,10 +4,14 @@ description: Judge which of a topic's answer categories are the same concept and
 compatibility: Requires this repository and Python 3. No network.
 metadata:
   newsab-stage: "normalize"
-  newsab-version: "0.3.0"
+  newsab-version: "0.3.1"
   newsab-inputs: "questions,answers,corpus"
   newsab-outputs: "normalization"
   newsab-language: "en-pivot"
+  newsab-counters: |
+    questions_with_merges: number of questions whose category map records at least one merge
+    merge_groups: number of merge groups (each grouping 2+ categories into one) across the map
+    categories_merged: number of individual category labels absorbed into a merge group
 ---
 
 # normalize (category map)
@@ -70,10 +74,17 @@ machine-enforced invariants) before the first judgement.
        python skills/normalize/scripts/check_map.py assemble <topics_root> <topic_id> agreed.json \
            --run-id <run_id> --model-id <model> --two-pass-json @two_pass.json
        python -m newsab_schema finalize-run <topics_root> <topic_id> --run-id <run_id> \
-           --activate normalization --skill-id normalize --skill-version <frontmatter version> \
+           --activate normalization --skill-id normalize \
            --model-id <model> --status completed --input-run <questions run> --input-run <answers run> \
            --output <category_map.json> --output <two_pass.json> --counters-json \
            '{"questions_with_merges": N, "merge_groups": N, "categories_merged": N}'
+
+   `--skill-version` defaults to this file's frontmatter `newsab-version` (a mismatched
+   explicit value is refused); the three counters above are the complete list in this
+   file's frontmatter `newsab-counters` — an unlisted `--counters-json` key gets a warning.
+
+   This mint-run-id → prepare-run → assemble → finalize-run sequence has no end-to-end
+   test coverage.
 
    `assemble` refuses without `--two-pass-json`, and writes it into the run directory as
    `two_pass.json` — which answers run the two passes judged, how many groups each pass

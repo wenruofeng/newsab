@@ -413,7 +413,7 @@ def test_the_daily_shuffle_no_longer_carries_a_promise_line(catalog_factory, met
     assert "每日随机" in rendered
 
 
-def test_the_footer_is_one_placeholder_byline(catalog_factory, metadata):
+def test_the_footer_is_one_byline_with_the_repo_mark(catalog_factory, metadata):
     """The method blurb came out; the stamp holds the corner until
     the real site facts are written, and language stays with the globe that owns it."""
     rendered = render_home(
@@ -424,7 +424,7 @@ def test_the_footer_is_one_placeholder_byline(catalog_factory, metadata):
     assert "方法" not in footer and "Method" not in footer
     assert 'by rwen @ <time datetime="2026-08-25">' in footer
     # The producer version that used to follow the bar is now the GitHub mark, linking
-    # to the same placeholder repository URL the suggest modal offers; the version
+    # to the same public toolkit repository the suggest modal offers; the version
     # itself survives only as a data attribute.
     assert 'data-producer="publish-0.' in footer
     assert "publish-0." not in footer.split("data-producer=", 1)[1].split('"', 2)[2]

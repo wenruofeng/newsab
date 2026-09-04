@@ -25,6 +25,8 @@ from newsab_publish.cost import (
     read_usage_jsonl,
     read_codex_rollout,
     rebuild_index,
+    topic_active_run_ids,
+    topic_manifest_entries,
     topic_run_ids,
     write_report,
 )
@@ -716,3 +718,320 @@ def test_every_report_pins_the_prices_it_was_computed_with(tmp_path):
     assert payload["rates_version"] == load_rates().version
     assert payload["rates_fingerprint"] == load_rates().fingerprint
     assert "not an invoice" in payload["pricing_note"]
+
+
+# --- querying before there is a publication, and grouping by run_id / skill -----------
+
+
+def _topic_with_manifest(tmp_path, topic_id, stage_runs):
+    """A minimal on-disk topic whose manifest/active.json matches real production shape.
+
+    ``stage_runs`` is ``[(stage, run_id, skill_id, model_id), ...]``; each becomes one
+    completed, activated :class:`ManifestEntry` — the same path ``finalize-run`` writes,
+    so ``topic_active_run_ids``/``topic_manifest_entries`` read exactly what they would
+    read from a real topic.
+    """
+    from datetime import datetime, timezone
+
+    from newsab_schema.artifacts import append_manifest, artifact_hashes, run_set_hash
+    from newsab_schema.models.manifest import ManifestEntry
+    from newsab_schema.paths import TopicPaths
+
+    paths = TopicPaths.for_topic(tmp_path, topic_id).ensure()
+    for index, (stage, run_id, skill_id, model_id) in enumerate(stage_runs):
+        run_dir = paths.stage_run_dir(stage, run_id)
+        run_dir.mkdir(parents=True)
+        output = run_dir / "output.json"
+        output.write_text(f'{{"n": {index}}}', encoding="utf-8")
+        entry = ManifestEntry(
+            skill_id=skill_id,
+            skill_version="0.1.0",
+            model_id=model_id,
+            run_id=run_id,
+            topic_id=topic_id,
+            stage=stage,
+            output_set_hash=run_set_hash(paths, stage, run_id),
+            output_hashes=artifact_hashes(paths, [output]),
+            timestamp=datetime(2026, 9, 4, 1, index, tzinfo=timezone.utc),
+        )
+        append_manifest(paths, entry, activate_stage=stage)
+    return paths
+
+
+def test_topic_active_run_ids_reads_the_manifest_pointer_not_a_tree_scan(tmp_path):
+    _topic_with_manifest(
+        tmp_path,
+        "tt-2026",
+        [
+            ("questions", "qst-202609040001-11112222", "annotate", "claude-opus-5"),
+            ("answers", "ans-202609040002-33334444", "annotate", "claude-sonnet-5"),
+        ],
+    )
+    active = topic_active_run_ids(tmp_path, "tt-2026")
+    assert active == {
+        "questions": "qst-202609040001-11112222",
+        "answers": "ans-202609040002-33334444",
+    }
+
+
+def test_topic_active_run_ids_is_empty_not_an_error_before_any_stage_has_run(tmp_path):
+    from newsab_schema.paths import TopicPaths
+
+    TopicPaths.for_topic(tmp_path, "tt-2026").ensure()
+    assert topic_active_run_ids(tmp_path, "tt-2026") == {}
+
+
+def test_topic_active_run_ids_still_requires_the_topic_directory_to_exist(tmp_path):
+    with pytest.raises(ArtifactError, match="no such topic directory"):
+        topic_active_run_ids(tmp_path, "never-scoped-2026")
+
+
+def test_topic_manifest_entries_carries_skill_and_declared_model_per_run(tmp_path):
+    _topic_with_manifest(
+        tmp_path,
+        "tt-2026",
+        [
+            ("questions", "qst-202609040001-11112222", "annotate", "claude-opus-5"),
+            # A deterministic stage legitimately declares no model (D10, e.g. analyze's
+            # qa run) — this is not the same "n/a" as a run the manifest never heard of.
+            ("cards", "qa-202609040003-55556666", "analyze", None),
+        ],
+    )
+    entries = topic_manifest_entries(tmp_path, "tt-2026")
+    assert entries["qst-202609040001-11112222"]["skill_id"] == "annotate"
+    assert entries["qst-202609040001-11112222"]["model_id"] == "claude-opus-5"
+    assert entries["qa-202609040003-55556666"]["model_id"] is None
+    assert entries["qa-202609040003-55556666"]["skill_id"] == "analyze"
+
+
+def _session(session_id, *, run_ids, model="claude-opus-5", out=1, stamps=None):
+    return SessionUsage(
+        session_id=session_id,
+        source=f"{session_id}.jsonl",
+        harness="claude-code",
+        provider="anthropic",
+        rows=[row(f"{session_id}-m1", model=model, out=out, inp=out)],
+        stamps=stamps or ["2026-08-29T07:00:00Z", "2026-08-29T07:01:00Z"],
+        run_ids=set(run_ids),
+    )
+
+
+def test_by_run_and_by_skill_totals_are_exact_for_exclusively_attributed_sessions():
+    """A session that names exactly one queried run id is cleanly counted once, both
+    under its run and under that run's skill — the case the reflection's own §五 table
+    (a dedicated subagent per stage) already produces by construction."""
+    qst_run, ans_run = "qst-202609040001-11112222", "ans-202609040002-33334444"
+    sessions = [
+        _session("annotate-questions", run_ids={qst_run}, out=100),
+        _session("annotate-answers", run_ids={ans_run}, model="claude-sonnet-5", out=200),
+    ]
+    manifest = {
+        qst_run: {"skill_id": "annotate", "stage": "questions", "model_id": "claude-opus-5",
+                   "status": "completed", "timestamp": "2026-09-04T00:01:00Z"},
+        ans_run: {"skill_id": "annotate", "stage": "answers", "model_id": "claude-sonnet-5",
+                   "status": "completed", "timestamp": "2026-09-04T00:02:00Z"},
+    }
+    report = build_report(
+        None, "tt-2026", sessions, load_rates(), reader="test",
+        target_run_ids=[qst_run, ans_run], manifest_entries=manifest,
+    )
+    by_run = {row["run_id"]: row for row in report.by_run}
+    assert by_run[qst_run]["coverage"] == "exclusive_sessions"
+    assert by_run[qst_run]["total_tokens"] == 200  # 100 in + 100 out
+    assert by_run[ans_run]["total_tokens"] == 400
+
+    assert len(report.by_skill) == 1  # both runs share skill_id "annotate"
+    annotate = report.by_skill[0]
+    assert annotate["skill_id"] == "annotate"
+    assert annotate["runs"] == 2 and annotate["runs_with_data"] == 2
+    # The skill total is exactly the sum of its runs' totals — no double counting.
+    assert annotate["total_tokens"] == by_run[qst_run]["total_tokens"] + by_run[ans_run]["total_tokens"]
+    assert report.cross_stage["sessions"] == []
+
+
+def test_a_session_spanning_two_queried_runs_is_not_double_counted_into_either():
+    qst_run, ans_run = "qst-202609040001-11112222", "ans-202609040002-33334444"
+    mixed = _session("orchestrator", run_ids={qst_run, ans_run}, out=50)
+    manifest = {
+        qst_run: {"skill_id": "annotate", "stage": "questions", "model_id": "claude-opus-5",
+                   "status": "completed", "timestamp": "2026-09-04T00:01:00Z"},
+        ans_run: {"skill_id": "annotate", "stage": "answers", "model_id": "claude-sonnet-5",
+                   "status": "completed", "timestamp": "2026-09-04T00:02:00Z"},
+    }
+    report = build_report(
+        None, "tt-2026", [mixed], load_rates(), reader="test",
+        target_run_ids=[qst_run, ans_run], manifest_entries=manifest,
+    )
+    by_run = {row["run_id"]: row for row in report.by_run}
+    assert by_run[qst_run]["coverage"] == "no_exclusive_sessions"
+    assert by_run[ans_run]["coverage"] == "no_exclusive_sessions"
+    assert by_run[qst_run]["total_tokens"] is None  # not fabricated as 0
+    # "annotate" still shows up (it owns both queried runs) but with no exclusive data —
+    # a reader sees "2 runs, 0 measured" rather than the skill silently disappearing.
+    (annotate,) = report.by_skill
+    assert annotate["runs"] == 2 and annotate["runs_with_data"] == 0
+    assert annotate["total_tokens"] is None or annotate["total_tokens"] == 0
+    assert annotate["usd"] is None and annotate["pricing_status"] == "n/a"
+    assert report.cross_stage["sessions"] == ["claude-code:orchestrator"]
+    assert report.cross_stage["total_tokens"] == 100  # 50 in + 50 out
+    # The session's tokens appear exactly once: in cross_stage, nowhere else.
+    assert report.cross_stage["total_tokens"] == sum(
+        usage.total_tokens for usage in report.totals_by_model.values()
+    )
+
+
+def test_a_run_id_absent_from_the_manifest_is_marked_not_found_not_guessed():
+    """A run the topic's own manifest never recorded (predates it, or belongs to a stage
+    that appends no entry, e.g. scope) must not silently get an invented skill_id."""
+    orphan_run = "s2s-202609040009-99998888"
+    report = build_report(
+        None, "tt-2026", [_session("s", run_ids={orphan_run})], load_rates(), reader="test",
+        target_run_ids=[orphan_run], manifest_entries={},
+    )
+    (entry,) = report.by_run
+    assert entry["manifest_entry_found"] is False
+    assert entry["skill_id"] is None
+    assert entry["stage"] is None
+    # Usage is still attributed to the run (an exclusive session did touch it) even
+    # though the manifest has nothing to say about which skill produced it.
+    assert entry["coverage"] == "exclusive_sessions"
+    assert entry["total_tokens"] == 2
+
+
+def test_wall_clock_is_n_a_not_zero_when_no_session_can_be_exclusively_attributed():
+    run_id = "qst-202609040001-11112222"
+    report = build_report(
+        None, "tt-2026", [], load_rates(), reader="test",
+        target_run_ids=[run_id], manifest_entries={
+            run_id: {"skill_id": "annotate", "stage": "questions", "model_id": "claude-opus-5",
+                      "status": "completed", "timestamp": "2026-09-04T00:01:00Z"},
+        },
+    )
+    (entry,) = report.by_run
+    assert entry["wall_clock_minutes"] is None
+    assert entry["usd"] is None
+    assert entry["pricing_status"] == "n/a"
+
+
+def test_by_run_and_by_skill_are_empty_without_opting_in_no_behaviour_change_for_callers():
+    """Every existing caller that does not pass target_run_ids/manifest_entries keeps
+    getting a report with nothing in by_run/by_skill — this feature is additive."""
+    report = _report()
+    assert report.by_run == []
+    assert report.by_skill == []
+    assert report.cross_stage["sessions"] == []
+
+
+def test_index_csv_leaves_the_publication_column_blank_for_a_pre_activation_report(tmp_path):
+    """``rebuild_index`` must not print the literal string "None" for a topic queried by
+    --topic-id, which has no publication_id yet."""
+    site = tmp_path / "site"
+    write_report(site, _report(publication_id=None))
+    index = rebuild_index(site)
+    with index.open(encoding="utf-8", newline="") as handle:
+        row_ = next(csv.DictReader(handle))
+    assert row_["as_of_publication_id"] == ""
+
+
+# --- the CLI: querying by --topic-id or --run-id before any publication exists ---------
+
+
+def test_cli_cost_report_runs_by_topic_id_with_no_publication_anywhere(tmp_path, capsys):
+    from newsab_publish.cli import main
+
+    topics_root = tmp_path / "topics"
+    site_root = tmp_path / "site"  # deliberately never gets a publications/ dir
+    run_id = "qst-202609040001-11112222"
+    _topic_with_manifest(
+        topics_root, "tt-2026",
+        [("questions", run_id, "annotate", "claude-opus-5")],
+    )
+    usage = tmp_path / "usage.jsonl"
+    usage.write_text(
+        json.dumps({
+            "topic_id": "tt-2026", "session": "s1", "harness": "claude-code",
+            "message_id": "m1", "model": "claude-opus-5", "run_ids": [run_id],
+            "timestamp": "2026-09-04T00:00:30Z", "input_tokens": 10, "output_tokens": 5,
+        }) + "\n",
+        encoding="utf-8",
+    )
+    code = main([
+        "cost-report", str(site_root), "--topic-id", "tt-2026",
+        "--topics-root", str(topics_root), "--no-auto-discovery",
+        "--usage-jsonl", str(usage), "--dry-run",
+    ])
+    assert code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["topic_id"] == "tt-2026"
+    assert payload["by_run"][0]["run_id"] == run_id
+    assert payload["by_run"][0]["skill_id"] == "annotate"
+    assert not (site_root / "publications").exists()  # never created, never needed
+
+
+def test_cli_cost_report_run_id_flag_scopes_the_grouping(tmp_path, capsys):
+    from newsab_publish.cli import main
+
+    topics_root = tmp_path / "topics"
+    site_root = tmp_path / "site"
+    qst_run, ans_run = "qst-202609040001-11112222", "ans-202609040002-33334444"
+    _topic_with_manifest(
+        topics_root, "tt-2026",
+        [
+            ("questions", qst_run, "annotate", "claude-opus-5"),
+            ("answers", ans_run, "annotate", "claude-sonnet-5"),
+        ],
+    )
+    usage = tmp_path / "usage.jsonl"
+    usage.write_text(
+        "\n".join([
+            json.dumps({
+                "topic_id": "tt-2026", "session": "s1", "harness": "claude-code",
+                "message_id": "m1", "model": "claude-opus-5", "run_ids": [qst_run],
+                "timestamp": "2026-09-04T00:00:30Z", "input_tokens": 10, "output_tokens": 5,
+            }),
+            json.dumps({
+                "topic_id": "tt-2026", "session": "s2", "harness": "claude-code",
+                "message_id": "m2", "model": "claude-sonnet-5", "run_ids": [ans_run],
+                "timestamp": "2026-09-04T00:01:30Z", "input_tokens": 20, "output_tokens": 5,
+            }),
+        ]) + "\n",
+        encoding="utf-8",
+    )
+    code = main([
+        "cost-report", str(site_root), "--topic-id", "tt-2026", "--run-id", qst_run,
+        "--topics-root", str(topics_root), "--no-auto-discovery",
+        "--usage-jsonl", str(usage), "--dry-run",
+    ])
+    assert code == 0
+    payload = json.loads(capsys.readouterr().out)
+    # Only the explicitly scoped run appears; the ans_run session is still billed to the
+    # topic overall (total_tokens) but not broken out, because it was never queried.
+    assert [row["run_id"] for row in payload["by_run"]] == [qst_run]
+    assert payload["total_tokens"] == 40  # both sessions still count toward the grand total
+
+
+def test_cli_cost_report_rejects_neither_or_both_of_publication_id_and_topic_id(tmp_path, capsys):
+    from newsab_publish.cli import main
+
+    site_root = tmp_path / "site"
+    assert main(["cost-report", str(site_root)]) == 2
+    assert "exactly one of" in capsys.readouterr().err
+    assert main(
+        ["cost-report", str(site_root), "PUB-x-2026-000000000001", "--topic-id", "tt-2026"]
+    ) == 2
+    assert "exactly one of" in capsys.readouterr().err
+
+
+def test_cli_cost_report_topic_id_with_no_active_pointers_errors_with_next_step(tmp_path, capsys):
+    from newsab_publish.cli import main
+    from newsab_schema.paths import TopicPaths
+
+    topics_root = tmp_path / "topics"
+    TopicPaths.for_topic(topics_root, "tt-2026").ensure()  # scoped, never collected
+    site_root = tmp_path / "site"
+    code = main([
+        "cost-report", str(site_root), "--topic-id", "tt-2026",
+        "--topics-root", str(topics_root), "--no-auto-discovery",
+    ])
+    assert code == 2
+    assert "no active run for any stage" in capsys.readouterr().err

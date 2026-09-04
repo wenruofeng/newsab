@@ -237,6 +237,181 @@ def test_finalize_run_cli_records_human_gate(tmp_path):
     assert entry.gates[0].decided_by.value == "human"
 
 
+def _write_fixture_skill_md(repo_root, skill_id, *, version="1.2.3", counters=None):
+    """A minimal ``skills/<skill_id>/SKILL.md`` with just enough frontmatter for
+    ``finalize-run`` to read ``newsab-version`` and, optionally,
+    ``newsab-counters``."""
+    counters_block = ""
+    if counters is not None:
+        lines = "\n".join(f"    {name}: {meaning}" for name, meaning in counters.items())
+        counters_block = f'\n  newsab-counters: |\n{lines}'
+    skill_dir = repo_root / "skills" / skill_id
+    skill_dir.mkdir(parents=True, exist_ok=True)
+    (skill_dir / "SKILL.md").write_text(
+        "---\n"
+        f"name: {skill_id}\n"
+        "description: fixture skill for finalize-run frontmatter tests, used when.\n"
+        "metadata:\n"
+        f'  newsab-stage: "{skill_id}"\n'
+        f'  newsab-version: "{version}"'
+        f"{counters_block}\n"
+        "---\n\n"
+        f"# {skill_id}\n",
+        encoding="utf-8",
+    )
+
+
+def test_finalize_run_defaults_skill_version_from_frontmatter(tmp_path):
+    _write_fixture_skill_md(tmp_path, "mystage", version="1.2.3")
+    topics_root = tmp_path / "topics"
+    paths = TopicPaths.for_topic(topics_root, "aabb-river-light-2026").ensure()
+    output = paths.root / "topic_manifest.yaml"
+    output.write_text("topic_id: aabb-river-light-2026\n", encoding="utf-8")
+
+    exit_code = main(
+        [
+            "finalize-run",
+            str(topics_root),
+            paths.topic_id,
+            "--skill-id",
+            "mystage",
+            "--run-id",
+            "my-202608180445-a01a0001",
+            "--output",
+            str(output),
+        ]
+    )
+
+    assert exit_code == 0
+    (entry,) = read_jsonl(paths.manifest, ManifestEntry)
+    assert entry.skill_version == "1.2.3"
+
+
+def test_finalize_run_rejects_skill_version_mismatch(tmp_path, capsys):
+    _write_fixture_skill_md(tmp_path, "mystage", version="1.2.3")
+    topics_root = tmp_path / "topics"
+    paths = TopicPaths.for_topic(topics_root, "aabb-river-light-2026").ensure()
+    output = paths.root / "topic_manifest.yaml"
+    output.write_text("topic_id: aabb-river-light-2026\n", encoding="utf-8")
+
+    exit_code = main(
+        [
+            "finalize-run",
+            str(topics_root),
+            paths.topic_id,
+            "--skill-id",
+            "mystage",
+            "--skill-version",
+            "9.9.9",
+            "--run-id",
+            "my-202608180445-a01a0002",
+            "--output",
+            str(output),
+        ]
+    )
+
+    assert exit_code == 1
+    err = capsys.readouterr().err
+    assert "9.9.9" in err
+    assert "1.2.3" in err
+    assert str(tmp_path / "skills" / "mystage" / "SKILL.md") in err
+    assert not paths.manifest.exists()
+
+
+def test_finalize_run_requires_explicit_version_for_unknown_skill_md(tmp_path):
+    # No skills/<id>/SKILL.md anywhere under this fake repo root — same as a skill-id
+    # naming a retired skills/archive/<id> skill, which finalize-run deliberately does
+    # not look inside: the run keeps the old, fully-explicit contract.
+    topics_root = tmp_path / "topics"
+    paths = TopicPaths.for_topic(topics_root, "aabb-river-light-2026").ensure()
+    output = paths.root / "topic_manifest.yaml"
+    output.write_text("topic_id: aabb-river-light-2026\n", encoding="utf-8")
+
+    exit_code = main(
+        [
+            "finalize-run",
+            str(topics_root),
+            paths.topic_id,
+            "--skill-id",
+            "s4-annotate",  # retired skill, lives at skills/archive/s4-annotate only
+            "--run-id",
+            "my-202608180445-a01a0003",
+            "--output",
+            str(output),
+        ]
+    )
+
+    assert exit_code == 1
+
+
+def test_finalize_run_warns_on_unknown_counter_key(tmp_path, capsys):
+    _write_fixture_skill_md(
+        tmp_path,
+        "mystage",
+        version="1.2.3",
+        counters={"angles": "number of candidate angle cards"},
+    )
+    topics_root = tmp_path / "topics"
+    paths = TopicPaths.for_topic(topics_root, "aabb-river-light-2026").ensure()
+    output = paths.root / "topic_manifest.yaml"
+    output.write_text("topic_id: aabb-river-light-2026\n", encoding="utf-8")
+
+    exit_code = main(
+        [
+            "finalize-run",
+            str(topics_root),
+            paths.topic_id,
+            "--skill-id",
+            "mystage",
+            "--run-id",
+            "my-202608180445-a01a0004",
+            "--output",
+            str(output),
+            "--counters-json",
+            '{"angles": 4, "made_up_key": 1}',
+        ]
+    )
+
+    assert exit_code == 0  # a warning, not a rejection
+    err = capsys.readouterr().err
+    assert "made_up_key" in err
+    assert "warning" in err
+    (entry,) = read_jsonl(paths.manifest, ManifestEntry)
+    assert entry.counters == {"angles": 4, "made_up_key": 1}
+
+
+def test_finalize_run_silent_when_counters_are_known(tmp_path, capsys):
+    _write_fixture_skill_md(
+        tmp_path,
+        "mystage",
+        version="1.2.3",
+        counters={"angles": "number of candidate angle cards"},
+    )
+    topics_root = tmp_path / "topics"
+    paths = TopicPaths.for_topic(topics_root, "aabb-river-light-2026").ensure()
+    output = paths.root / "topic_manifest.yaml"
+    output.write_text("topic_id: aabb-river-light-2026\n", encoding="utf-8")
+
+    exit_code = main(
+        [
+            "finalize-run",
+            str(topics_root),
+            paths.topic_id,
+            "--skill-id",
+            "mystage",
+            "--run-id",
+            "my-202608180445-a01a0005",
+            "--output",
+            str(output),
+            "--counters-json",
+            '{"angles": 4}',
+        ]
+    )
+
+    assert exit_code == 0
+    assert capsys.readouterr().err == ""
+
+
 def test_correction_mapping_is_append_only_and_hash_bound(tmp_path):
     import pytest
     from newsab_schema.io import ArtifactError

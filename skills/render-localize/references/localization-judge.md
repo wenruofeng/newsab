@@ -112,6 +112,13 @@ reader logic, not English syntax). A literal rendering of English scaffolding
 axis-1 drift you judged tolerable stays out of it and an axis-0 change always appears in
 it. `pivot_concerns` is advisory only.
 
+Write target-language text as literal UTF-8, never `\uXXXX` escapes. Measured: a ko first
+round emitted a truncated `\uud31` escape mid-string, the JSON failed to parse
+(`check_localization_judge.py` exit 2), and the whole round was burned for nothing the
+judge could have controlled. This judge's entire input is this rubric plus its packet —
+there is no prompt author downstream to patch around a missing rule, so it only takes
+effect if it is written here.
+
 ## Blocking triggers (evaluated by `check_localization_judge.py`, never by the judge)
 
 - any score of 0;

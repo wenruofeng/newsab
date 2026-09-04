@@ -24,7 +24,7 @@ from newsab_schema import EXTRA_HALO_LOCALES
 from .brand import TRANSPARENT_DARK_ASSET_URL as DARK_LOGO_URL
 from .brand import TRANSPARENT_LIGHT_ASSET_URL as LIGHT_LOGO_URL
 from .identity import site_identity
-from .suggest import TOOLKIT_PLACEHOLDER_URL
+from .suggest import TOOLKIT_REPO_URL
 
 
 _IDENTITY = site_identity()
@@ -310,11 +310,11 @@ def _repo_sentence(strings: dict) -> str:
     """The one sentence after the flow note that names where the code lives.
 
     The ``{link}`` slot is filled after escaping, so the anchor is the only markup the
-    sentence carries; the URL is the same placeholder the footer and the suggest modal
-    point at until the public repository exists.
+    sentence carries; the URL is the public toolkit repository, the same one the footer
+    and the suggest modal point at.
     """
     link = (
-        f'<a href="{_attr(TOOLKIT_PLACEHOLDER_URL)}" target="_blank" rel="noopener noreferrer">'
+        f'<a href="{_attr(TOOLKIT_REPO_URL)}" target="_blank" rel="noopener noreferrer">'
         f'{_esc(strings["flow_repo_link"])}</a>'
     )
     return _esc(strings["flow_repo"]).replace("{link}", link)
