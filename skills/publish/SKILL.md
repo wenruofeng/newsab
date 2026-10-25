@@ -60,8 +60,7 @@ command line; reviews carry across locale sets: [references/localization.md](ref
    from a topic. A candidate bundle holds **content documents only** — page markup,
    per-language inline overlay, and the data islands pinned as `data_assets`; site chrome
    ships once per release at stable URLs, never inside a publication, and a chrome
-   release may never change the islands (`docs/value_chain.md`, "Content document and
-   site chrome"). A first `prepare` also needs `adopt-taxonomy <site_root> <topic_id>
+   release may never change the islands (`docs/artifact_versioning.md` §6.1). A first `prepare` also needs `adopt-taxonomy <site_root> <topic_id>
    [--approval <file>]`, idempotent, folding in touchpoint two's `TopicCategoryApproval`.
 
        python -m newsab_publish prepare <topics_root> <site_root> <topic_id> \

@@ -203,9 +203,9 @@ would repeat the same semantic history while making disagreement possible. Inste
    topic-run pins and their output fingerprints, the exact reviewed page hash and public
    bundle fingerprint. It also pins the content-addressed data-island assets
    the page bytes reference (`data_assets`: filename, URL, byte hash) — a content
-   document is several files, all content (`value_chain.md`, "Content document and site
-   chrome"): the islands sit in the bundle's closed file list at
-   `topics/<topic_id>/data/<island>.<hash>.json`, shared across locales, and
+   document is several files, all content (§6.1): the islands sit in the bundle's
+   closed file list at `topics/<topic_id>/data/<island>.<hash>.json`, shared across
+   locales, and
    `verify-candidate` re-derives them for a current-producer candidate.
    `newsab_schema.store.write_publication()` creates its directory and
    refuses any overwrite.
@@ -220,8 +220,8 @@ would repeat the same semantic history while making disagreement possible. Inste
    records their version and per-asset hash. No `PublicationRecord` names them, no
    candidate bundle contains them, and `verify-site` re-checks the deployed bytes against
    that record. This is what lets the site be restyled without invalidating a single
-   human approval (`value_chain.md`, "Content document and site chrome"); a publication
-   still pins the theme *registry bytes* it was prepared against, as audit provenance.
+   human approval (§6.1); a publication still pins the theme *registry bytes* it was
+   prepared against, as audit provenance.
    The site's PNG social card is one of these release assets.
 5. **The origin is a release fact too, so a deployed page is not byte-identical to its
    bundle**. Approved bytes are root-relative; the build resolves the crawler
@@ -258,6 +258,59 @@ the typed record. Deployment still assembles a closed file list and scans its fi
 the `site/` tree is never copied wholesale. The renderer may resolve quotes from the private
 topic corpus during the build, but the built HTML and public-safe records are sufficient at
 runtime and never point the browser back into that corpus.
+
+### 6.1 Content document and site chrome
+
+Touchpoint two approves **what a page states**, not how the site is dressed. Those are two
+artifacts with two different authorities, and the page bytes are split accordingly
+(product decision).
+
+- The **content document** is the reviewed artifact and is verified byte for byte: claims,
+  order, counts, quotes, anchors, labels, locale/canonical metadata, and the *name* of the
+  theme it asks for (`data-theme-token`). Anything that can change what the page states
+  stays here. Approval binds these bytes and nothing else.
+- The **site chrome** — stylesheet, fonts, behaviour script, and the palette each theme
+  token stands for — is site-owned, shipped once per release at stable URLs the content
+  document links, and versioned in the site release record. It is not part of any
+  publication's bundle or of any human approval.
+
+A content document may consist of **several files** (product decision): the
+page markup plus the language-neutral **data islands** it references as content-addressed
+asset files (`topics/<topic_id>/data/<island>.<hash>.json`, shared by every locale of the
+page), with a small per-language overlay riding inline in the markup. These islands are
+content, not chrome: they enter the candidate bundle's closed file list, the bundle
+fingerprint covers their bytes, and the publication record pins them (`data_assets`).
+Approval still binds the reviewed page bytes — which name every referenced asset by its
+own content hash, so the approval binds the asset bytes transitively. Identical content
+yields the identical filename across locales and page versions, which is what lets eight
+locales ship eight small markups over one shared dataset. The hash in the asset path is
+the deliberate opposite of the chrome rule ("stable URL, no content hash"): an asset is
+approved content that must never change underneath a page, while chrome must be
+replaceable underneath every page at once.
+
+A content document also **never names the site's origin** (product decision). Every
+URL it states is root-relative — a browser resolves those against whatever origin served
+the page, which is what keeps an approval origin-free: moving the domain is a rebuild, and
+it must not invalidate a single approval. A social crawler resolves nothing, so the two
+facts it needs are release-owned rather than approved, and the site build writes them into
+the deployed copy of the page: an absolute `og:url` / `og:image`, and a card image a
+platform will actually render (none renders SVG, so the release points at the site's PNG
+card, which is chrome). Canonical and alternate links stay root-relative as approved. The
+per-angle facts still travel in `og:title` / `og:description`, which the share landing
+pages state per angle. The relation is stated as a check, not assumed: `verify-site`
+re-derives every deployed page as `resolve(approved bundle bytes, base_url)` and compares
+bytes, so **deployed = approved ⊕ release origin** is audited on every run.
+
+A chrome release therefore does **not** need a new review of every topic. It must instead
+pass, all three: the theme contrast gate (4.5:1, refused at assembly, not merely at load),
+the browser gate — which additionally proves the chrome loaded, resolved the page's theme
+token, and hid neither side of the comparison — and a commit by the site operator.
+
+This deliberately moves one trust boundary. CSS can in principle conceal or distort
+approved content, and that risk now rests on those automated gates plus the site operator
+rather than on per-topic human review. It does not widen the submission threat model: a
+submission still carries only an opaque `theme_token` and can never reach the chrome layer.
+Changing what a page *says* remains a new topic revision, a new review and a `supersede`.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "contract_sha256": "7348efccd0805b939cfcec8f9fbbb564468e6c1afc59ca4bc4fe9972771c16cb",
+  "contract_sha256": "3c4db9f9ac7b83382d8036c8604b461c26f7b3b2453d5f337cd92367ad763821",
   "destination_repository": "wenruofeng/newsab",
   "exporter_version": "public-exporter-0.1.0",
   "files": [
@@ -25,14 +25,14 @@
       "appended_source": "public/agents_public_clone.md",
       "mode": "100644",
       "path": "AGENTS.md",
-      "sha256": "e1d31a39a62722bb46bd78368ef42f16b5c5d4d1f14fa10fd2308ee1ccc0ec7d",
+      "sha256": "316bcd20b8678faf895a3ca7653553784020fbe4bbc91708c2812c51947685e8",
       "source": "AGENTS.md"
     },
     {
       "appended_source": "public/agents_public_clone.md",
       "mode": "100644",
       "path": "CLAUDE.md",
-      "sha256": "e1d31a39a62722bb46bd78368ef42f16b5c5d4d1f14fa10fd2308ee1ccc0ec7d",
+      "sha256": "316bcd20b8678faf895a3ca7653553784020fbe4bbc91708c2812c51947685e8",
       "source": "AGENTS.md"
     },
     {
@@ -80,7 +80,7 @@
     {
       "mode": "100644",
       "path": "TODO.md",
-      "sha256": "4469e4a3ddfb40827d477d08d3493b8483d929324fc993d4ef57488f8ea79580",
+      "sha256": "ada5582ca20d47d9c37d30188d68f4af8090e30184726d8127ba2a972d1c56d2",
       "source": "public/scaffold/TODO.md"
     },
     {
@@ -98,7 +98,7 @@
     {
       "mode": "100644",
       "path": "docs/artifact_versioning.md",
-      "sha256": "c29c1e4cb97e807b68011d417ab70d3014bcb49db32e542dc38ebce257b861ee",
+      "sha256": "fdd536f10cba44661c95ff4849215460048c1b9ce3d49b76fd86e8f1f322e7c3",
       "source": "docs/artifact_versioning.md"
     },
     {
@@ -106,6 +106,12 @@
       "path": "docs/decisions.md",
       "sha256": "8de2bde503f02287e68bfd33b449da6766dc659f8a67a2bb00bc04f2482954f2",
       "source": "public/scaffold/decisions.md"
+    },
+    {
+      "mode": "100644",
+      "path": "docs/reader_page.md",
+      "sha256": "4361e8914275e15739f80a94a5fbd172b022f1e034e1781b0da490fcf9f857d8",
+      "source": "docs/reader_page.md"
     },
     {
       "mode": "100644",
@@ -122,7 +128,7 @@
     {
       "mode": "100644",
       "path": "docs/value_chain.md",
-      "sha256": "4368b9c8055aca5e9b5ca2ddcc672a296819dabafcc5ba9ab4394b6f73ecb0b4",
+      "sha256": "5c181575f751482e2ca9552bd7b83e0f7968c198023be74f8a5c757b3c24d735",
       "source": "docs/value_chain.md"
     },
     {
@@ -1640,7 +1646,7 @@
     {
       "mode": "100644",
       "path": "public_export.yaml",
-      "sha256": "7348efccd0805b939cfcec8f9fbbb564468e6c1afc59ca4bc4fe9972771c16cb",
+      "sha256": "3c4db9f9ac7b83382d8036c8604b461c26f7b3b2453d5f337cd92367ad763821",
       "source": "public_export.yaml"
     },
     {
@@ -1868,7 +1874,7 @@
     {
       "mode": "100644",
       "path": "skills/publish/SKILL.md",
-      "sha256": "8b437d5f2fdad296e701c5a8e1aa0f68a6fc26daa83c8bb23a14817fe5938c2b",
+      "sha256": "0fb9cfc070f087893d18c749e766fd8adebeefd711827414fc863cda3a6f8cc8",
       "source": "skills/publish/SKILL.md"
     },
     {

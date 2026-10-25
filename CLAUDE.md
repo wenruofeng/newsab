@@ -13,7 +13,11 @@ divergence, blindspots — with every statement clickable down to verbatim sourc
 **Canonical spec: [`docs/value_chain.md`](docs/value_chain.md).** Read it before building
 anything; it defines the product, the Q×A comparison model, the 8-stage chain, the two
 human touchpoints, and the non-negotiables. It wins over everything else, this file
-included. `docs/archive/` is history — do not read it without a specific reason.
+included. Two parts of the spec live in their own files so that every session does not
+carry them: the reader page's full layout ([`docs/reader_page.md`](docs/reader_page.md)) and
+the content-document / site-chrome contract (`docs/artifact_versioning.md` §6.1). Read
+those only when your change touches what the page shows or how a publication is built.
+`docs/archive/` is history — do not read it without a specific reason.
 
 ## 2. Session protocol
 
@@ -54,8 +58,11 @@ TODO.md              work queue (User's lang) — only "what's next"
 sources/registry.yaml  cross-topic outlet registry (append-only, never a gate)
 docs/
   value_chain.md     CANONICAL SPEC — product, Q×A model, stages, non-negotiables
+  reader_page.md     canonical spec, part 2: the reader page's layout and interaction contract
   decisions.md       still-binding conclusions that have no other home yet (User's lang)
-  artifact_versioning.md  write protocol: article store / run records / active pointers
+  artifact_versioning.md  write protocol: article store / run records / active pointers /
+                     publication root and content-vs-chrome contract (§6)
+  subagent_model_routing.md  capability class to request when delegating to a model
   archive/           superseded history — do not read by default
   reports/           task_<ts>_<name>.md, append-only
 packages/            plain Python, no model calls (schema / corpus / a1 / editorial / publish / submission)

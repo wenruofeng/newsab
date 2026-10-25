@@ -279,6 +279,12 @@ copies:
     select: file
     rationale: Publish the canonical product and eight-stage method contract.
 
+  - id: reader-page-spec
+    source: docs/reader_page.md
+    target: docs/reader_page.md
+    select: file
+    rationale: Publish the canonical reader-page layout split out of the method contract.
+
   - id: artifact-protocol
     source: docs/artifact_versioning.md
     target: docs/artifact_versioning.md
